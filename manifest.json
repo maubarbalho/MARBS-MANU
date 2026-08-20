@@ -8,10 +8,10 @@
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
-  "display_override": ["window-controls-overlay", "standalone"],
+  "display_override": ["standalone"],
   "orientation": "portrait",
-  "background_color": "#0a0e17",
-  "theme_color": "#0a0e17",
+  "background_color": "#f2f2f7",
+  "theme_color": "#f2f2f7",
   "categories": ["health", "fitness", "lifestyle"],
   "icons": [
     {
