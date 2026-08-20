@@ -997,13 +997,27 @@
     button, input, textarea, select { -webkit-appearance: none; appearance: none; }
     button { font-weight: 600; }
 
+    /* Header compacto no fluxo normal: nunca cobre o conteúdo das abas. */
     .header {
-      background: color-mix(in srgb, var(--bg) 88%, transparent);
+      position: relative;
+      top: auto;
+      left: auto;
+      right: auto;
+      z-index: 20;
+      transform: none !important;
+      -webkit-transform: none !important;
+      transition: none;
+      will-change: auto;
+      background: color-mix(in srgb, var(--bg) 92%, transparent);
       border-bottom: 1px solid var(--separator);
       box-shadow: 0 1px 0 rgba(255,255,255,0.45);
-      padding: 10px 16px;
+      padding: 8px 16px;
     }
-    .header h1 { font-size: 1.08rem; font-weight: 700; letter-spacing: -0.025em; }
+    .header.header-hidden { transform: none !important; -webkit-transform: none !important; pointer-events: auto; }
+    .header-spacer { display: none; height: 0 !important; }
+    .header .week-info { display: none; }
+    body.page-home-active .header .week-info { display: block; }
+    .header h1 { font-size: 1.02rem; font-weight: 700; letter-spacing: -0.025em; }
     .header .subtitle { color: var(--text-muted); font-size: 0.72rem; }
     .week-selector { background: var(--control-bg); border: none; border-radius: 9px; padding: 2px; }
     .week-btn { width: 32px; height: 28px; border-radius: 7px; color: var(--text-muted); font-size: 0.78rem; }
@@ -4030,6 +4044,7 @@
     function switchPage(page) {
       if (configWindowState.kind) closeConfigWindow();
       currentPage = page;
+      document.body.classList.toggle('page-home-active', page === 'home');
       document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
       document.getElementById(`page-${page}`).classList.add('active');
       document.querySelectorAll('.nav-item').forEach(n => {
