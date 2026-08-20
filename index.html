@@ -332,6 +332,11 @@
     .home-hero { text-align: center; padding: 20px 0 24px; }
     .home-hero h2 { font-size: 1.4rem; font-weight: 800; margin-bottom: 6px; }
     .home-hero p { color: var(--text-muted); font-size: 0.9rem; }
+    .home-profile { display: flex; align-items: center; justify-content: center; gap: 9px; margin: -10px auto 16px; color: var(--text-muted); font-size: .82rem; }
+    .home-profile[hidden] { display: none; }
+    .home-profile-avatar { width: 32px; height: 32px; flex: 0 0 32px; display: grid; place-items: center; overflow: hidden; border-radius: 50%; background: color-mix(in srgb, var(--primary) 16%, var(--bg-card)); color: var(--primary); font-weight: 800; }
+    .home-profile-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .home-profile strong { color: var(--text); }
 
     .quick-start {
       display: grid; grid-template-columns: 1fr 1fr;
@@ -1154,6 +1159,15 @@
     .config-excel-card { margin: 0 0 14px; padding: 14px; border: 1px solid color-mix(in srgb, var(--primary) 22%, var(--border)); border-radius: 16px; background: color-mix(in srgb, var(--primary) 6%, var(--bg-card)); }
     .config-excel-card h3 { font-size: .95rem; margin-bottom: 5px; }
     .config-excel-card p { color: var(--text-muted); font-size: .78rem; line-height: 1.45; margin-bottom: 10px; }
+    .config-profile-card { margin: 0 0 14px; padding: 16px; border: 1px solid var(--border); border-radius: 18px; background: var(--bg-card); box-shadow: var(--ios-shadow, 0 1px 3px rgba(0,0,0,.08)); }
+    .config-profile-head { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+    .config-profile-head h3 { margin: 0 0 3px; font-size: 1rem; }
+    .config-profile-head p { margin: 0; color: var(--text-muted); font-size: .78rem; line-height: 1.4; }
+    .config-profile-avatar { width: 72px; height: 72px; flex: 0 0 72px; display: grid; place-items: center; overflow: hidden; border-radius: 50%; background: color-mix(in srgb, var(--primary) 14%, var(--bg)); color: var(--primary); font-size: 1.45rem; font-weight: 800; border: 2px solid color-mix(in srgb, var(--primary) 28%, var(--border)); }
+    .config-profile-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .config-profile-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 4px 0 6px; }
+    .config-profile-actions .btn-action { margin-bottom: 0; }
+    .config-profile-hint { color: var(--text-muted); font-size: .72rem; line-height: 1.4; margin: 4px 0 12px; }
 
     /* Configuração em tela inteira no iPhone: header e conteúdo em coluna, sem corte lateral */
     body.config-window-open { overflow: hidden; }
@@ -1234,10 +1248,11 @@
   <div class="main">
     <!-- HOME -->
     <div class="page active" id="page-home">
-      <div class="home-hero">
+          <div class="home-hero">
         <h2>Pronto para treinar?</h2>
         <p>Selecione o treino do dia</p>
       </div>
+      <div class="home-profile" id="homeProfile" hidden aria-live="polite"></div>
       <div class="quick-start" id="quickStart"></div>
 
       <div id="installBanner" class="install-banner">
@@ -1287,8 +1302,13 @@
     <div class="page" id="page-config">
       <div class="config-page">
         <div class="section-title">Configuração</div>
-        <p class="config-page-intro">Acesse progresso, plano do personal e informações do MARSB-GYM em janelas separadas.</p>
+        <p class="config-page-intro">Acesse seu perfil, o progresso, o plano do personal e as informações do MARSB-GYM em janelas separadas.</p>
         <div class="config-option-list" role="list">
+          <button type="button" class="config-option" data-config-window="perfil" onclick="openConfigWindow('perfil', this)">
+            <span class="config-option-icon" aria-hidden="true">◎</span>
+            <span class="config-option-copy"><span class="config-option-title">Perfil</span><span class="config-option-desc">Adicione seu nome e uma foto para personalizar o app.</span></span>
+            <span class="config-option-chevron" aria-hidden="true">›</span>
+          </button>
           <button type="button" class="config-option" data-config-window="progresso" onclick="openConfigWindow('progresso', this)">
             <span class="config-option-icon" aria-hidden="true">▥</span>
             <span class="config-option-copy"><span class="config-option-title">Progresso</span><span class="config-option-desc">Estatísticas, histórico, preferências e backups.</span></span>
@@ -1306,6 +1326,34 @@
           </button>
         </div>
         <div id="configSourceStaging" class="config-source-staging" aria-hidden="true"></div>
+      </div>
+    </div>
+
+    <!-- PERFIL -->
+    <div class="page" id="page-perfil">
+      <div class="config-profile-card">
+        <div class="config-profile-head">
+          <div class="config-profile-avatar" id="profilePreview" aria-label="Pré-visualização da foto do perfil">M</div>
+          <div>
+            <h3>Seu perfil</h3>
+            <p>Esses dados ficam salvos somente neste dispositivo.</p>
+          </div>
+        </div>
+        <div class="form-field">
+          <label for="profileName">Nome</label>
+          <input type="text" id="profileName" maxlength="80" autocomplete="name" placeholder="Ex: Marcos" oninput="profileDraftName = boundedText(this.value, 80)" />
+        </div>
+        <input type="file" id="profilePhotoInput" class="backup-hidden-input" accept="image/jpeg,image/png,image/webp" onchange="profileOnPhotoChosen(event)" />
+        <div class="config-profile-actions">
+          <button type="button" class="btn-action" onclick="document.getElementById('profilePhotoInput').click()">Escolher foto</button>
+          <button type="button" class="btn-action danger" id="profileRemovePhoto" onclick="clearUserPhoto()">Remover foto</button>
+        </div>
+        <p class="config-profile-hint" id="profilePhotoHint">Use uma imagem JPG, PNG ou WebP de até 4 MB. O app reduz a foto para economizar espaço.</p>
+        <button type="button" class="btn-action primary" onclick="saveUserProfile()">Salvar perfil</button>
+      </div>
+      <div class="calc-card" style="margin-top:12px;">
+        <h3>Privacidade</h3>
+        <p class="calc-desc" style="margin:0;line-height:1.5;">O nome e a foto são armazenados localmente no navegador e não são enviados para a internet pelo cadastro do perfil.</p>
       </div>
     </div>
 
@@ -1636,7 +1684,7 @@
         <h3>📋 Editor de treinos</h3>
         <p class="calc-desc">
           Monte o plano aqui, sem JSON. Escolha o treino A–D, adicione exercícios e salve.
-          Depois exporte um <strong>arquivo de texto simples</strong> para enviar ao aluno.
+          Depois exporte uma <strong>planilha Excel</strong> no mesmo formato do modelo para enviar ao aluno.
         </p>
         <div id="planoStatus" class="ai-status warn" style="margin-bottom:12px;">Usando treino padrão MARSB</div>
 
@@ -1698,7 +1746,7 @@
 
         <div style="display:flex;flex-direction:column;gap:8px;margin-top:8px;">
           <button class="btn-action primary" onclick="planoSaveProgram()">Salvar plano no app</button>
-          <button class="btn-action" onclick="planoExportText()">Exportar texto (.txt) para enviar</button>
+          <button class="btn-action" onclick="planoExportExcel()">Exportar planilha Excel (.xlsx) para enviar</button>
           <button class="btn-action" onclick="document.getElementById('planoFile').click()">Importar texto ou JSON</button>
           <button class="btn-action primary" onclick="document.getElementById('planoExcelFile').click()">Importar planilha Excel</button>
           <input type="file" id="planoFile" accept=".txt,text/plain,.json,application/json" style="display:none;" onchange="planoOnFileChosen(event)" />
@@ -1712,7 +1760,7 @@
         <p class="calc-desc" style="margin:0;line-height:1.5;">
           1. Preencha nome do plano e monte os treinos A–D no editor<br>
           2. Toque em <strong>Salvar plano no app</strong><br>
-          3. Toque em <strong>Exportar texto</strong> e envie o arquivo (WhatsApp, e-mail…)<br>
+          3. Toque em <strong>Exportar planilha Excel</strong> e envie o arquivo (WhatsApp, e-mail…)<br>
           4. O aluno abre <strong>Configuração → Plano</strong> → Importar planilha Excel → pronto
         </p>
       </div>
@@ -2015,7 +2063,8 @@
         bodyWeights: [],
         bodyMeta: { heightCm: null, goalKg: null },
         customProgram: null,
-        customProgramMeta: null
+        customProgramMeta: null,
+        profile: { name: '', photo: '' }
       };
     }
 
@@ -2044,6 +2093,11 @@
       return Number.isInteger(numeric) && numeric >= 0 && numeric <= 2000
         ? String(numeric)
         : '';
+    }
+
+    function sanitizeProfilePhoto(value) {
+      const photo = String(value ?? '').trim();
+      return /^data:image\/(?:jpeg|jpg|png|webp);base64,[a-z0-9+/=]+$/i.test(photo) && photo.length <= 1500000 ? photo : '';
     }
 
     function sanitizeExercise(ex, treinoId, index) {
@@ -2161,6 +2215,10 @@
         autoTimer: source.prefs?.autoTimer !== false,
         vibrate: source.prefs?.vibrate !== false
       });
+      clean.profile = {
+        name: boundedText(source.profile?.name, 80),
+        photo: sanitizeProfilePhoto(source.profile?.photo)
+      };
       clean.bodyWeights = Array.isArray(source.bodyWeights) ? source.bodyWeights.slice(-500).map((entry) => ({
         date: /^\d{4}-\d{2}-\d{2}$/.test(String(entry && entry.date)) ? String(entry.date) : todayKey(),
         kg: Number(safeNumber(entry && entry.kg, 30, 300, 0).toFixed(2))
@@ -2295,6 +2353,7 @@
 
     // ===================== RENDER =====================
     function renderQuickStart() {
+      renderHomeProfile();
       const container = document.getElementById('quickStart');
       container.innerHTML = '';
       Object.values(treinosMap()).forEach(t => {
@@ -3218,8 +3277,12 @@
     }
 
     let configWindowState = { kind: null, source: null, parent: null, next: null, returnFocus: null };
+    let profileDraftName = null;
+    let profileDraftPhoto = null;
+    let profilePhotoCleared = false;
 
     const CONFIG_WINDOW_META = {
+      perfil: { title: 'Perfil do usuário', subtitle: 'Nome e foto salvos neste dispositivo' },
       progresso: { title: 'Progresso', subtitle: 'Estatísticas, histórico, preferências e backups' },
       plano: { title: 'Plano do personal', subtitle: 'Editar, importar e exportar treinos' },
       sobre: { title: 'Sobre o MARSB-GYM', subtitle: 'Estrutura do programa e instruções de uso' }
@@ -3244,6 +3307,12 @@
       source.classList.add('config-page-source');
       document.getElementById('configWindowTitle').textContent = meta.title;
       document.getElementById('configWindowSubtitle').textContent = meta.subtitle;
+      if (kind === 'perfil') {
+        profileDraftName = null;
+        profileDraftPhoto = null;
+        profilePhotoCleared = false;
+        renderUserProfile();
+      }
       if (kind === 'progresso') {
         renderPeriod(); renderHistory(); updateStats(); syncPrefToggles();
       }
@@ -3270,6 +3339,130 @@
       if (current.returnFocus && document.contains(current.returnFocus)) current.returnFocus.focus({ preventScroll: true });
     }
 
+    function renderUserProfile() {
+      const profile = state.profile || { name: '', photo: '' };
+      const nameInput = document.getElementById('profileName');
+      const preview = document.getElementById('profilePreview');
+      const removeButton = document.getElementById('profileRemovePhoto');
+      const draftName = profileDraftName !== null ? boundedText(profileDraftName, 80) : boundedText(profile.name, 80);
+      if (nameInput && document.activeElement !== nameInput) nameInput.value = draftName;
+      if (!preview) return;
+      const photo = profilePhotoCleared ? '' : (profileDraftPhoto !== null ? profileDraftPhoto : sanitizeProfilePhoto(profile.photo));
+      preview.replaceChildren();
+      if (photo) {
+        const image = document.createElement('img');
+        image.src = photo;
+        image.alt = 'Foto do perfil';
+        preview.appendChild(image);
+      } else {
+        preview.textContent = (draftName.charAt(0) || 'M').toUpperCase();
+      }
+      if (removeButton) {
+        removeButton.disabled = !photo;
+        removeButton.setAttribute('aria-disabled', String(!photo));
+      }
+    }
+
+    function profileOnPhotoChosen(event) {
+      const file = event.target.files && event.target.files[0];
+      if (!file) return;
+      if (!/^image\/(?:jpeg|png|webp)$/i.test(file.type) || file.size > 4 * 1024 * 1024) {
+        showToast('Escolha uma imagem JPG, PNG ou WebP de até 4 MB');
+        event.target.value = '';
+        return;
+      }
+      const reader = new FileReader();
+      reader.onload = function (loadEvent) {
+        const image = new Image();
+        image.onload = function () {
+          const size = 512;
+          const canvas = document.createElement('canvas');
+          canvas.width = size;
+          canvas.height = size;
+          const context = canvas.getContext('2d');
+          const sourceSize = Math.min(image.naturalWidth, image.naturalHeight);
+          const sourceX = (image.naturalWidth - sourceSize) / 2;
+          const sourceY = (image.naturalHeight - sourceSize) / 2;
+          context.drawImage(image, sourceX, sourceY, sourceSize, sourceSize, 0, 0, size, size);
+          let photo = canvas.toDataURL('image/jpeg', 0.84);
+          if (photo.length > 1500000) photo = canvas.toDataURL('image/jpeg', 0.68);
+          if (!sanitizeProfilePhoto(photo)) {
+            showToast('Não foi possível preparar esta foto');
+            return;
+          }
+          profileDraftPhoto = photo;
+          profilePhotoCleared = false;
+          const hint = document.getElementById('profilePhotoHint');
+          if (hint) hint.textContent = 'Foto pronta. Toque em Salvar perfil para confirmar.';
+          renderUserProfile();
+        };
+        image.onerror = function () { showToast('Não foi possível abrir esta imagem'); };
+        image.src = String(loadEvent.target.result || '');
+      };
+      reader.onerror = function () { showToast('Não foi possível ler esta foto'); };
+      reader.readAsDataURL(file);
+      event.target.value = '';
+    }
+
+    function clearUserPhoto() {
+      profileDraftPhoto = '';
+      profilePhotoCleared = true;
+      const hint = document.getElementById('profilePhotoHint');
+      if (hint) hint.textContent = 'A foto será removida quando você salvar o perfil.';
+      renderUserProfile();
+    }
+
+    function saveUserProfile() {
+      const nameInput = document.getElementById('profileName');
+      const profile = state.profile || { name: '', photo: '' };
+      const photo = profilePhotoCleared ? '' : (profileDraftPhoto !== null ? profileDraftPhoto : sanitizeProfilePhoto(profile.photo));
+      state.profile = {
+        name: boundedText(profileDraftName !== null ? profileDraftName : (nameInput ? nameInput.value : profile.name), 80),
+        photo: sanitizeProfilePhoto(photo)
+      };
+      profileDraftName = null;
+      profileDraftPhoto = null;
+      profilePhotoCleared = false;
+      saveState();
+      renderUserProfile();
+      renderHomeProfile();
+      const hint = document.getElementById('profilePhotoHint');
+      if (hint) hint.textContent = 'Use uma imagem JPG, PNG ou WebP de até 4 MB. O app reduz a foto para economizar espaço.';
+      showToast('Perfil salvo neste dispositivo');
+    }
+
+    function renderHomeProfile() {
+      const host = document.getElementById('homeProfile');
+      if (!host) return;
+      const profile = state.profile || { name: '', photo: '' };
+      const name = boundedText(profile.name, 80);
+      const photo = sanitizeProfilePhoto(profile.photo);
+      if (!name && !photo) {
+        host.hidden = true;
+        host.replaceChildren();
+        return;
+      }
+      host.hidden = false;
+      host.replaceChildren();
+      const avatar = document.createElement('span');
+      avatar.className = 'home-profile-avatar';
+      if (photo) {
+        const image = document.createElement('img');
+        image.src = photo;
+        image.alt = '';
+        avatar.appendChild(image);
+      } else {
+        avatar.textContent = (name.charAt(0) || 'M').toUpperCase();
+      }
+      const label = document.createElement('span');
+      const strong = document.createElement('strong');
+      strong.textContent = name ? 'Olá, ' + name : 'Perfil configurado';
+      label.appendChild(strong);
+      label.appendChild(document.createTextNode(' · pronto para treinar'));
+      host.appendChild(avatar);
+      host.appendChild(label);
+    }
+
     function switchPage(page) {
       if (configWindowState.kind) closeConfigWindow();
       currentPage = page;
@@ -3279,6 +3472,9 @@
         n.classList.toggle('active', n.dataset.page === page);
       });
       if (page === 'treinos') renderTreinos();
+      if (page === 'perfil') {
+        renderUserProfile();
+      }
       if (page === 'progresso') {
         renderPeriod();
         renderHistory();
@@ -4569,9 +4765,10 @@
       showToast('Arquivo de texto exportado');
     }
 
-    function downloadPlanoExcelTemplate() {
-      if (!window.XLSX) { showToast('Biblioteca Excel indisponível. Recarregue o app.'); return; }
-      var map = treinosMap();
+    function buildPlanoExcelWorkbook(map, meta) {
+      if (!window.XLSX) return null;
+      map = map || {};
+      meta = meta || {};
       var rows = [['Treino', 'Nome do treino', 'Foco', 'Exercício', 'Séries', 'Repetições', 'Descanso (seg)', 'Técnica / nota']];
       ['A', 'B', 'C', 'D'].forEach(function (key) {
         var treino = map[key] || {};
@@ -4582,16 +4779,46 @@
       var ws = XLSX.utils.aoa_to_sheet(rows);
       ws['!cols'] = [{ wch: 9 }, { wch: 28 }, { wch: 42 }, { wch: 42 }, { wch: 10 }, { wch: 14 }, { wch: 16 }, { wch: 34 }];
       var instructions = XLSX.utils.aoa_to_sheet([
-        ['Como preencher a planilha do MARSB-GYM'],
-        ['Uma linha representa um exercício. Não apague a primeira linha de títulos.'],
+        ['Plano de treino MARSB-GYM'],
+        ['Nome do plano', meta.name || 'Plano personalizado'],
+        ['Personal', meta.author || ''],
+        [''],
+        ['Como preencher a planilha'],
+        ['Uma linha representa um exercício. Não apague a primeira linha de títulos da aba Treinos.'],
         ['Treino: use somente A, B, C ou D.'],
         ['Séries: número inteiro entre 1 e 10. Descanso: segundos entre 0 e 600.'],
-        ['Depois de preencher, volte ao app e toque em Importar planilha Excel.']
+        ['Depois de editar, volte ao app e toque em Importar planilha Excel.']
       ]);
-      instructions['!cols'] = [{ wch: 100 }];
+      instructions['!cols'] = [{ wch: 100 }, { wch: 42 }];
       var wb = XLSX.utils.book_new();
       XLSX.utils.book_append_sheet(wb, ws, 'Treinos');
       XLSX.utils.book_append_sheet(wb, instructions, 'Instruções');
+      return wb;
+    }
+
+    function safePlanoFileName(value, fallback) {
+      var name = boundedText(value, 60).replace(/[^a-zA-Z0-9À-ÿ_-]+/g, '_').replace(/^_+|_+$/g, '');
+      return name || fallback;
+    }
+
+    function planoExportExcel() {
+      planoSyncTreinoHeader();
+      var draft = ensurePlanoDraft();
+      var err = validateProgramMap(draft);
+      if (err) { showToast(err); return; }
+      var meta = {
+        name: (document.getElementById('planoNome').value || '').trim() || 'Plano personalizado',
+        author: (document.getElementById('planoAuthor').value || '').trim()
+      };
+      var wb = buildPlanoExcelWorkbook(draft, meta);
+      if (!wb) { showToast('Biblioteca Excel indisponível. Recarregue o app.'); return; }
+      XLSX.writeFile(wb, safePlanoFileName(meta.name, 'plano-marsb') + '.xlsx');
+      showToast('Planilha Excel exportada');
+    }
+
+    function downloadPlanoExcelTemplate() {
+      var wb = buildPlanoExcelWorkbook(treinosMap(), { name: 'Modelo MARSB-GYM', author: '' });
+      if (!wb) { showToast('Biblioteca Excel indisponível. Recarregue o app.'); return; }
       XLSX.writeFile(wb, 'plano-marsb-modelo.xlsx');
       showToast('Modelo Excel baixado');
     }
