@@ -67,12 +67,3 @@ O modo de treino guiado foi ajustado para remover a opção de vídeo e aproxima
 Para preservar a compatibilidade com dados antigos, o aplicativo continua aceitando cargas salvas no campo global por exercício. Durante a migração, uma carga antiga duplicada automaticamente em todas as linhas é mantida apenas como valor inicial da primeira série; as demais ficam editáveis sem duplicação indevida. A opção de vídeo foi removida do cartão guiado, mantendo a navegação, o histórico da atividade, o timer e o progresso da sessão.
 
 A validação visual confirmou o funcionamento no Treino A, incluindo repetições e peso salvos por linha. A validação sintática do JavaScript embutido e do service worker também foi concluída sem erros.
-
-
-## Atualização — design inspirado no iOS para iPhone
-
-O sistema visual foi adaptado para uma experiência inspirada no padrão nativo do iOS, mantendo o app responsivo e as funcionalidades existentes. Foram aplicados fundo agrupado claro, suporte automático ao modo escuro do sistema, tipografia de sistema, cartões brancos/arredondados, separadores suaves, sombras discretas, azul de ação semelhante ao azul do sistema, botões com estados de toque, barra inferior translúcida com área segura do iPhone e folhas modais com puxador visual.
-
-A navegação inferior deixou de usar emojis coloridos e passou a utilizar símbolos monocromáticos mais discretos. O modo guiado, os campos de repetições e peso por série, o timer e os modais receberam a mesma linguagem visual. Os metadados de instalação foram atualizados para `color-scheme: light dark`, barra de status adaptável, cores de tema claras/escuras e instalação PWA em modo `standalone`.
-
-A versão foi testada no navegador local: a tela inicial, a aba Treinos, o botão de treino guiado, os cartões de séries e a navegação inferior foram carregados sem erros JavaScript no console. O tema acompanha o modo escuro do sistema por meio de `prefers-color-scheme`.
