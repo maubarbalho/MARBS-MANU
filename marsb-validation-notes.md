@@ -43,3 +43,21 @@ O service worker foi registrado com escopo na raiz local. A validação aceitou 
 
 - O smoke test final iniciou o Treino D diretamente e confirmou diálogo ativo, título `Exercício 1/9`, identificação `Treino D • Ombros, Bíceps, Tríceps` e quatro séries renderizadas.
 - Após a correção, `node --check` aprovou o service worker, o manifesto foi aprovado por parsing JSON e o JavaScript embutido foi extraído sem falha sintática.
+
+## Atualização — peso e repetições por série
+
+- A opção de vídeo foi removida do modo guiado; não há mais controles `.guided-video-btn` ou `.js-guided-video` no diálogo.
+- O cartão guiado passou a renderizar campos independentes `guidedReps-*` e `guidedWeight-*` para cada série, além do botão de conclusão acessível.
+- O smoke test salvou a primeira série com 8 repetições e 20 kg; a inspeção do `localStorage` confirmou `setDetails.a1[0] = { reps: "8", weight: "20" }` e a carga global sincronizada em 20 kg.
+- Após a recarga, os dados antigos que haviam replicado 20 kg em todas as linhas foram migrados para manter 20 kg apenas na primeira série; as linhas seguintes ficaram editáveis sem peso duplicado.
+- O JavaScript embutido e o `sw.js` passaram novamente na validação sintática após o último ajuste.
+
+## Atualização — design inspirado no iOS para iPhone
+
+- O tema visual claro foi verificado na tela inicial com fundo agrupado, cartões arredondados, azul de ação, sombras suaves e barra inferior translúcida.
+- A navegação inferior foi recarregada com símbolos monocromáticos (`⌂`, `◉`, `＋÷`, `◒`, `✦`, `▥`, `☷`, `ⓘ`) no lugar dos emojis coloridos.
+- A aba Treinos abriu normalmente; os quatro cards mantiveram o botão de treino guiado abaixo do tipo/foco do treino.
+- O modo guiado abriu com a nova paleta, campos independentes de repetições e peso, histórico, progresso e botões de navegação preservados.
+- O console mostrou apenas os logs informativos já existentes do provedor Puter, sem erros JavaScript durante a recarga, navegação e abertura do treino guiado.
+- `index.html` passou pela extração e validação do JavaScript embutido; `sw.js` passou por `node --check`; `manifest.json` passou por parsing JSON.
+- O manifesto foi atualizado para `theme_color` e `background_color` em `#f2f2f7`, `display_override` em `standalone` e o HTML passou a declarar `color-scheme: light dark`, temas de status bar e cores de tema para os modos claro e escuro.

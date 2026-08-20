@@ -58,3 +58,21 @@ Extraia o pacote e publique o conteúdo de `marsb-gym-melhorado/` em um servidor
 O botão **Iniciar treino guiado** foi reposicionado para ficar imediatamente abaixo do tipo/foco de cada treino. O fluxo agora abre uma janela guiada contextual, em vez de depender apenas do conteúdo do card, com cabeçalho de atividade, exercício em destaque, área para instruções, recorde pessoal, progressão de carga, séries marcáveis, histórico da atividade, navegação entre exercícios e progresso segmentado no rodapé. A mesma composição é alimentada pelos dados dos treinos A, B, C e D.
 
 Durante a validação foi corrigida uma referência antiga ao identificador `guidedProgressLabel`, que havia impedido a primeira renderização do cartão. Após a correção, o layout abriu normalmente, uma série foi acionada e o console permaneceu sem erros JavaScript.
+
+
+## Atualização do modo guiado — campos por série
+
+O modo de treino guiado foi ajustado para remover a opção de vídeo e aproximar a interação do padrão solicitado: cada linha de série agora possui campos independentes para repetições e peso em quilogramas, além do botão acessível de conclusão. Os valores são normalizados, persistidos em `setDetails` e incorporados ao volume e ao registro de treinos concluídos.
+
+Para preservar a compatibilidade com dados antigos, o aplicativo continua aceitando cargas salvas no campo global por exercício. Durante a migração, uma carga antiga duplicada automaticamente em todas as linhas é mantida apenas como valor inicial da primeira série; as demais ficam editáveis sem duplicação indevida. A opção de vídeo foi removida do cartão guiado, mantendo a navegação, o histórico da atividade, o timer e o progresso da sessão.
+
+A validação visual confirmou o funcionamento no Treino A, incluindo repetições e peso salvos por linha. A validação sintática do JavaScript embutido e do service worker também foi concluída sem erros.
+
+
+## Atualização — design inspirado no iOS para iPhone
+
+O sistema visual foi adaptado para uma experiência inspirada no padrão nativo do iOS, mantendo o app responsivo e as funcionalidades existentes. Foram aplicados fundo agrupado claro, suporte automático ao modo escuro do sistema, tipografia de sistema, cartões brancos/arredondados, separadores suaves, sombras discretas, azul de ação semelhante ao azul do sistema, botões com estados de toque, barra inferior translúcida com área segura do iPhone e folhas modais com puxador visual.
+
+A navegação inferior deixou de usar emojis coloridos e passou a utilizar símbolos monocromáticos mais discretos. O modo guiado, os campos de repetições e peso por série, o timer e os modais receberam a mesma linguagem visual. Os metadados de instalação foram atualizados para `color-scheme: light dark`, barra de status adaptável, cores de tema claras/escuras e instalação PWA em modo `standalone`.
+
+A versão foi testada no navegador local: a tela inicial, a aba Treinos, o botão de treino guiado, os cartões de séries e a navegação inferior foram carregados sem erros JavaScript no console. O tema acompanha o modo escuro do sistema por meio de `prefers-color-scheme`.

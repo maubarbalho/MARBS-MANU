@@ -3,13 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="color-scheme" content="dark" />
+  <meta name="color-scheme" content="light dark" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <meta name="apple-mobile-web-app-title" content="MARSB-GYM" />
-  <meta name="theme-color" content="#0a0e17" />
+  <meta name="theme-color" content="#f2f2f7" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
   <meta name="description" content="Plano de treino MARSB-GYM para acompanhamento de hipertrofia, progresso e hábitos." />
   <meta name="format-detection" content="telephone=no" />
   <title>MARSB-GYM</title>
@@ -536,26 +537,24 @@
     .guided-media-copy { min-width:0; }
     .guided-muscle-label { color:var(--text-muted); font-size:0.76rem; margin-bottom:5px; }
     .guided-ex-name { font-size:clamp(1.28rem, 5vw, 1.8rem); line-height:1.1; margin-bottom:10px; }
-    .guided-video-btn { width:100%; background:transparent; color:var(--text); border:1px solid #64748b; border-radius:16px; padding:10px 12px; font-size:0.84rem; font-weight:700; cursor:pointer; }
-    .guided-video-btn:hover, .guided-video-btn:focus-visible { border-color:var(--primary); color:var(--primary); }
     .guided-record { display:inline-flex; align-items:center; gap:6px; width:max-content; max-width:100%; margin:0 0 15px; padding:7px 11px; border-radius:999px; background:#f5ec43; color:#171717; font-size:0.76rem; font-weight:800; }
     .guided-record.empty { background:var(--bg-elevated); color:var(--text-muted); }
     .guided-section-label { color:var(--text-muted); font-size:0.83rem; text-align:center; margin:5px 0 10px; }
     .guided-metric-grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:8px; margin-bottom:12px; text-align:center; }
     .guided-metric { color:var(--text-muted); font-size:0.67rem; text-transform:uppercase; letter-spacing:0.06em; }
     .guided-metric strong { display:block; color:var(--text); font-size:0.94rem; margin-top:4px; letter-spacing:0; text-transform:none; }
-    .guided-load-row { display:flex; align-items:center; justify-content:center; gap:8px; margin:5px 0 12px; }
-    .guided-load-label { color:var(--text-muted); font-size:0.8rem; }
-    .guided-load-input { width:108px; text-align:center; background:var(--bg); border:1px solid #64748b; border-radius:12px; padding:10px; color:var(--text); font-size:1rem; font-weight:800; }
-    .guided-load-input:focus { border-color:var(--primary); outline:none; box-shadow:0 0 0 3px rgba(59,130,246,0.16); }
-    .guided-set-head, .guided-set-row { display:grid; grid-template-columns:44px 1fr 1fr 42px; align-items:center; gap:8px; }
+    .guided-tech-note { margin:2px 0 12px; padding:9px 11px; border-left:3px solid var(--primary); border-radius:8px; background:rgba(59,130,246,0.08); color:var(--text-muted); font-size:0.76rem; line-height:1.4; }
+    .guided-set-head, .guided-set-row { display:grid; grid-template-columns:32px minmax(0,1fr) minmax(0,1fr) 34px; align-items:center; gap:8px; }
     .guided-set-head { padding:0 12px 6px; color:var(--text-muted); font-size:0.66rem; text-transform:uppercase; letter-spacing:0.06em; }
-    .guided-set-row { width:100%; min-height:54px; margin-top:6px; padding:8px 12px; background:var(--bg); color:var(--text); border:1px solid transparent; border-radius:18px; text-align:left; cursor:pointer; }
-    .guided-set-row:hover, .guided-set-row:focus-visible { border-color:var(--primary); }
+    .guided-set-row { width:100%; min-height:54px; margin-top:6px; padding:8px 12px; background:var(--bg); color:var(--text); border:1px solid transparent; border-radius:18px; text-align:left; }
+    .guided-set-row:focus-within { border-color:var(--primary); }
     .guided-set-row.done { background:#050807; border-color:rgba(34,197,94,0.34); }
     .guided-set-number { font-size:0.9rem; font-weight:800; }
-    .guided-set-value { color:var(--text-muted); font-size:0.88rem; }
-    .guided-set-status { justify-self:end; width:27px; height:27px; display:grid; place-items:center; border:3px solid #9ca3af; border-radius:50%; color:transparent; font-size:0.8rem; font-weight:900; }
+    .guided-set-input { width:100%; min-width:0; box-sizing:border-box; min-height:38px; padding:7px 5px; background:rgba(2,6,23,0.52); color:var(--text); border:1px solid #64748b; border-radius:10px; text-align:center; font:inherit; font-size:0.86rem; }
+    .guided-set-input::placeholder { color:#94a3b8; opacity:0.78; }
+    .guided-set-input:focus { border-color:var(--primary); outline:none; box-shadow:0 0 0 3px rgba(59,130,246,0.16); }
+    .guided-set-status { justify-self:end; width:28px; height:28px; padding:0; display:grid; place-items:center; border:3px solid #9ca3af; border-radius:50%; background:transparent; color:transparent; font:inherit; font-size:0.8rem; font-weight:900; cursor:pointer; }
+    .guided-set-status:hover, .guided-set-status:focus-visible { border-color:var(--primary); outline:2px solid rgba(59,130,246,0.28); outline-offset:2px; }
     .guided-set-row.done .guided-set-status { border-color:var(--accent); background:var(--accent); color:#052e16; }
     .guided-history-card { display:flex; align-items:center; gap:10px; margin-top:16px; padding:14px 8px 4px; border-top:1px solid var(--border); }
     .guided-history-icon { font-size:1.65rem; color:var(--text); }
@@ -567,7 +566,9 @@
       .guided-activity-card { border-radius:20px; padding:11px; }
       .guided-media-card { grid-template-columns:112px 1fr; gap:10px; }
       .guided-media-visual { min-height:122px; }
-      .guided-set-head, .guided-set-row { grid-template-columns:34px 1fr 1fr 34px; gap:5px; padding-left:8px; padding-right:8px; }
+      .guided-set-head, .guided-set-row { grid-template-columns:28px minmax(0,1fr) minmax(0,1fr) 32px; gap:4px; padding-left:8px; padding-right:8px; }
+      .guided-set-input { min-height:36px; padding-left:3px; padding-right:3px; font-size:0.8rem; }
+      .guided-set-status { width:26px; height:26px; }
     }
 
     .backup-hidden-input { display: none; }
@@ -943,6 +944,187 @@
       .timer-display { font-size: 3rem; }
       .timer-actions { gap: 10px; }
     }
+    /* ===== iOS-inspired visual system ===== */
+    :root {
+      color-scheme: light dark;
+      --bg: #f2f2f7;
+      --bg-card: #ffffff;
+      --bg-elevated: #f8f8fa;
+      --control-bg: #e5e5ea;
+      --border: rgba(60, 60, 67, 0.18);
+      --separator: rgba(60, 60, 67, 0.29);
+      --text: #1c1c1e;
+      --text-muted: #6c6c70;
+      --primary: #007aff;
+      --primary-dim: #0066d6;
+      --accent: #34c759;
+      --accent-dim: #248a3d;
+      --warning: #ff9500;
+      --danger: #ff3b30;
+      --purple: #af52de;
+      --cyan: #5ac8fa;
+      --radius: 13px;
+      --ios-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 8px 24px rgba(0, 0, 0, 0.045);
+    }
+
+    html, body {
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      letter-spacing: -0.01em;
+    }
+
+    body {
+      padding-bottom: calc(88px + var(--safe-bottom));
+      background: var(--bg);
+    }
+
+    button, input, textarea, select { -webkit-appearance: none; appearance: none; }
+    button { font-weight: 600; }
+
+    .header {
+      background: color-mix(in srgb, var(--bg) 88%, transparent);
+      border-bottom: 1px solid var(--separator);
+      box-shadow: 0 1px 0 rgba(255,255,255,0.45);
+      padding: 10px 16px;
+    }
+    .header h1 { font-size: 1.08rem; font-weight: 700; letter-spacing: -0.025em; }
+    .header .subtitle { color: var(--text-muted); font-size: 0.72rem; }
+    .week-selector { background: var(--control-bg); border: none; border-radius: 9px; padding: 2px; }
+    .week-btn { width: 32px; height: 28px; border-radius: 7px; color: var(--text-muted); font-size: 0.78rem; }
+    .week-btn.active { background: var(--bg-card); color: var(--primary); box-shadow: 0 1px 3px rgba(0,0,0,0.12); }
+    .week-info { background: var(--bg-card); border: 1px solid var(--border); border-left: 3px solid var(--primary); border-radius: 11px; color: var(--text-muted); box-shadow: var(--ios-shadow); }
+
+    .main { padding: 18px 16px 22px; }
+    .card, .stat-card, .period-card, .history-item, .qs-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      box-shadow: var(--ios-shadow);
+    }
+    .card { margin-bottom: 14px; }
+    .card-header { padding: 15px 16px; }
+    .card-header:active { background: var(--control-bg); }
+    .card-title { font-size: 1rem; font-weight: 700; }
+    .card-meta, .exercise-details, .stat-label, .period-desc, .home-hero p { color: var(--text-muted); }
+    .card-body { border-top: 1px solid var(--separator); }
+    .exercise { border-bottom-color: var(--separator); }
+    .tech-note { background: var(--bg); border: 1px solid var(--border); color: var(--text-muted); }
+    .weight-input, .form-field input, .form-field textarea, .guided-set-input {
+      background: var(--bg-card);
+      color: var(--text);
+      border-color: #c7c7cc;
+      border-radius: 10px;
+    }
+    .weight-input:focus, .form-field input:focus, .form-field textarea:focus, .guided-set-input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(0,122,255,0.16); }
+    .set-btn { background: var(--bg-card); border-color: #c7c7cc; color: var(--text-muted); border-radius: 10px; }
+    .set-btn.done { background: var(--accent); border-color: var(--accent); color: #fff; }
+    .rest-btn, .btn-action.primary, .guided-start-btn { background: var(--primary); border-color: var(--primary); color: #fff; border-radius: 10px; }
+    .rest-btn:active, .btn-action.primary:active, .guided-start-btn:active { background: var(--primary-dim); }
+    .btn-action { background: var(--bg-card); border-color: var(--border); color: var(--text); border-radius: 11px; box-shadow: 0 1px 2px rgba(0,0,0,0.04); }
+    .btn-action.danger { color: var(--danger); border-color: rgba(255,59,48,0.45); }
+    .guided-start-btn { font-weight: 700; }
+    .badge-blue { background: rgba(0,122,255,0.12); color: var(--primary); }
+    .badge-green { background: rgba(52,199,89,0.14); color: var(--accent-dim); }
+    .badge-orange { background: rgba(255,149,0,0.15); color: #b35c00; }
+    .badge-purple { background: rgba(175,82,222,0.14); color: var(--purple); }
+    .stat-card { padding: 15px 14px; }
+    .stat-value { color: var(--primary); }
+    .period-card.active { border-color: var(--primary); box-shadow: 0 0 0 1px var(--primary), var(--ios-shadow); }
+    .period-goal { color: var(--primary); }
+    .qs-card { transition: transform 0.16s ease-out, border-color 0.16s ease-out; }
+    .qs-card:active { border-color: var(--primary); transform: scale(0.98); }
+    .qs-done { background: var(--accent); color: #fff; border-radius: 999px; }
+    .qs-a { color: var(--primary); } .qs-b { color: var(--accent); }
+    .qs-c { color: var(--warning); } .qs-d { color: var(--purple); }
+
+    .bottom-nav {
+      background: color-mix(in srgb, var(--bg) 82%, transparent);
+      border-top: 1px solid var(--separator);
+      box-shadow: 0 -4px 18px rgba(0,0,0,0.05);
+      padding-top: 7px;
+    }
+    .bottom-nav-inner { max-width: 640px; }
+    .nav-item { color: var(--text-muted); min-width: 50px; padding: 5px 4px 4px; gap: 3px; }
+    .nav-item.active { color: var(--primary); }
+    .nav-icon { font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif; font-size: 1.28rem; line-height: 1; font-weight: 500; font-variant-numeric: tabular-nums; }
+    .nav-item { font-size: 0.62rem; }
+
+    .timer-overlay { background: rgba(242,242,247,0.92); color: var(--text); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); }
+    .timer-label { color: var(--text-muted); }
+    .timer-btn.primary { background: var(--primary); color: #fff; }
+    .timer-btn.secondary { background: var(--bg-card); color: var(--text); border: 1px solid var(--border); box-shadow: var(--ios-shadow); }
+    .toast { background: #1c1c1e; border: none; color: #fff; border-radius: 999px; box-shadow: 0 8px 22px rgba(0,0,0,0.2); }
+    .complete-banner { background: rgba(52,199,89,0.12); border-color: rgba(52,199,89,0.32); color: var(--accent-dim); }
+    .network-banner { background: rgba(255,149,0,0.12); border-color: rgba(255,149,0,0.32); }
+
+    .modal-overlay { background: rgba(0,0,0,0.32); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
+    .modal-sheet { background: var(--bg-card); border-top: none; box-shadow: 0 -12px 38px rgba(0,0,0,0.14); }
+    .modal-sheet::before { content: ''; display: block; width: 36px; height: 5px; margin: -9px auto 16px; border-radius: 999px; background: #c7c7cc; }
+    .modal-title { font-size: 1.08rem; letter-spacing: -0.02em; }
+    .modal-close-x { background: var(--control-bg); color: var(--text-muted); }
+    .chart-wrap, .menu-meal { background: var(--bg); border-color: var(--border); }
+
+    .guided-overlay { background: var(--bg); }
+    .guided-header { background: color-mix(in srgb, var(--bg) 90%, transparent); border-bottom-color: var(--separator); }
+    .guided-exit-btn { background: var(--control-bg); border: none; color: var(--primary); border-radius: 999px; }
+    .guided-progress-bar { height: 3px; background: var(--control-bg); }
+    .guided-progress-fill { background: var(--primary); }
+    .guided-session-footer { background: color-mix(in srgb, var(--bg) 88%, transparent); border-top-color: var(--separator); box-shadow: 0 -4px 16px rgba(0,0,0,0.05); }
+    .guided-activity-chip { background: var(--control-bg); color: var(--text); }
+    .guided-activity-card { background: var(--bg-card); border-color: var(--border); box-shadow: var(--ios-shadow); }
+    .guided-media-visual { background: linear-gradient(145deg, #dbeeff, #f3f8ff 72%); border-color: rgba(0,122,255,0.22); }
+    .guided-media-visual::after { border-color: rgba(0,122,255,0.16); }
+    .guided-art-mark { border-color: var(--primary); color: var(--primary); box-shadow: 0 0 0 8px rgba(0,122,255,0.08); }
+    .guided-record { background: #ffcc00; color: #1c1c1e; }
+    .guided-record.empty { background: var(--control-bg); color: var(--text-muted); }
+    .guided-tech-note { background: rgba(0,122,255,0.08); border-left-color: var(--primary); }
+    .guided-set-row { background: var(--bg-card); border-color: var(--border); }
+    .guided-set-row.done { background: rgba(52,199,89,0.10); border-color: rgba(52,199,89,0.35); }
+    .guided-set-input { background: var(--bg); }
+    .guided-set-status { border-color: #8e8e93; }
+    .guided-set-row.done .guided-set-status { border-color: var(--accent); background: var(--accent); color: #fff; }
+    .guided-prev-btn { background: var(--control-bg); border: none !important; color: var(--text); }
+    .guided-next-btn { background: var(--primary); color: #fff; }
+    .guided-next-btn.ready { background: var(--accent); color: #fff; }
+    .guided-history-card { border-top-color: var(--separator); }
+
+    @media (max-width: 430px) {
+      .header { padding-left: 14px; padding-right: 14px; }
+      .main { padding-left: 14px; padding-right: 14px; }
+      .guided-body { padding-left: 12px; padding-right: 12px; }
+      .guided-activity-card { border-radius: 18px; }
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #000000;
+        --bg-card: #1c1c1e;
+        --bg-elevated: #2c2c2e;
+        --control-bg: #2c2c2e;
+        --border: rgba(84,84,88,0.65);
+        --separator: rgba(84,84,88,0.65);
+        --text: #f2f2f7;
+        --text-muted: #98989d;
+        --primary: #0a84ff;
+        --primary-dim: #0060df;
+        --accent: #30d158;
+        --accent-dim: #30d158;
+        --warning: #ff9f0a;
+        --danger: #ff453a;
+        --purple: #bf5af2;
+        --cyan: #64d2ff;
+        --ios-shadow: 0 1px 3px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.18);
+      }
+      .timer-overlay { background: rgba(0,0,0,0.88); }
+      .guided-media-visual { background: linear-gradient(145deg, #1d3347, #0d1117 72%); border-color: rgba(10,132,255,0.35); }
+      .guided-media-visual::after { border-color: rgba(255,255,255,0.14); }
+      .guided-record { background: #ffd60a; color: #1c1c1e; }
+      .badge-orange { color: #ffb340; }
+      .modal-sheet::before { background: #636366; }
+      .guided-set-row.done { background: rgba(48,209,88,0.14); }
+    }
+
   </style>
 </head>
 <body>
@@ -1456,14 +1638,14 @@
 
   <nav class="bottom-nav" aria-label="Navegação principal">
     <div class="bottom-nav-inner">
-      <button class="nav-item active" data-page="home"><span class="nav-icon">🏠</span><span>Início</span></button>
-      <button class="nav-item" data-page="treinos"><span class="nav-icon">💪</span><span>Treinos</span></button>
-      <button class="nav-item" data-page="calc"><span class="nav-icon">🧮</span><span>Calc</span></button>
-      <button class="nav-item" data-page="dieta"><span class="nav-icon">🍽</span><span>Dieta</span></button>
-      <button class="nav-item" data-page="ai"><span class="nav-icon">🤖</span><span>Coach</span></button>
-      <button class="nav-item" data-page="progresso"><span class="nav-icon">📊</span><span>Prog.</span></button>
-      <button class="nav-item" data-page="plano"><span class="nav-icon">📋</span><span>Plano</span></button>
-      <button class="nav-item" data-page="sobre"><span class="nav-icon">ℹ️</span><span>Sobre</span></button>
+      <button class="nav-item active" data-page="home"><span class="nav-icon" aria-hidden="true">⌂</span><span>Início</span></button>
+      <button class="nav-item" data-page="treinos"><span class="nav-icon" aria-hidden="true">◉</span><span>Treinos</span></button>
+      <button class="nav-item" data-page="calc"><span class="nav-icon" aria-hidden="true">＋÷</span><span>Calc</span></button>
+      <button class="nav-item" data-page="dieta"><span class="nav-icon" aria-hidden="true">◒</span><span>Dieta</span></button>
+      <button class="nav-item" data-page="ai"><span class="nav-icon" aria-hidden="true">✦</span><span>Coach</span></button>
+      <button class="nav-item" data-page="progresso"><span class="nav-icon" aria-hidden="true">▥</span><span>Prog.</span></button>
+      <button class="nav-item" data-page="plano"><span class="nav-icon" aria-hidden="true">☷</span><span>Plano</span></button>
+      <button class="nav-item" data-page="sobre"><span class="nav-icon" aria-hidden="true">ⓘ</span><span>Sobre</span></button>
     </div>
   </nav>
 
@@ -1682,9 +1864,10 @@
     // ===================== STATE =====================
     // Structure:
     // sets: { exId: [bool, bool, ...] }
-    // weights: { exId: "80" }  // current weights
+    // setDetails: { exId: [ { reps: "8", weight: "80" }, ... ] }
+    // weights: { exId: "80" }  // current/default weights, kept for compatibility
     // weightHistory: { exId: [ {date, week, weight}, ... ] }
-    // completedWorkouts: [ {id, treino, date, week, weights: {exId: weight}} ]
+    // completedWorkouts: [ {id, treino, date, week, weights: {exId: weight}, setDetails} ]
     // week: number
 
     const STORAGE_KEY = 'marsbGym_v2';
@@ -1700,7 +1883,7 @@
 
     function defaultState() {
       return {
-        sets: {}, weights: {}, weightHistory: {}, completedWorkouts: [], week: 1,
+        sets: {}, setDetails: {}, weights: {}, weightHistory: {}, completedWorkouts: [], week: 1,
         customExercises: { A: [], B: [], C: [], D: [] },
         exerciseOverrides: {},
         exerciseNotes: {},
@@ -1719,6 +1902,24 @@
     function safeNumber(value, min, max, fallback) {
       const number = Number(value);
       return Number.isFinite(number) && number >= min && number <= max ? number : fallback;
+    }
+
+    function normalizeWeightValue(value) {
+      const trimmed = String(value ?? '').trim().replace(',', '.');
+      if (!trimmed) return '';
+      const numeric = Number(trimmed);
+      return Number.isFinite(numeric) && numeric >= 0 && numeric <= 1000
+        ? String(Number(numeric.toFixed(2)))
+        : '';
+    }
+
+    function normalizeRepsValue(value) {
+      const trimmed = String(value ?? '').trim().replace(',', '.');
+      if (!trimmed) return '';
+      const numeric = Number(trimmed);
+      return Number.isInteger(numeric) && numeric >= 0 && numeric <= 2000
+        ? String(numeric)
+        : '';
     }
 
     function sanitizeExercise(ex, treinoId, index) {
@@ -1766,6 +1967,16 @@
           clean.sets[safeId] = values.slice(0, 10).map(Boolean);
         });
       }
+      if (source.setDetails && typeof source.setDetails === 'object') {
+        Object.entries(source.setDetails).slice(0, 500).forEach(([id, details]) => {
+          const safeId = boundedText(id, 80).replace(/[^a-zA-Z0-9_-]/g, '_');
+          if (!safeId || !Array.isArray(details)) return;
+          clean.setDetails[safeId] = details.slice(0, 10).map((detail) => ({
+            reps: normalizeRepsValue(detail && detail.reps),
+            weight: normalizeWeightValue(detail && detail.weight)
+          }));
+        });
+      }
       if (source.weights && typeof source.weights === 'object') {
         Object.entries(source.weights).slice(0, 500).forEach(([id, value]) => {
           const safeId = boundedText(id, 80).replace(/[^a-zA-Z0-9_-]/g, '_');
@@ -1792,6 +2003,9 @@
           week: Math.round(safeNumber(entry && entry.week, 1, 4, 1)),
           weights: entry && entry.weights && typeof entry.weights === 'object' ? Object.fromEntries(
             Object.entries(entry.weights).slice(0, 100).map(([id, value]) => [boundedText(id, 80), String(safeNumber(value, 0, 1000, 0))])
+          ) : {},
+          setDetails: entry && entry.setDetails && typeof entry.setDetails === 'object' ? Object.fromEntries(
+            Object.entries(entry.setDetails).slice(0, 100).map(([id, details]) => [boundedText(id, 80), Array.isArray(details) ? details.slice(0, 10).map((detail) => ({ reps: normalizeRepsValue(detail && detail.reps), weight: normalizeWeightValue(detail && detail.weight) })) : []])
           ) : {}
         }));
       }
@@ -1896,6 +2110,25 @@
         arr = resized;
       }
       return arr;
+    }
+
+    function getSetDetails(ex) {
+      if (!ex) return [];
+      const existing = Array.isArray(state.setDetails[ex.id]) ? state.setDetails[ex.id] : [];
+      const fallbackWeight = normalizeWeightValue(state.weights[ex.id]);
+      const normalizedExisting = existing.map((detail) => ({ reps: normalizeRepsValue(detail && detail.reps), weight: normalizeWeightValue(detail && detail.weight) }));
+      const repCount = normalizedExisting.filter((detail) => detail.reps).length;
+      const sameLegacyWeight = normalizedExisting.length > 1 && normalizedExisting.every((detail) => !detail.weight || detail.weight === fallbackWeight) && normalizedExisting.some((detail) => detail.weight === fallbackWeight);
+      const replicatedLegacyWeight = Boolean(fallbackWeight && sameLegacyWeight && repCount <= 1);
+      const details = Array.from({ length: ex.series }, (_, index) => {
+        const current = normalizedExisting[index] || { reps: '', weight: '' };
+        return {
+          reps: current.reps,
+          weight: replicatedLegacyWeight ? (index === 0 ? fallbackWeight : '') : current.weight || (!existing.length && index === 0 ? fallbackWeight : '')
+        };
+      });
+      state.setDetails[ex.id] = details;
+      return details;
     }
 
     function escapeHtml(value) {
@@ -2168,8 +2401,11 @@
       if (exists) return;
 
       const weights = {};
+      const setDetails = {};
       getTreinoExercises(treinoId).forEach(ex => {
         if (state.weights[ex.id]) weights[ex.id] = state.weights[ex.id];
+        const details = getSetDetails(ex).map((detail) => ({ reps: detail.reps, weight: detail.weight }));
+        if (details.some((detail) => detail.reps || detail.weight)) setDetails[ex.id] = details;
       });
 
       state.completedWorkouts = state.completedWorkouts || [];
@@ -2178,7 +2414,8 @@
         treino: treinoId,
         date: today,
         week: currentWeek,
-        weights
+        weights,
+        setDetails
       });
       saveState();
       showToast(`Treino ${treinoId} completo! 🎉`);
@@ -2200,14 +2437,18 @@
           todaySets += done;
           totalSetsAll += done;
           if (done >= ex.series) completedEx++;
-          if (state.weights[ex.id] && state.weights[ex.id] !== '') {
-            weightsCount++;
+          const details = getSetDetails(ex);
+          const hasPerSetData = details.some((detail) => detail.weight && detail.reps);
+          if (state.weights[ex.id] || details.some((detail) => detail.weight)) weightsCount++;
+          if (hasPerSetData) {
+            details.forEach((detail, index) => {
+              const w = parseFloat(detail.weight);
+              const reps = parseFloat(detail.reps);
+              if (arr[index] && Number.isFinite(w) && Number.isFinite(reps)) volumeToday += w * reps;
+            });
+          } else if (state.weights[ex.id] && state.weights[ex.id] !== '' && done > 0) {
             const w = parseFloat(state.weights[ex.id]);
-            if (!isNaN(w) && done > 0) {
-              // Approximate volume: weight * done sets * midpoint of rep range
-              const repsMid = parseRepsMid(ex.reps);
-              volumeToday += w * done * repsMid;
-            }
+            if (!isNaN(w)) volumeToday += w * done * parseRepsMid(ex.reps);
           }
         });
       });
@@ -2326,34 +2567,48 @@
       if (guidedState.active) refreshGuidedAfterToggle(exId, justCompleted);
     }
 
+    function recordWeightHistory(exId, normalized) {
+      if (!normalized) return;
+      if (!state.weightHistory[exId]) state.weightHistory[exId] = [];
+      const last = state.weightHistory[exId][state.weightHistory[exId].length - 1];
+      if (!last || last.weight !== normalized || last.week !== currentWeek) {
+        state.weightHistory[exId].push({ date: todayKey(), week: currentWeek, weight: normalized });
+        if (state.weightHistory[exId].length > 20) state.weightHistory[exId] = state.weightHistory[exId].slice(-20);
+      }
+    }
+
+    function saveSetDetail(exId, setIndex, field, value) {
+      const ex = findExercise(exId);
+      if (!ex || !['reps', 'weight'].includes(field)) return;
+      const raw = String(value ?? '').trim();
+      const normalized = field === 'weight' ? normalizeWeightValue(raw) : normalizeRepsValue(raw);
+      if (raw && !normalized) {
+        showToast(field === 'weight' ? 'Informe um peso entre 0 e 1000 kg' : 'Informe repetições inteiras entre 0 e 2000');
+        return;
+      }
+      const details = getSetDetails(ex);
+      const index = Math.max(0, Math.min(ex.series - 1, Number(setIndex) || 0));
+      details[index][field] = normalized;
+      if (field === 'weight') {
+        const previous = state.weights[exId] || '';
+        const latest = [...details].reverse().map((detail) => detail.weight).find(Boolean) || '';
+        state.weights[exId] = latest;
+        if (latest !== previous) recordWeightHistory(exId, latest);
+      }
+      saveState();
+      updateStats();
+    }
+
     function saveWeight(exId, value) {
-      const prev = state.weights[exId] || '';
-      const trimmed = String(value ?? '').trim().replace(',', '.');
-      const numeric = trimmed === '' ? null : Number(trimmed);
-      if (numeric !== null && (!Number.isFinite(numeric) || numeric < 0 || numeric > 1000)) {
+      const raw = String(value ?? '').trim();
+      const normalized = normalizeWeightValue(raw);
+      if (raw && !normalized) {
         showToast('Informe uma carga entre 0 e 1000 kg');
         return;
       }
-      const normalized = numeric === null ? '' : String(Number(numeric.toFixed(2)));
+      const previous = state.weights[exId] || '';
       state.weights[exId] = normalized;
-
-      // Record in history when weight changes and is not empty
-      if (normalized && normalized !== prev) {
-        if (!state.weightHistory[exId]) state.weightHistory[exId] = [];
-        const last = state.weightHistory[exId][state.weightHistory[exId].length - 1];
-        // Only add if different from last entry of same week
-        if (!last || last.weight !== normalized || last.week !== currentWeek) {
-          state.weightHistory[exId].push({
-            date: todayKey(),
-            week: currentWeek,
-            weight: normalized
-          });
-          // Keep last 20 entries per exercise
-          if (state.weightHistory[exId].length > 20) {
-            state.weightHistory[exId] = state.weightHistory[exId].slice(-20);
-          }
-        }
-      }
+      if (normalized !== previous) recordWeightHistory(exId, normalized);
       saveState();
       updateStats();
     }
@@ -2696,12 +2951,11 @@
       const total = guidedState.exercises.length;
       const workout = treinosMap()[guidedState.treinoId];
       const doneArr = getDoneArr(ex);
+      const setDetails = getSetDetails(ex);
       const allDone = doneArr.every(Boolean);
-      const weight = state.weights[ex.id] || '';
       const fullHist = (state.weightHistory[ex.id] || []);
       const lastEntry = fullHist[fullHist.length - 1];
       const personalRecord = fullHist.reduce((max, entry) => Math.max(max, Number(entry.weight) || 0), 0);
-      const previousAttempt = lastEntry ? `${ex.reps} × ${lastEntry.weight} kg` : 'Sem registro anterior';
       const guidedBody = document.getElementById('guidedBody');
 
       document.getElementById('guidedTitle').textContent = `Exercício ${guidedState.index + 1}/${total}`;
@@ -2710,42 +2964,44 @@
           <div class="guided-activity-chip">Atividade ${guidedState.index + 1}</div>
           <article class="guided-activity-card" aria-labelledby="guidedExerciseTitle">
             <div class="guided-media-card">
-              <div class="guided-media-visual" role="img" aria-label="Ilustração abstrata da atividade">
-                <span class="guided-art-mark">▶</span>
+              <div class="guided-media-visual" role="img" aria-label="Elemento visual da atividade">
+                <span class="guided-art-mark" aria-hidden="true">✦</span>
               </div>
               <div class="guided-media-copy">
                 <div class="guided-muscle-label">${escapeHtml(workout ? workout.nome.split('+')[0].trim() : 'Treino')}</div>
                 <h2 class="guided-ex-name" id="guidedExerciseTitle">${escapeHtml(ex.nome)}</h2>
-                <button class="guided-video-btn js-guided-video" type="button">▷ Ver instruções</button>
+                <div class="guided-muscle-label">Registre cada série abaixo</div>
               </div>
             </div>
             <div class="guided-record ${personalRecord ? '' : 'empty'}">★ Recorde pessoal: ${personalRecord ? `${escapeHtml(personalRecord)} kg` : 'sem registro'}</div>
             <div class="guided-section-label">Progressão de carga</div>
             <div class="guided-metric-grid">
-              <div class="guided-metric">Repetições<strong>${escapeHtml(ex.reps)}</strong></div>
+              <div class="guided-metric">Repetições alvo<strong>${escapeHtml(ex.reps)}</strong></div>
               <div class="guided-metric">Descanso<strong>${escapeHtml(formatRest(ex.descanso))}</strong></div>
               <div class="guided-metric">Técnica<strong>${escapeHtml(ex.tech.split('•')[0].trim())}</strong></div>
             </div>
-            <div class="guided-load-row">
-              <label class="guided-load-label" for="guidedWeightInput">Carga atual</label>
-              <input type="number" id="guidedWeightInput" class="guided-load-input" inputmode="decimal" placeholder="${escapeHtml(lastEntry ? lastEntry.weight : '0')}" value="${escapeHtml(weight)}" min="0" max="1000" step="0.1" aria-describedby="guidedLoadHint" />
-              <span class="guided-load-label">kg</span>
-            </div>
-            <div class="guided-load-label" id="guidedLoadHint" style="text-align:center;margin-bottom:12px;">${escapeHtml(ex.tech)}</div>
-            <div class="guided-set-head" aria-hidden="true"><span>Série</span><span>Reps</span><span>Último treino</span><span></span></div>
+            <div class="guided-tech-note">${escapeHtml(ex.tech)}</div>
+            <div class="guided-set-head" aria-hidden="true"><span>Série</span><span>Reps</span><span>Peso (kg)</span><span></span></div>
             <div class="guided-set-list">
-              ${Array.from({length: ex.series}, (_, i) => `
-                <button class="guided-set-row js-guided-set ${doneArr[i] ? 'done' : ''}" type="button" data-set-index="${i}" aria-pressed="${doneArr[i] ? 'true' : 'false'}" aria-label="Marcar série ${i + 1} de ${escapeHtml(ex.nome)}">
+              ${Array.from({length: ex.series}, (_, i) => {
+                const detail = setDetails[i] || { reps: '', weight: '' };
+                const repsId = `guidedReps-${encodeData(ex.id)}-${i}`;
+                const weightId = `guidedWeight-${encodeData(ex.id)}-${i}`;
+                return `
+                <div class="guided-set-row ${doneArr[i] ? 'done' : ''}" data-set-index="${i}">
                   <span class="guided-set-number">${i + 1}</span>
-                  <span class="guided-set-value">${escapeHtml(ex.reps)}</span>
-                  <span class="guided-set-value">${escapeHtml(previousAttempt)}</span>
-                  <span class="guided-set-status" aria-hidden="true">✓</span>
-                </button>
-              `).join('')}
+                  <label class="sr-only" for="${repsId}">Repetições da série ${i + 1} de ${escapeHtml(ex.nome)}</label>
+                  <input id="${repsId}" class="guided-set-input js-guided-set-field" type="number" inputmode="numeric" min="0" max="2000" step="1" placeholder="${escapeHtml(ex.reps)}" value="${escapeHtml(detail.reps)}" data-set-index="${i}" data-field="reps" aria-label="Repetições da série ${i + 1}" />
+                  <label class="sr-only" for="${weightId}">Peso da série ${i + 1} de ${escapeHtml(ex.nome)} em quilogramas</label>
+                  <input id="${weightId}" class="guided-set-input js-guided-set-field" type="number" inputmode="decimal" min="0" max="1000" step="0.1" placeholder="0" value="${escapeHtml(detail.weight)}" data-set-index="${i}" data-field="weight" aria-label="Peso da série ${i + 1} em quilogramas" />
+                  <button class="guided-set-status js-guided-set-toggle" type="button" data-set-index="${i}" aria-pressed="${doneArr[i] ? 'true' : 'false'}" aria-label="${doneArr[i] ? 'Desmarcar' : 'Marcar'} série ${i + 1} de ${escapeHtml(ex.nome)}">✓</button>
+                </div>
+              `;
+              }).join('')}
             </div>
             <div class="guided-history-card">
               <span class="guided-history-icon" aria-hidden="true">↶</span>
-              <div><span class="guided-history-title">Histórico da atividade</span><span class="guided-history-detail">${lastEntry ? `Último registro: ${escapeHtml(lastEntry.weight)} kg • Semana ${escapeHtml(lastEntry.week)}` : 'Marque séries e registre a carga para criar seu histórico.'}</span></div>
+              <div><span class="guided-history-title">Histórico da atividade</span><span class="guided-history-detail">${lastEntry ? `Último registro: ${escapeHtml(lastEntry.weight)} kg • Semana ${escapeHtml(lastEntry.week)}` : 'Marque séries e registre peso e repetições para criar seu histórico.'}</span></div>
             </div>
             <div class="guided-nav-row">
               <button class="guided-prev-btn js-guided-prev" type="button" ${guidedState.index === 0 ? 'disabled' : ''}>← Anterior</button>
@@ -2754,13 +3010,14 @@
           </article>
         </div>
       `;
-      const guidedWeight = guidedBody.querySelector('#guidedWeightInput');
-      guidedWeight.addEventListener('change', () => saveWeight(ex.id, guidedWeight.value));
-      guidedWeight.addEventListener('blur', () => saveWeight(ex.id, guidedWeight.value));
-      guidedBody.querySelectorAll('.js-guided-set').forEach((button) => {
+      guidedBody.querySelectorAll('.js-guided-set-field').forEach((field) => {
+        const save = () => saveSetDetail(ex.id, Number(field.dataset.setIndex), field.dataset.field, field.value);
+        field.addEventListener('change', save);
+        field.addEventListener('blur', save);
+      });
+      guidedBody.querySelectorAll('.js-guided-set-toggle').forEach((button) => {
         button.addEventListener('click', () => toggleSet(ex.id, Number(button.dataset.setIndex), ex.descanso, guidedState.treinoId));
       });
-      guidedBody.querySelector('.js-guided-video').addEventListener('click', () => showToast('Instrução em vídeo poderá ser adicionada ao exercício no próximo passo.'));
       guidedBody.querySelector('.js-guided-prev').addEventListener('click', () => guidedGoTo(guidedState.index - 1));
       guidedBody.querySelector('.js-guided-next').addEventListener('click', () => guidedGoTo(guidedState.index + 1));
       updateGuidedSessionChrome();
