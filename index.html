@@ -429,6 +429,11 @@
       font-size: 0.7rem; color: var(--cyan); background: none; border: none;
       cursor: pointer; font-weight: 600; padding: 2px 4px; white-space: nowrap;
     }
+    .weight-history-empty { opacity:.72; }
+    .progression-hint { font-size:.72rem; line-height:1.4; color:var(--primary); background:color-mix(in srgb, var(--primary) 8%, transparent); border-radius:8px; padding:7px 9px; margin:0 0 9px; }
+    .chart-advice { margin-top:12px; padding:10px 12px; background:color-mix(in srgb, var(--primary) 10%, transparent); border:1px solid color-mix(in srgb, var(--primary) 22%, transparent); border-radius:10px; font-size:.8rem; line-height:1.4; color:var(--text); }
+    .chart-note { margin-top:10px; font-size:.75rem; }
+
 
     .add-exercise-btn {
       margin: 12px 16px 16px; background: var(--bg); border: 1.5px dashed var(--border);
@@ -444,8 +449,13 @@
       cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px;
     }
     .guided-start-btn:active { background: var(--accent-dim); }
-    .card-header .guided-start-btn { width:100%; margin-top:10px; padding:9px 10px; }
-    .card-header .guided-start-btn:focus-visible { outline:3px solid rgba(59,130,246,0.45); outline-offset:2px; }
+    .card-header-actions { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; margin-top:10px; }
+    .card-header-actions .guided-start-btn { width:100%; margin-top:0; padding:9px 8px; }
+    .card-header-actions .reuse-history-btn { width:100%; margin-top:0; padding:9px 8px; }
+    .card-header .guided-start-btn:focus-visible, .card-header .reuse-history-btn:focus-visible { outline:3px solid rgba(59,130,246,0.45); outline-offset:2px; }
+    .reuse-history-btn { background:var(--bg-elevated); color:var(--text); border:1px solid var(--border); border-radius:10px; font-size:.78rem; font-weight:700; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:5px; }
+    .reuse-history-btn:active { background:var(--border); }
+    .reuse-history-btn:disabled { opacity:.55; cursor:not-allowed; }
 
     /* ===== Generic modal ===== */
     .modal-overlay {
@@ -1747,6 +1757,7 @@
         <div style="display:flex;flex-direction:column;gap:8px;margin-top:8px;">
           <button class="btn-action primary" onclick="planoSaveProgram()">Salvar plano no app</button>
           <button class="btn-action" onclick="planoExportExcel()">Exportar planilha Excel (.xlsx) para enviar</button>
+          <button class="btn-action" onclick="planoSharePlan()">Compartilhar plano</button>
           <button class="btn-action" onclick="document.getElementById('planoFile').click()">Importar texto ou JSON</button>
           <button class="btn-action primary" onclick="document.getElementById('planoExcelFile').click()">Importar planilha Excel</button>
           <input type="file" id="planoFile" accept=".txt,text/plain,.json,application/json" style="display:none;" onchange="planoOnFileChosen(event)" />
@@ -2402,7 +2413,10 @@
                 ${complete ? ' <span style="color:var(--accent);font-size:0.8rem;">✓</span>' : ''}
               </div>
               <div class="card-meta">${doneSets}/${totalSets} séries • ${escapeHtml(treino.foco)}</div>
-              <button class="guided-start-btn js-start-guided" type="button" aria-label="Iniciar treino guiado do Treino ${escapeHtml(treino.id)}">▶ Iniciar treino guiado</button>
+              <div class="card-header-actions">
+                <button class="guided-start-btn js-start-guided" type="button" aria-label="Iniciar treino guiado do Treino ${escapeHtml(treino.id)}">▶ Treino guiado</button>
+                <button class="reuse-history-btn js-reuse-history" type="button" aria-label="Usar pesos e séries anteriores do Treino ${escapeHtml(treino.id)}">↻ Usar anterior</button>
+              </div>
             </div>
             <span class="chevron" aria-hidden="true">▼</span>
           </div>
@@ -2424,6 +2438,15 @@
           event.stopPropagation();
           startGuided(treino.id);
         });
+        const reuseButton = card.querySelector('.js-reuse-history');
+        if (reuseButton) {
+          reuseButton.disabled = !getPreviousWorkoutSnapshot(treino.id);
+          reuseButton.title = reuseButton.disabled ? 'Ainda não há um registro anterior deste treino' : 'Preencher com os dados do treino anterior';
+          reuseButton.addEventListener('click', (event) => {
+            event.stopPropagation();
+            reusePreviousWorkout(treino.id);
+          });
+        }
 
         const body = card.querySelector('.card-body');
 
@@ -2445,9 +2468,10 @@
             ? `<div class="last-time-hint">🕓 Última vez (Semana ${escapeHtml(lastEntry.week)}): <strong>${escapeHtml(lastEntry.weight)}kg</strong></div>`
             : '';
 
-          const histHtml = hist.length
+              const histHtml = hist.length
             ? `<div class="weight-history">Histórico: ${hist.map(h => `<span>${escapeHtml(h.weight)}kg</span> (S${escapeHtml(h.week)})`).join(' → ')}</div>`
-            : '';
+            : '<div class="weight-history weight-history-empty">Sem histórico registrado</div>';
+              const progressionHint = getExerciseProgressionAdvice(ex.id);
 
           const exEl = document.createElement('div');
           exEl.className = 'exercise';
@@ -2466,16 +2490,16 @@
             <div class="tech-note">${escapeHtml(ex.tech)}</div>
             ${(state.exerciseNotes && state.exerciseNotes[ex.id]) ? `<div class="tech-note" style="border-left:3px solid var(--cyan);">📝 ${escapeHtml(state.exerciseNotes[ex.id])}</div>` : ''}
             ${lastTimeHtml}
+            ${progressionHint ? `<div class="progression-hint">↗ ${progressionHint}</div>` : ''}
             <div class="weight-row">
               <label for="weight-${encodeData(ex.id)}">Peso:</label>
               <input type="number" id="weight-${encodeData(ex.id)}" class="weight-input js-save-weight" inputmode="decimal" placeholder="${escapeHtml(lastEntry ? lastEntry.weight : '0')}" value="${escapeHtml(weight)}" min="0" max="1000" step="0.1" />
               <span class="weight-unit">kg</span>
             </div>
-            ${hist.length ? `
             <div class="weight-history-row">
               ${histHtml}
-              <button class="chart-link-btn js-open-chart" type="button">📈 Gráfico</button>
-            </div>` : ''}
+              <button class="chart-link-btn js-open-chart" type="button">📈 Evolução</button>
+            </div>
             <div class="sets-row">
               ${Array.from({length: ex.series}, (_, i) => `
                 <button class="set-btn js-toggle-set ${doneArr[i] ? 'done' : ''}" type="button" data-set-index="${i}">${i+1}</button>
@@ -2750,6 +2774,73 @@
       if (guidedState.active) refreshGuidedAfterToggle(exId, justCompleted);
     }
 
+    function getPreviousWorkoutSnapshot(treinoId) {
+      const records = (state.completedWorkouts || []).filter((entry) => {
+        if (!entry || entry.treino !== treinoId) return false;
+        const hasWeights = entry.weights && Object.values(entry.weights).some((value) => normalizeWeightValue(value));
+        const hasDetails = entry.setDetails && Object.values(entry.setDetails).some((details) => Array.isArray(details) && details.some((detail) => detail && (detail.reps || detail.weight)));
+        return hasWeights || hasDetails;
+      });
+      if (records.length) return records[records.length - 1];
+
+      const historyWeights = {};
+      getTreinoExercises(treinoId).forEach((ex) => {
+        const entries = (state.weightHistory[ex.id] || []).filter((entry) => normalizeWeightValue(entry && entry.weight));
+        const latest = entries[entries.length - 1];
+        if (latest) historyWeights[ex.id] = normalizeWeightValue(latest.weight);
+      });
+      return Object.keys(historyWeights).length ? { id: `weight-history-${treinoId}`, treino: treinoId, weights: historyWeights, setDetails: {} } : null;
+    }
+
+    function treinoHasCurrentData(treinoId) {
+      return getTreinoExercises(treinoId).some((ex) => {
+        const done = Array.isArray(state.sets[ex.id]) && state.sets[ex.id].some(Boolean);
+        const details = Array.isArray(state.setDetails[ex.id]) && state.setDetails[ex.id].some((detail) => detail && (detail.reps || detail.weight));
+        return done || details || Boolean(state.weights[ex.id]);
+      });
+    }
+
+    function reusePreviousWorkout(treinoId) {
+      const snapshot = getPreviousWorkoutSnapshot(treinoId);
+      if (!snapshot) {
+        showToast('Ainda não há dados anteriores registrados para este treino.');
+        return;
+      }
+      if (treinoHasCurrentData(treinoId) && !confirm('Já existem dados preenchidos neste treino. Deseja substituir pelos dados da sessão anterior?')) return;
+
+      const previousDetails = snapshot.setDetails || {};
+      const previousWeights = snapshot.weights || {};
+      let copiedExercises = 0;
+      let copiedFields = 0;
+
+      getTreinoExercises(treinoId).forEach((ex) => {
+        const savedDetails = Array.isArray(previousDetails[ex.id]) ? previousDetails[ex.id] : [];
+        const fallbackWeight = normalizeWeightValue(previousWeights[ex.id]);
+        const nextDetails = Array.from({ length: ex.series }, (_, index) => {
+          const old = savedDetails[index] || {};
+          const reps = normalizeRepsValue(old.reps);
+          const weight = normalizeWeightValue(old.weight) || (!savedDetails.length && index === 0 ? fallbackWeight : '');
+          if (reps || weight) copiedFields++;
+          return { reps, weight };
+        });
+        const latestWeight = [...nextDetails].reverse().map((detail) => detail.weight).find(Boolean) || fallbackWeight;
+        if (!nextDetails.some((detail) => detail.reps || detail.weight) && !latestWeight) return;
+        state.setDetails[ex.id] = nextDetails;
+        state.weights[ex.id] = latestWeight;
+        state.sets[ex.id] = Array.from({ length: ex.series }, () => false);
+        copiedExercises++;
+      });
+
+      if (!copiedExercises) {
+        showToast('Não foram encontrados pesos ou repetições aproveitáveis no registro anterior.');
+        return;
+      }
+      saveState();
+      renderTreinos();
+      updateStats();
+      showToast(`${copiedFields ? copiedFields + ' dados' : 'Dados'} da sessão anterior adicionados. Séries desmarcadas para o treino atual.`);
+    }
+
     function recordWeightHistory(exId, normalized) {
       if (!normalized) return;
       if (!state.weightHistory[exId]) state.weightHistory[exId] = [];
@@ -2975,16 +3066,38 @@
     }
 
     // ===================== CHART (evolução de carga) =====================
+    function getExerciseProgressionAdvice(exId) {
+      const ex = findExercise(exId);
+      const history = (state.weightHistory[exId] || []).filter((entry) => Number(entry.weight) > 0);
+      const latest = history[history.length - 1];
+      if (!ex || !latest) return '';
+
+      const latestWeight = Number(latest.weight);
+      const targetReps = Math.max(...(String(ex.reps || '').match(/\d+/g) || ['10']).map(Number));
+      const latestWorkout = (state.completedWorkouts || []).slice().reverse().find((entry) => entry && entry.setDetails && Array.isArray(entry.setDetails[exId]));
+      const reps = latestWorkout ? latestWorkout.setDetails[exId].map((detail) => Number(detail && detail.reps) || 0).filter(Boolean) : [];
+      const completedTop = reps.length >= ex.series && reps.every((value) => value >= targetReps);
+
+      if (completedTop) {
+        const increment = Math.max(0.5, Math.round((latestWeight * 0.05) * 2) / 2);
+        const nextWeight = (latestWeight + increment).toFixed(1).replace('.0', '');
+        return `Sugestão: se a técnica estiver boa, experimente ${nextWeight} kg na próxima sessão.`;
+      }
+      if (reps.length) return `Sugestão: mantenha ${latestWeight} kg e tente aproximar-se do topo de ${escapeHtml(ex.reps)} repetições.`;
+      return `Última carga registrada: ${latestWeight} kg. Registre as repetições para receber uma sugestão mais precisa.`;
+    }
+
     function openChart(exId) {
       const ex = findExercise(exId);
       const hist = (state.weightHistory[exId] || []);
       document.getElementById('chartModalTitle').textContent = ex ? `Evolução — ${ex.nome}` : 'Evolução de carga';
       const wrap = document.getElementById('chartWrap');
+      const advice = getExerciseProgressionAdvice(exId);
 
-      if (hist.length < 2) {
-        wrap.innerHTML = '<div class="chart-empty">Registre o peso em pelo menos 2 sessões diferentes para ver o gráfico de evolução.</div>';
+      if (!hist.length) {
+        wrap.innerHTML = '<div class="chart-empty">Registre uma carga para iniciar o histórico deste exercício.</div>';
       } else {
-        wrap.innerHTML = buildWeightChartSVG(hist);
+        wrap.innerHTML = buildWeightChartSVG(hist) + (advice ? `<div class="chart-advice">${advice}</div>` : '') + (hist.length < 2 ? '<div class="chart-empty chart-note">Registre mais uma sessão para visualizar a tendência.</div>' : '');
       }
       document.getElementById('chartModal').classList.add('show');
     }
@@ -4741,6 +4854,43 @@
         }
       }
       return null;
+    }
+
+    async function planoSharePlan() {
+      planoSyncTreinoHeader();
+      const draft = ensurePlanoDraft();
+      const err = validateProgramMap(draft);
+      if (err) { showToast(err); return; }
+      const meta = {
+        name: (document.getElementById('planoNome').value || '').trim() || 'Plano personalizado',
+        author: (document.getElementById('planoAuthor').value || '').trim()
+      };
+      const text = programToText(draft, meta);
+      const shareData = { title: meta.name, text };
+      try {
+        if (navigator.share) {
+          await navigator.share(shareData);
+          showToast('Plano compartilhado.');
+          return;
+        }
+      } catch (error) {
+        if (error && error.name === 'AbortError') return;
+      }
+      try {
+        await navigator.clipboard.writeText(text);
+        showToast('Plano copiado. Cole em uma mensagem para enviar.');
+      } catch (error) {
+        const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = (meta.name || 'plano-marsb').replace(/[^\w\-]+/g, '_').slice(0, 40) + '.txt';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+        showToast('Plano salvo como arquivo de texto para enviar.');
+      }
     }
 
     function planoExportText() {
