@@ -52,3 +52,9 @@ Mesmo armazenada somente em `sessionStorage`, uma API Key usada diretamente no n
 
 Extraia o pacote e publique o conteúdo de `marsb-gym-melhorado/` em um servidor HTTPS. O service worker não funciona corretamente em `file://`; para testar localmente, use um servidor HTTP local. Depois de atualizar a aplicação publicada, o service worker fará a troca para a nova versão após a instalação e ativação do cache.
 
+
+## Atualização do treino guiado
+
+O botão **Iniciar treino guiado** foi reposicionado para ficar imediatamente abaixo do tipo/foco de cada treino. O fluxo agora abre uma janela guiada contextual, em vez de depender apenas do conteúdo do card, com cabeçalho de atividade, exercício em destaque, área para instruções, recorde pessoal, progressão de carga, séries marcáveis, histórico da atividade, navegação entre exercícios e progresso segmentado no rodapé. A mesma composição é alimentada pelos dados dos treinos A, B, C e D.
+
+Durante a validação foi corrigida uma referência antiga ao identificador `guidedProgressLabel`, que havia impedido a primeira renderização do cartão. Após a correção, o layout abriu normalmente, uma série foi acionada e o console permaneceu sem erros JavaScript.

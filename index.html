@@ -438,6 +438,8 @@
       cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px;
     }
     .guided-start-btn:active { background: var(--accent-dim); }
+    .card-header .guided-start-btn { width:100%; margin-top:10px; padding:9px 10px; }
+    .card-header .guided-start-btn:focus-visible { outline:3px solid rgba(59,130,246,0.45); outline-offset:2px; }
 
     /* ===== Generic modal ===== */
     .modal-overlay {
@@ -509,6 +511,64 @@
     .guided-complete-banner .big-emoji { font-size: 3.5rem; margin-bottom: 12px; }
     .guided-complete-banner h2 { font-size: 1.3rem; margin-bottom: 8px; }
     .guided-complete-banner p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 24px; }
+
+    /* ===== Guided mode: activity-first layout ===== */
+    .guided-header-copy { display:flex; flex-direction:column; gap:2px; min-width:0; }
+    .guided-kicker { color:var(--text-muted); font-size:0.66rem; font-weight:800; letter-spacing:0.12em; text-transform:uppercase; }
+    .guided-progress-label { color:var(--text); font-size:0.82rem; }
+    .guided-session-footer {
+      flex:0 0 auto; padding:10px 18px calc(12px + var(--safe-bottom));
+      background:rgba(10,14,23,0.96); border-top:1px solid var(--border);
+    }
+    .guided-session-meta { display:flex; align-items:center; justify-content:space-between; gap:12px; color:var(--text-muted); font-size:0.75rem; margin-bottom:9px; }
+    .guided-session-meta strong { color:var(--text); font-size:0.84rem; }
+    .guided-segment-track { display:grid; grid-template-columns:repeat(12, minmax(0, 1fr)); gap:5px; }
+    .guided-segment { height:6px; border-radius:999px; background:var(--border); transition:background 180ms var(--ease-out, ease-out), transform 180ms var(--ease-out, ease-out); }
+    .guided-segment.done { background:var(--accent); }
+    .guided-segment.active { background:var(--primary); transform:scaleY(1.35); }
+    .guided-workout-shell { max-width:620px; margin:0 auto; }
+    .guided-activity-chip { width:max-content; margin:0 auto 12px; padding:7px 16px; border-radius:999px; background:var(--bg-elevated); color:var(--text); font-size:0.72rem; font-weight:800; letter-spacing:0.1em; text-transform:uppercase; }
+    .guided-activity-card { background:var(--bg-card); border:1px solid var(--border); border-radius:24px; padding:14px; box-shadow:0 12px 34px rgba(0,0,0,0.22); }
+    .guided-media-card { display:grid; grid-template-columns:130px 1fr; gap:14px; align-items:center; margin-bottom:14px; }
+    .guided-media-visual { min-height:138px; border-radius:18px; display:grid; place-items:center; position:relative; overflow:hidden; background:radial-gradient(circle at 52% 38%, rgba(34,197,94,0.26), transparent 34%), linear-gradient(145deg, #252d38, #090c12 72%); border:1px solid #374151; }
+    .guided-media-visual::after { content:''; position:absolute; inset:14px; border:1px solid rgba(255,255,255,0.14); border-radius:50%; transform:rotate(-20deg) scaleX(1.2); }
+    .guided-art-mark { position:relative; z-index:1; width:66px; height:66px; display:grid; place-items:center; border:3px solid var(--text); border-radius:50%; color:var(--accent); font-size:2rem; font-weight:900; box-shadow:0 0 0 8px rgba(255,255,255,0.05); }
+    .guided-media-copy { min-width:0; }
+    .guided-muscle-label { color:var(--text-muted); font-size:0.76rem; margin-bottom:5px; }
+    .guided-ex-name { font-size:clamp(1.28rem, 5vw, 1.8rem); line-height:1.1; margin-bottom:10px; }
+    .guided-video-btn { width:100%; background:transparent; color:var(--text); border:1px solid #64748b; border-radius:16px; padding:10px 12px; font-size:0.84rem; font-weight:700; cursor:pointer; }
+    .guided-video-btn:hover, .guided-video-btn:focus-visible { border-color:var(--primary); color:var(--primary); }
+    .guided-record { display:inline-flex; align-items:center; gap:6px; width:max-content; max-width:100%; margin:0 0 15px; padding:7px 11px; border-radius:999px; background:#f5ec43; color:#171717; font-size:0.76rem; font-weight:800; }
+    .guided-record.empty { background:var(--bg-elevated); color:var(--text-muted); }
+    .guided-section-label { color:var(--text-muted); font-size:0.83rem; text-align:center; margin:5px 0 10px; }
+    .guided-metric-grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:8px; margin-bottom:12px; text-align:center; }
+    .guided-metric { color:var(--text-muted); font-size:0.67rem; text-transform:uppercase; letter-spacing:0.06em; }
+    .guided-metric strong { display:block; color:var(--text); font-size:0.94rem; margin-top:4px; letter-spacing:0; text-transform:none; }
+    .guided-load-row { display:flex; align-items:center; justify-content:center; gap:8px; margin:5px 0 12px; }
+    .guided-load-label { color:var(--text-muted); font-size:0.8rem; }
+    .guided-load-input { width:108px; text-align:center; background:var(--bg); border:1px solid #64748b; border-radius:12px; padding:10px; color:var(--text); font-size:1rem; font-weight:800; }
+    .guided-load-input:focus { border-color:var(--primary); outline:none; box-shadow:0 0 0 3px rgba(59,130,246,0.16); }
+    .guided-set-head, .guided-set-row { display:grid; grid-template-columns:44px 1fr 1fr 42px; align-items:center; gap:8px; }
+    .guided-set-head { padding:0 12px 6px; color:var(--text-muted); font-size:0.66rem; text-transform:uppercase; letter-spacing:0.06em; }
+    .guided-set-row { width:100%; min-height:54px; margin-top:6px; padding:8px 12px; background:var(--bg); color:var(--text); border:1px solid transparent; border-radius:18px; text-align:left; cursor:pointer; }
+    .guided-set-row:hover, .guided-set-row:focus-visible { border-color:var(--primary); }
+    .guided-set-row.done { background:#050807; border-color:rgba(34,197,94,0.34); }
+    .guided-set-number { font-size:0.9rem; font-weight:800; }
+    .guided-set-value { color:var(--text-muted); font-size:0.88rem; }
+    .guided-set-status { justify-self:end; width:27px; height:27px; display:grid; place-items:center; border:3px solid #9ca3af; border-radius:50%; color:transparent; font-size:0.8rem; font-weight:900; }
+    .guided-set-row.done .guided-set-status { border-color:var(--accent); background:var(--accent); color:#052e16; }
+    .guided-history-card { display:flex; align-items:center; gap:10px; margin-top:16px; padding:14px 8px 4px; border-top:1px solid var(--border); }
+    .guided-history-icon { font-size:1.65rem; color:var(--text); }
+    .guided-history-title { display:block; font-size:0.86rem; font-weight:800; text-transform:uppercase; letter-spacing:0.04em; }
+    .guided-history-detail { display:block; margin-top:3px; color:var(--text-muted); font-size:0.72rem; }
+    .guided-nav-row { margin-top:16px; }
+    @media (max-width:430px) {
+      .guided-body { padding:14px 12px 18px; }
+      .guided-activity-card { border-radius:20px; padding:11px; }
+      .guided-media-card { grid-template-columns:112px 1fr; gap:10px; }
+      .guided-media-visual { min-height:122px; }
+      .guided-set-head, .guided-set-row { grid-template-columns:34px 1fr 1fr 34px; gap:5px; padding-left:8px; padding-right:8px; }
+    }
 
     .backup-hidden-input { display: none; }
 
@@ -1389,7 +1449,7 @@
         </ul>
       </div>
       <p style="text-align:center;font-size:0.75rem;color:var(--text-muted);margin-top:30px;">
-        Plano elaborado por Personal Trainer Experiente • Todos os direitos reservados
+        MARBS • Todos os direitos reservados
       </p>
     </div>
   </div>
@@ -1533,13 +1593,20 @@
   </div>
 
   <!-- GUIDED MODE OVERLAY -->
-  <div class="guided-overlay" id="guidedOverlay">
+  <div class="guided-overlay" id="guidedOverlay" role="dialog" aria-modal="true" aria-labelledby="guidedTitle" aria-describedby="guidedBody" tabindex="-1">
     <div class="guided-header">
-      <div class="guided-progress-label" id="guidedProgressLabel">Exercício 1/6</div>
+      <div class="guided-header-copy">
+        <div class="guided-kicker">MARSB • Treino guiado</div>
+        <div class="guided-progress-label" id="guidedTitle" aria-live="polite">Exercício 1/6</div>
+      </div>
       <button type="button" class="guided-exit-btn" aria-label="Sair do treino guiado" onclick="exitGuided()">Sair</button>
     </div>
-    <div class="guided-progress-bar"><div class="guided-progress-fill" id="guidedProgressFill" style="width:0%"></div></div>
-    <div class="guided-body" id="guidedBody"></div>
+    <div class="guided-progress-bar" aria-hidden="true"><div class="guided-progress-fill" id="guidedProgressFill" style="width:0%"></div></div>
+    <div class="guided-body" id="guidedBody" tabindex="-1"></div>
+    <div class="guided-session-footer" aria-label="Progresso da sessão">
+      <div class="guided-session-meta"><span id="guidedWorkoutLabel">Treino</span><strong id="guidedTimeLabel">00:00</strong></div>
+      <div class="guided-segment-track" id="guidedSegmentTrack" aria-hidden="true"></div>
+    </div>
   </div>
 
   <script src="https://js.puter.com/v2/"></script>
@@ -1919,6 +1986,7 @@
                 ${complete ? ' <span style="color:var(--accent);font-size:0.8rem;">✓</span>' : ''}
               </div>
               <div class="card-meta">${doneSets}/${totalSets} séries • ${escapeHtml(treino.foco)}</div>
+              <button class="guided-start-btn js-start-guided" type="button" aria-label="Iniciar treino guiado do Treino ${escapeHtml(treino.id)}">▶ Iniciar treino guiado</button>
             </div>
             <span class="chevron" aria-hidden="true">▼</span>
           </div>
@@ -1933,7 +2001,12 @@
         };
         header.addEventListener('click', toggle);
         header.addEventListener('keydown', (event) => {
+          if (event.target.closest('.js-start-guided')) return;
           if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); toggle(); }
+        });
+        card.querySelector('.js-start-guided')?.addEventListener('click', (event) => {
+          event.stopPropagation();
+          startGuided(treino.id);
         });
 
         const body = card.querySelector('.card-body');
@@ -2011,13 +2084,6 @@
         addBtn.onclick = () => openAddExercise(treino.id);
         body.appendChild(addBtn);
 
-        if (exercises.length) {
-          const actionsRow = document.createElement('div');
-          actionsRow.className = 'card-actions-row';
-          actionsRow.innerHTML = '<button class="guided-start-btn" type="button">▶ Iniciar treino guiado</button>';
-          actionsRow.querySelector('button').addEventListener('click', () => startGuided(treino.id));
-          body.appendChild(actionsRow);
-        }
       });
     }
 
@@ -2534,7 +2600,38 @@
     }
 
     // ===================== GUIDED WORKOUT MODE =====================
-    const guidedState = { active: false, treinoId: null, exercises: [], index: 0, advanceTimeout: null };
+    const guidedState = { active: false, treinoId: null, exercises: [], index: 0, advanceTimeout: null, startedAt: 0, clockId: null, returnFocus: null };
+
+    function formatGuidedElapsed(seconds) {
+      const safe = Math.max(0, Number(seconds) || 0);
+      const minutes = Math.floor(safe / 60);
+      const secs = safe % 60;
+      return `${String(minutes).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+    }
+
+    function updateGuidedClock() {
+      if (!guidedState.active || !guidedState.startedAt) return;
+      const label = document.getElementById('guidedTimeLabel');
+      if (label) label.textContent = formatGuidedElapsed(Math.floor((Date.now() - guidedState.startedAt) / 1000));
+    }
+
+    function updateGuidedSessionChrome() {
+      const workout = treinosMap()[guidedState.treinoId];
+      const total = guidedState.exercises.length;
+      const label = document.getElementById('guidedWorkoutLabel');
+      const track = document.getElementById('guidedSegmentTrack');
+      const fill = document.getElementById('guidedProgressFill');
+      if (label) label.textContent = workout ? `Treino ${workout.id} • ${workout.nome.split('+')[0].trim()}` : 'Treino guiado';
+      if (fill) fill.style.width = `${total ? Math.min(100, ((guidedState.index + 1) / total) * 100) : 0}%`;
+      if (track) {
+        track.innerHTML = guidedState.exercises.map((ex, i) => {
+          const complete = getDoneArr(ex).every(Boolean);
+          const current = i === guidedState.index;
+          return `<span class="guided-segment ${complete ? 'done' : ''} ${current ? 'active' : ''}" title="Exercício ${i + 1}"></span>`;
+        }).join('');
+      }
+      updateGuidedClock();
+    }
 
     function startGuided(treinoId) {
       const exercises = getTreinoExercises(treinoId);
@@ -2543,17 +2640,29 @@
       guidedState.treinoId = treinoId;
       guidedState.exercises = exercises;
       guidedState.index = 0;
-      document.getElementById('guidedOverlay').classList.add('show');
+      guidedState.startedAt = Date.now();
+      guidedState.returnFocus = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+      if (guidedState.clockId) clearInterval(guidedState.clockId);
+      guidedState.clockId = setInterval(updateGuidedClock, 1000);
+      const overlay = document.getElementById('guidedOverlay');
+      overlay.classList.add('show');
       renderGuidedStep();
+      requestAnimationFrame(() => overlay.focus({ preventScroll: true }));
     }
 
     function exitGuided() {
       guidedState.active = false;
       if (guidedState.advanceTimeout) clearTimeout(guidedState.advanceTimeout);
+      if (guidedState.clockId) clearInterval(guidedState.clockId);
+      guidedState.advanceTimeout = null;
+      guidedState.clockId = null;
+      const returnFocus = guidedState.returnFocus;
+      guidedState.returnFocus = null;
       document.getElementById('guidedOverlay').classList.remove('show');
       renderTreinos();
       renderQuickStart();
       updateStats();
+      if (returnFocus && document.contains(returnFocus)) returnFocus.focus();
     }
 
     function guidedGoTo(i) {
@@ -2583,44 +2692,66 @@
 
     function renderGuidedStep() {
       const ex = guidedState.exercises[guidedState.index];
+      if (!ex) return;
       const total = guidedState.exercises.length;
-      document.getElementById('guidedProgressLabel').textContent = `Exercício ${guidedState.index + 1}/${total}`;
-      document.getElementById('guidedProgressFill').style.width = `${((guidedState.index) / total) * 100}%`;
-
+      const workout = treinosMap()[guidedState.treinoId];
       const doneArr = getDoneArr(ex);
       const allDone = doneArr.every(Boolean);
       const weight = state.weights[ex.id] || '';
       const fullHist = (state.weightHistory[ex.id] || []);
       const lastEntry = fullHist[fullHist.length - 1];
-      const lastTimeHtml = (lastEntry && lastEntry.week !== currentWeek)
-        ? `<div class="last-time-hint">🕓 Última vez (Semana ${escapeHtml(lastEntry.week)}): <strong>${escapeHtml(lastEntry.weight)}kg</strong></div>` : '';
-
+      const personalRecord = fullHist.reduce((max, entry) => Math.max(max, Number(entry.weight) || 0), 0);
+      const previousAttempt = lastEntry ? `${ex.reps} × ${lastEntry.weight} kg` : 'Sem registro anterior';
       const guidedBody = document.getElementById('guidedBody');
+
+      document.getElementById('guidedTitle').textContent = `Exercício ${guidedState.index + 1}/${total}`;
       guidedBody.innerHTML = `
-        <div class="guided-ex-name">${escapeHtml(ex.nome)}</div>
-        <div class="guided-badge-row">
-          <span class="badge badge-blue">📊 ${escapeHtml(ex.series)} × ${escapeHtml(ex.reps)}</span>
-          <span class="badge badge-orange">⏱ ${escapeHtml(formatRest(ex.descanso))}</span>
-        </div>
-        <div class="tech-note">${escapeHtml(ex.tech)}</div>
-        ${(state.exerciseNotes && state.exerciseNotes[ex.id]) ? `<div class="tech-note" style="border-left:3px solid var(--cyan);">📝 ${escapeHtml(state.exerciseNotes[ex.id])}</div>` : ''}
-        ${lastTimeHtml}
-        <div class="weight-row" style="margin-top:14px;">
-          <label for="guidedWeightInput">Peso:</label>
-          <input type="number" id="guidedWeightInput" class="weight-input" inputmode="decimal" placeholder="${escapeHtml(lastEntry ? lastEntry.weight : '0')}" value="${escapeHtml(weight)}" min="0" max="1000" step="0.1" />
-          <span class="weight-unit">kg</span>
-        </div>
-        <div class="sets-row">
-          ${Array.from({length: ex.series}, (_, i) => `
-            <button class="set-btn js-guided-set ${doneArr[i] ? 'done' : ''}" type="button" data-set-index="${i}">${i+1}</button>
-          `).join('')}
-          <button class="rest-btn js-guided-rest" type="button">⏱ Timer</button>
-        </div>
-        <div class="guided-nav-row">
-          <button class="guided-prev-btn js-guided-prev" type="button" ${guidedState.index === 0 ? 'disabled' : ''}>← Anterior</button>
-          <button class="guided-next-btn js-guided-next ${allDone ? 'ready' : ''}" type="button">
-            ${guidedState.index === total - 1 ? 'Finalizar ✓' : (allDone ? 'Próximo →' : 'Pular →')}
-          </button>
+        <div class="guided-workout-shell">
+          <div class="guided-activity-chip">Atividade ${guidedState.index + 1}</div>
+          <article class="guided-activity-card" aria-labelledby="guidedExerciseTitle">
+            <div class="guided-media-card">
+              <div class="guided-media-visual" role="img" aria-label="Ilustração abstrata da atividade">
+                <span class="guided-art-mark">▶</span>
+              </div>
+              <div class="guided-media-copy">
+                <div class="guided-muscle-label">${escapeHtml(workout ? workout.nome.split('+')[0].trim() : 'Treino')}</div>
+                <h2 class="guided-ex-name" id="guidedExerciseTitle">${escapeHtml(ex.nome)}</h2>
+                <button class="guided-video-btn js-guided-video" type="button">▷ Ver instruções</button>
+              </div>
+            </div>
+            <div class="guided-record ${personalRecord ? '' : 'empty'}">★ Recorde pessoal: ${personalRecord ? `${escapeHtml(personalRecord)} kg` : 'sem registro'}</div>
+            <div class="guided-section-label">Progressão de carga</div>
+            <div class="guided-metric-grid">
+              <div class="guided-metric">Repetições<strong>${escapeHtml(ex.reps)}</strong></div>
+              <div class="guided-metric">Descanso<strong>${escapeHtml(formatRest(ex.descanso))}</strong></div>
+              <div class="guided-metric">Técnica<strong>${escapeHtml(ex.tech.split('•')[0].trim())}</strong></div>
+            </div>
+            <div class="guided-load-row">
+              <label class="guided-load-label" for="guidedWeightInput">Carga atual</label>
+              <input type="number" id="guidedWeightInput" class="guided-load-input" inputmode="decimal" placeholder="${escapeHtml(lastEntry ? lastEntry.weight : '0')}" value="${escapeHtml(weight)}" min="0" max="1000" step="0.1" aria-describedby="guidedLoadHint" />
+              <span class="guided-load-label">kg</span>
+            </div>
+            <div class="guided-load-label" id="guidedLoadHint" style="text-align:center;margin-bottom:12px;">${escapeHtml(ex.tech)}</div>
+            <div class="guided-set-head" aria-hidden="true"><span>Série</span><span>Reps</span><span>Último treino</span><span></span></div>
+            <div class="guided-set-list">
+              ${Array.from({length: ex.series}, (_, i) => `
+                <button class="guided-set-row js-guided-set ${doneArr[i] ? 'done' : ''}" type="button" data-set-index="${i}" aria-pressed="${doneArr[i] ? 'true' : 'false'}" aria-label="Marcar série ${i + 1} de ${escapeHtml(ex.nome)}">
+                  <span class="guided-set-number">${i + 1}</span>
+                  <span class="guided-set-value">${escapeHtml(ex.reps)}</span>
+                  <span class="guided-set-value">${escapeHtml(previousAttempt)}</span>
+                  <span class="guided-set-status" aria-hidden="true">✓</span>
+                </button>
+              `).join('')}
+            </div>
+            <div class="guided-history-card">
+              <span class="guided-history-icon" aria-hidden="true">↶</span>
+              <div><span class="guided-history-title">Histórico da atividade</span><span class="guided-history-detail">${lastEntry ? `Último registro: ${escapeHtml(lastEntry.weight)} kg • Semana ${escapeHtml(lastEntry.week)}` : 'Marque séries e registre a carga para criar seu histórico.'}</span></div>
+            </div>
+            <div class="guided-nav-row">
+              <button class="guided-prev-btn js-guided-prev" type="button" ${guidedState.index === 0 ? 'disabled' : ''}>← Anterior</button>
+              <button class="guided-next-btn js-guided-next ${allDone ? 'ready' : ''}" type="button">${guidedState.index === total - 1 ? 'Finalizar ✓' : (allDone ? 'Próximo →' : 'Pular →')}</button>
+            </div>
+          </article>
         </div>
       `;
       const guidedWeight = guidedBody.querySelector('#guidedWeightInput');
@@ -2629,15 +2760,20 @@
       guidedBody.querySelectorAll('.js-guided-set').forEach((button) => {
         button.addEventListener('click', () => toggleSet(ex.id, Number(button.dataset.setIndex), ex.descanso, guidedState.treinoId));
       });
-      guidedBody.querySelector('.js-guided-rest').addEventListener('click', () => startTimer(ex.descanso));
+      guidedBody.querySelector('.js-guided-video').addEventListener('click', () => showToast('Instrução em vídeo poderá ser adicionada ao exercício no próximo passo.'));
       guidedBody.querySelector('.js-guided-prev').addEventListener('click', () => guidedGoTo(guidedState.index - 1));
       guidedBody.querySelector('.js-guided-next').addEventListener('click', () => guidedGoTo(guidedState.index + 1));
+      updateGuidedSessionChrome();
     }
 
     function renderGuidedComplete() {
       if (guidedState.advanceTimeout) clearTimeout(guidedState.advanceTimeout);
       document.getElementById('guidedProgressFill').style.width = '100%';
-      document.getElementById('guidedProgressLabel').textContent = 'Concluído';
+      document.getElementById('guidedTitle').textContent = 'Concluído';
+      const workout = treinosMap()[guidedState.treinoId];
+      const workoutLabel = document.getElementById('guidedWorkoutLabel');
+      if (workoutLabel) workoutLabel.textContent = workout ? `Treino ${workout.id} concluído` : 'Treino concluído';
+      document.getElementById('guidedSegmentTrack').innerHTML = guidedState.exercises.map((ex, i) => `<span class="guided-segment done" title="Exercício ${i + 1}"></span>`).join('');
       const guidedBody = document.getElementById('guidedBody');
       guidedBody.innerHTML = `
         <div class="guided-complete-banner">
@@ -2648,6 +2784,7 @@
         </div>
       `;
       guidedBody.querySelector('.js-exit-guided').addEventListener('click', exitGuided);
+      requestAnimationFrame(() => guidedBody.querySelector('.js-exit-guided')?.focus());
     }
 
     // ===================== BACKUP / RESTORE (JSON) =====================
@@ -5040,6 +5177,13 @@
     window.addEventListener('online', updateNetworkStatus);
     window.addEventListener('offline', updateNetworkStatus);
     updateNetworkStatus();
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && guidedState.active) {
+        event.preventDefault();
+        exitGuided();
+      }
+    });
 
     // ===================== OFFLINE (SERVICE WORKER) =====================
     if ('serviceWorker' in navigator) {

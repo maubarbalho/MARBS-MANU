@@ -30,3 +30,16 @@ A recarga final manteve a inicialização sem erros. A captura visual não mostr
 ## Smoke tests do navegador
 
 O service worker foi registrado com escopo na raiz local. A validação aceitou uma Base URL HTTPS, rejeitou HTTP público, aceitou a data atual e rejeitou uma data impossível. Esses testes foram executados diretamente no contexto carregado da aplicação.
+
+## Atualização — novo treino guiado
+
+- O botão `Iniciar treino guiado` foi movido para dentro do cabeçalho de cada card, imediatamente abaixo do tipo/foco do treino.
+- Os quatro cards (A, B, C e D) exibem o novo botão no navegador.
+- O primeiro smoke test encontrou uma referência antiga a `guidedProgressLabel`, corrigida para `guidedTitle`; após a correção, o cartão passou a renderizar normalmente.
+- A nova janela foi verificada visualmente com atividade, exercício, carga atual, recorde pessoal, séries marcáveis, histórico, navegação e progresso segmentado.
+- Uma série foi acionada no modo guiado; o estado visual e a persistência foram atualizados sem erros no console.
+- O layout é gerado pelo mesmo fluxo para todos os treinos, usando os dados do exercício selecionado.
+- O teste visual ocorreu em `http://127.0.0.1:8765/index.html` em 20/08/2026.
+
+- O smoke test final iniciou o Treino D diretamente e confirmou diálogo ativo, título `Exercício 1/9`, identificação `Treino D • Ombros, Bíceps, Tríceps` e quatro séries renderizadas.
+- Após a correção, `node --check` aprovou o service worker, o manifesto foi aprovado por parsing JSON e o JavaScript embutido foi extraído sem falha sintática.
