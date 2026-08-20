@@ -1125,6 +1125,40 @@
       .guided-set-row.done { background: rgba(48,209,88,0.14); }
     }
 
+    /* ===== Configuração: hub e janelas internas ===== */
+    .config-page { padding-bottom: 8px; }
+    .config-page-intro { color: var(--text-muted); font-size: 0.84rem; line-height: 1.45; margin: -4px 2px 16px; }
+    .config-option-list { display: grid; gap: 10px; }
+    .config-option {
+      width: 100%; display: flex; align-items: center; gap: 12px; text-align: left;
+      padding: 14px 15px; border: 1px solid var(--border); border-radius: 16px;
+      background: var(--bg-card); color: var(--text); cursor: pointer; box-shadow: var(--ios-shadow, 0 1px 3px rgba(0,0,0,.08));
+    }
+    .config-option:active { background: var(--control-bg); transform: scale(.99); }
+    .config-option-icon { width: 38px; height: 38px; display: grid; place-items: center; flex: 0 0 38px; border-radius: 11px; background: var(--primary); color: #fff; font-size: 1.1rem; }
+    .config-option-copy { min-width: 0; flex: 1; }
+    .config-option-title { display: block; font-size: .96rem; font-weight: 750; }
+    .config-option-desc { display: block; margin-top: 3px; color: var(--text-muted); font-size: .76rem; line-height: 1.35; }
+    .config-option-chevron { color: var(--text-muted); font-size: 1.2rem; }
+    .config-source-staging { display: none; }
+    #configOverlay { z-index: 450; }
+    #configWindowBody { width: 100%; max-width: 680px; max-height: min(88vh, 900px); overflow-y: auto; overscroll-behavior: contain; background: var(--bg); border-radius: 22px 22px 0 0; padding: 18px 16px calc(20px + var(--safe-bottom)); }
+    #configWindowBody > .page.config-page-source { display: block !important; padding: 0; }
+    #configWindowBody > .page.config-page-source > .content { padding: 0; }
+    #configWindowBody > .page.config-page-source .about-section { margin-bottom: 18px; }
+    .config-window-header { width: 100%; max-width: 680px; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 16px 10px; background: var(--bg); border-radius: 22px 22px 0 0; }
+    .config-window-header::before { content: ''; position: absolute; width: 36px; height: 5px; border-radius: 999px; background: #c7c7cc; top: 8px; left: 50%; transform: translateX(-50%); }
+    .config-window-title { font-size: 1.05rem; font-weight: 750; padding-top: 6px; }
+    .config-window-subtitle { color: var(--text-muted); font-size: .72rem; margin-top: 2px; }
+    .config-window-close { border: 0; border-radius: 999px; min-width: 72px; padding: 8px 12px; background: var(--control-bg); color: var(--primary); font-weight: 700; cursor: pointer; }
+    .config-excel-card { margin: 0 0 14px; padding: 14px; border: 1px solid color-mix(in srgb, var(--primary) 22%, var(--border)); border-radius: 16px; background: color-mix(in srgb, var(--primary) 6%, var(--bg-card)); }
+    .config-excel-card h3 { font-size: .95rem; margin-bottom: 5px; }
+    .config-excel-card p { color: var(--text-muted); font-size: .78rem; line-height: 1.45; margin-bottom: 10px; }
+    @media (min-width: 700px) {
+      #configOverlay { align-items: center; }
+      #configWindowBody { border-radius: 0 0 22px 22px; }
+      .config-window-header { border-radius: 22px 22px 0 0; }
+    }
   </style>
 </head>
 <body>
@@ -1201,6 +1235,32 @@
     <!-- TREINOS -->
     <div class="page" id="page-treinos">
       <div id="treinosContainer"></div>
+    </div>
+
+    <!-- CONFIGURAÇÃO -->
+    <div class="page" id="page-config">
+      <div class="config-page">
+        <div class="section-title">Configuração</div>
+        <p class="config-page-intro">Acesse progresso, plano do personal e informações do MARSB-GYM em janelas separadas.</p>
+        <div class="config-option-list" role="list">
+          <button type="button" class="config-option" data-config-window="progresso" onclick="openConfigWindow('progresso', this)">
+            <span class="config-option-icon" aria-hidden="true">▥</span>
+            <span class="config-option-copy"><span class="config-option-title">Progresso</span><span class="config-option-desc">Estatísticas, histórico, preferências e backups.</span></span>
+            <span class="config-option-chevron" aria-hidden="true">›</span>
+          </button>
+          <button type="button" class="config-option" data-config-window="plano" onclick="openConfigWindow('plano', this)">
+            <span class="config-option-icon" aria-hidden="true">☷</span>
+            <span class="config-option-copy"><span class="config-option-title">Plano</span><span class="config-option-desc">Editar, importar e exportar treinos do personal.</span></span>
+            <span class="config-option-chevron" aria-hidden="true">›</span>
+          </button>
+          <button type="button" class="config-option" data-config-window="sobre" onclick="openConfigWindow('sobre', this)">
+            <span class="config-option-icon" aria-hidden="true">ⓘ</span>
+            <span class="config-option-copy"><span class="config-option-title">Sobre</span><span class="config-option-desc">Estrutura do programa e instruções de uso.</span></span>
+            <span class="config-option-chevron" aria-hidden="true">›</span>
+          </button>
+        </div>
+        <div id="configSourceStaging" class="config-source-staging" aria-hidden="true"></div>
+      </div>
     </div>
 
     <!-- PROGRESSO -->
@@ -1520,6 +1580,11 @@
     <div class="page" id="page-plano">
     <div class="content">
       <div class="section-title">Plano do Personal</div>
+      <div class="config-excel-card">
+        <h3>Planilha Excel para importar treino</h3>
+        <p>Baixe o modelo, preencha as linhas dos treinos A–D e importe a planilha preenchida. Cada linha representa um exercício.</p>
+        <button class="btn-action" type="button" onclick="downloadPlanoExcelTemplate()">Baixar modelo Excel (.xlsx)</button>
+      </div>
 
       <div class="calc-card">
         <h3>📋 Editor de treinos</h3>
@@ -1588,8 +1653,10 @@
         <div style="display:flex;flex-direction:column;gap:8px;margin-top:8px;">
           <button class="btn-action primary" onclick="planoSaveProgram()">Salvar plano no app</button>
           <button class="btn-action" onclick="planoExportText()">Exportar texto (.txt) para enviar</button>
-          <button class="btn-action" onclick="document.getElementById('planoFile').click()">Importar arquivo .txt</button>
+          <button class="btn-action" onclick="document.getElementById('planoFile').click()">Importar texto ou JSON</button>
+          <button class="btn-action primary" onclick="document.getElementById('planoExcelFile').click()">Importar planilha Excel</button>
           <input type="file" id="planoFile" accept=".txt,text/plain,.json,application/json" style="display:none;" onchange="planoOnFileChosen(event)" />
+          <input type="file" id="planoExcelFile" accept=".xlsx,.xls,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel" style="display:none;" onchange="planoOnExcelChosen(event)" />
           <button class="btn-action danger" onclick="resetPlanoPadrao()">Voltar ao treino padrão</button>
         </div>
       </div>
@@ -1600,7 +1667,7 @@
           1. Preencha nome do plano e monte os treinos A–D no editor<br>
           2. Toque em <strong>Salvar plano no app</strong><br>
           3. Toque em <strong>Exportar texto</strong> e envie o arquivo (WhatsApp, e-mail…)<br>
-          4. O aluno abre a aba <strong>Plano</strong> → Importar arquivo → pronto
+          4. O aluno abre <strong>Configuração → Plano</strong> → Importar planilha Excel → pronto
         </p>
       </div>
     </div>
@@ -1643,9 +1710,7 @@
       <button class="nav-item" data-page="calc"><span class="nav-icon" aria-hidden="true">＋÷</span><span>Calc</span></button>
       <button class="nav-item" data-page="dieta"><span class="nav-icon" aria-hidden="true">◒</span><span>Dieta</span></button>
       <button class="nav-item" data-page="ai"><span class="nav-icon" aria-hidden="true">✦</span><span>Coach</span></button>
-      <button class="nav-item" data-page="progresso"><span class="nav-icon" aria-hidden="true">▥</span><span>Prog.</span></button>
-      <button class="nav-item" data-page="plano"><span class="nav-icon" aria-hidden="true">☷</span><span>Plano</span></button>
-      <button class="nav-item" data-page="sobre"><span class="nav-icon" aria-hidden="true">ⓘ</span><span>Sobre</span></button>
+    <button class="nav-item" data-page="config"><span class="nav-icon" aria-hidden="true">⚙</span><span>Config.</span></button>
     </div>
   </nav>
 
@@ -1774,6 +1839,18 @@
     </div>
   </div>
 
+  <!-- CONFIGURATION WINDOW OVERLAY -->
+  <div class="modal-overlay config-overlay" id="configOverlay" role="dialog" aria-modal="true" aria-labelledby="configWindowTitle" aria-describedby="configWindowSubtitle" tabindex="-1" onclick="if(event.target === this) closeConfigWindow()">
+    <div class="config-window-header">
+      <div>
+        <div class="config-window-title" id="configWindowTitle">Configuração</div>
+        <div class="config-window-subtitle" id="configWindowSubtitle">MARSB-GYM</div>
+      </div>
+      <button type="button" class="config-window-close" onclick="closeConfigWindow()">Fechar</button>
+    </div>
+    <div id="configWindowBody"></div>
+  </div>
+
   <!-- GUIDED MODE OVERLAY -->
   <div class="guided-overlay" id="guidedOverlay" role="dialog" aria-modal="true" aria-labelledby="guidedTitle" aria-describedby="guidedBody" tabindex="-1">
     <div class="guided-header">
@@ -1792,6 +1869,7 @@
   </div>
 
   <script src="https://js.puter.com/v2/"></script>
+  <script src="xlsx.full.min.js"></script>
   <script>
     // ===================== DATA =====================
     const TREINOS_BASE = {
@@ -3093,7 +3171,58 @@
       document.getElementById('importFileInput').value = '';
     }
 
+    let configWindowState = { kind: null, source: null, parent: null, next: null, returnFocus: null };
+
+    const CONFIG_WINDOW_META = {
+      progresso: { title: 'Progresso', subtitle: 'Estatísticas, histórico, preferências e backups' },
+      plano: { title: 'Plano do personal', subtitle: 'Editar, importar e exportar treinos' },
+      sobre: { title: 'Sobre o MARSB-GYM', subtitle: 'Estrutura do programa e instruções de uso' }
+    };
+
+    function openConfigWindow(kind, trigger) {
+      const meta = CONFIG_WINDOW_META[kind];
+      const source = document.getElementById('page-' + kind);
+      const body = document.getElementById('configWindowBody');
+      const overlay = document.getElementById('configOverlay');
+      if (!meta || !source || !body || !overlay) return;
+      if (configWindowState.kind) closeConfigWindow();
+
+      configWindowState = {
+        kind: kind,
+        source: source,
+        parent: source.parentNode,
+        next: source.nextSibling,
+        returnFocus: trigger instanceof HTMLElement ? trigger : document.activeElement
+      };
+      body.appendChild(source);
+      source.classList.add('config-page-source');
+      document.getElementById('configWindowTitle').textContent = meta.title;
+      document.getElementById('configWindowSubtitle').textContent = meta.subtitle;
+      if (kind === 'progresso') {
+        renderPeriod(); renderHistory(); updateStats(); syncPrefToggles();
+      }
+      if (kind === 'plano') initPlanoPage();
+      overlay.classList.add('show');
+      requestAnimationFrame(() => overlay.focus({ preventScroll: true }));
+    }
+
+    function closeConfigWindow() {
+      const current = configWindowState;
+      const overlay = document.getElementById('configOverlay');
+      if (!current.kind || !current.source || !current.parent) {
+        overlay?.classList.remove('show');
+        return;
+      }
+      current.source.classList.remove('config-page-source');
+      if (current.next && current.next.parentNode === current.parent) current.parent.insertBefore(current.source, current.next);
+      else current.parent.appendChild(current.source);
+      overlay?.classList.remove('show');
+      configWindowState = { kind: null, source: null, parent: null, next: null, returnFocus: null };
+      if (current.returnFocus && document.contains(current.returnFocus)) current.returnFocus.focus({ preventScroll: true });
+    }
+
     function switchPage(page) {
+      if (configWindowState.kind) closeConfigWindow();
       currentPage = page;
       document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
       document.getElementById(`page-${page}`).classList.add('active');
@@ -4391,6 +4520,133 @@
       showToast('Arquivo de texto exportado');
     }
 
+    function downloadPlanoExcelTemplate() {
+      if (!window.XLSX) { showToast('Biblioteca Excel indisponível. Recarregue o app.'); return; }
+      var map = treinosMap();
+      var rows = [['Treino', 'Nome do treino', 'Foco', 'Exercício', 'Séries', 'Repetições', 'Descanso (seg)', 'Técnica / nota']];
+      ['A', 'B', 'C', 'D'].forEach(function (key) {
+        var treino = map[key] || {};
+        (treino.exercises || []).forEach(function (ex) {
+          rows.push([key, treino.nome || ('Treino ' + key), treino.foco || '', ex.nome || '', ex.series || 3, ex.reps || '8 a 12', ex.descanso != null ? ex.descanso : 90, ex.tech || '']);
+        });
+      });
+      var ws = XLSX.utils.aoa_to_sheet(rows);
+      ws['!cols'] = [{ wch: 9 }, { wch: 28 }, { wch: 42 }, { wch: 42 }, { wch: 10 }, { wch: 14 }, { wch: 16 }, { wch: 34 }];
+      var instructions = XLSX.utils.aoa_to_sheet([
+        ['Como preencher a planilha do MARSB-GYM'],
+        ['Uma linha representa um exercício. Não apague a primeira linha de títulos.'],
+        ['Treino: use somente A, B, C ou D.'],
+        ['Séries: número inteiro entre 1 e 10. Descanso: segundos entre 0 e 600.'],
+        ['Depois de preencher, volte ao app e toque em Importar planilha Excel.']
+      ]);
+      instructions['!cols'] = [{ wch: 100 }];
+      var wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, 'Treinos');
+      XLSX.utils.book_append_sheet(wb, instructions, 'Instruções');
+      XLSX.writeFile(wb, 'plano-marsb-modelo.xlsx');
+      showToast('Modelo Excel baixado');
+    }
+
+    function parseExcelProgram(sheet) {
+      var rows = XLSX.utils.sheet_to_json(sheet, { header: 1, defval: '', raw: false });
+      if (!rows.length) throw new Error('A planilha está vazia');
+      function normalizeHeader(value) {
+        return String(value || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '');
+      }
+      var headers = rows[0].map(normalizeHeader);
+      function col(names, fallback) {
+        for (var i = 0; i < names.length; i++) {
+          var index = headers.indexOf(names[i]);
+          if (index >= 0) return index;
+        }
+        return fallback;
+      }
+      var c = {
+        key: col(['treino', 'letra', 'divisao'], 0),
+        name: col(['nomedotreino', 'treinonome'], 1),
+        focus: col(['foco', 'focodotreino'], 2),
+        exercise: col(['exercicio', 'nomeexercicio'], 3),
+        series: col(['series', 'nseries'], 4),
+        reps: col(['repeticoes', 'reps'], 5),
+        rest: col(['descansoseg', 'descanso', 'segundos'], 6),
+        tech: col(['tecnicanota', 'tecnica', 'nota'], 7)
+      };
+      var colors = { A: 'blue', B: 'green', C: 'orange', D: 'purple' };
+      var map = {};
+      ['A', 'B', 'C', 'D'].forEach(function (key) {
+        map[key] = { id: key, nome: 'Treino ' + key, foco: '', color: colors[key], exercises: [] };
+      });
+      rows.slice(1).forEach(function (row) {
+        var key = String(row[c.key] || '').trim().toUpperCase();
+        var exerciseName = boundedText(row[c.exercise], 120).trim();
+        if (!/^[ABCD]$/.test(key) || !exerciseName) return;
+        var treinoNome = boundedText(row[c.name], 120).trim();
+        var foco = boundedText(row[c.focus], 180).trim();
+        if (treinoNome) map[key].nome = treinoNome;
+        if (foco) map[key].foco = foco;
+        var series = Math.max(1, Math.min(10, parseInt(row[c.series], 10) || 3));
+        var descanso = Math.max(0, Math.min(600, parseInt(row[c.rest], 10) || 90));
+        map[key].exercises.push({
+          id: key.toLowerCase() + '_' + (map[key].exercises.length + 1),
+          nome: exerciseName,
+          series: series,
+          reps: boundedText(row[c.reps] || '8 a 12', 40),
+          descanso: descanso,
+          tech: boundedText(row[c.tech], 180).trim()
+        });
+      });
+      return map;
+    }
+
+    function planoOnExcelChosen(ev) {
+      var file = ev.target.files && ev.target.files[0];
+      if (!file) return;
+      if (file.size > 5 * 1024 * 1024) {
+        showToast('Planilha muito grande. O limite é 5 MB.');
+        ev.target.value = '';
+        return;
+      }
+      if (!window.XLSX) {
+        showToast('Biblioteca Excel indisponível. Recarregue o app.');
+        ev.target.value = '';
+        return;
+      }
+      var reader = new FileReader();
+      reader.onload = function (e) {
+        try {
+          var workbook = XLSX.read(new Uint8Array(e.target.result), { type: 'array' });
+          var firstSheet = workbook.SheetNames && workbook.SheetNames[0];
+          if (!firstSheet) throw new Error('Nenhuma aba encontrada');
+          var map = parseExcelProgram(workbook.Sheets[firstSheet]);
+          var err = validateProgramMap(map);
+          if (err) throw new Error(err);
+          state.customProgram = normalizeProgram(map);
+          var currentName = (document.getElementById('planoNome')?.value || '').trim();
+          var currentAuthor = (document.getElementById('planoAuthor')?.value || '').trim();
+          state.customProgramMeta = {
+            name: currentName || file.name.replace(/\\.(xlsx|xls)$/i, '') || 'Plano personalizado',
+            author: currentAuthor,
+            importedAt: new Date().toISOString()
+          };
+          state.customExercises = { A: [], B: [], C: [], D: [] };
+          planoDraft = cloneProgram(state.customProgram);
+          saveState();
+          updatePlanoStatus();
+          var pn = document.getElementById('planoNome');
+          var pa = document.getElementById('planoAuthor');
+          if (pn) pn.value = state.customProgramMeta.name || '';
+          if (pa) pa.value = state.customProgramMeta.author || '';
+          planoLoadFieldsFromDraft();
+          if (typeof renderQuickStart === 'function') renderQuickStart();
+          showToast('Planilha Excel importada!');
+        } catch (err) {
+          showToast('Não foi possível importar a planilha: ' + (err.message || err));
+        }
+        ev.target.value = '';
+      };
+      reader.readAsArrayBuffer(file);
+    }
+
     function planoOnFileChosen(ev) {
       var file = ev.target.files && ev.target.files[0];
       if (!file) return;
@@ -5436,6 +5692,11 @@
     updateNetworkStatus();
 
     document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && configWindowState.kind) {
+        event.preventDefault();
+        closeConfigWindow();
+        return;
+      }
       if (event.key === 'Escape' && guidedState.active) {
         event.preventDefault();
         exitGuided();
@@ -5498,7 +5759,8 @@
           document.getElementById('guidedOverlay')?.classList.contains('show') ||
           document.getElementById('exerciseModal')?.classList.contains('show') ||
           document.getElementById('chartModal')?.classList.contains('show') ||
-          document.getElementById('aiSettingsModal')?.classList.contains('show')
+          document.getElementById('aiSettingsModal')?.classList.contains('show') ||
+          document.getElementById('configOverlay')?.classList.contains('show')
         );
       }
 
