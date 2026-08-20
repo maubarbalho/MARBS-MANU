@@ -1154,10 +1154,56 @@
     .config-excel-card { margin: 0 0 14px; padding: 14px; border: 1px solid color-mix(in srgb, var(--primary) 22%, var(--border)); border-radius: 16px; background: color-mix(in srgb, var(--primary) 6%, var(--bg-card)); }
     .config-excel-card h3 { font-size: .95rem; margin-bottom: 5px; }
     .config-excel-card p { color: var(--text-muted); font-size: .78rem; line-height: 1.45; margin-bottom: 10px; }
+
+    /* Configuração em tela inteira no iPhone: header e conteúdo em coluna, sem corte lateral */
+    body.config-window-open { overflow: hidden; }
+    #configOverlay.modal-overlay {
+      flex-direction: column;
+      align-items: stretch;
+      justify-content: flex-start;
+      width: 100%;
+      height: var(--app-height, 100dvh);
+      min-height: 100svh;
+      padding: 0;
+      background: var(--bg);
+    }
+    #configOverlay.modal-overlay.show { display: flex; }
+    #configOverlay .config-window-header {
+      flex: 0 0 auto;
+      width: 100%;
+      max-width: none;
+      border-radius: 0;
+      padding: calc(14px + var(--safe-top)) 16px 12px;
+    }
+    #configOverlay #configWindowBody {
+      flex: 1 1 auto;
+      width: 100%;
+      max-width: none;
+      min-height: 0;
+      height: auto;
+      max-height: none;
+      border-radius: 0;
+      padding: 18px 16px calc(28px + var(--safe-bottom));
+      overscroll-behavior: contain;
+      -webkit-overflow-scrolling: touch;
+    }
+    #configOverlay #configWindowBody > .page.config-page-source { min-height: 100%; }
+
     @media (min-width: 700px) {
-      #configOverlay { align-items: center; }
-      #configWindowBody { border-radius: 0 0 22px 22px; }
-      .config-window-header { border-radius: 22px 22px 0 0; }
+      #configOverlay.modal-overlay {
+        align-items: center;
+        justify-content: center;
+        background: rgba(0,0,0,0.65);
+      }
+      #configOverlay .config-window-header,
+      #configOverlay #configWindowBody { max-width: 760px; }
+      #configOverlay .config-window-header { border-radius: 22px 22px 0 0; }
+      #configOverlay #configWindowBody {
+        flex: 0 1 auto;
+        width: min(760px, 100%);
+        max-height: 78vh;
+        border-radius: 0 0 22px 22px;
+      }
     }
   </style>
 </head>
@@ -3202,6 +3248,7 @@
         renderPeriod(); renderHistory(); updateStats(); syncPrefToggles();
       }
       if (kind === 'plano') initPlanoPage();
+      document.body.classList.add('config-window-open');
       overlay.classList.add('show');
       requestAnimationFrame(() => overlay.focus({ preventScroll: true }));
     }
@@ -3211,12 +3258,14 @@
       const overlay = document.getElementById('configOverlay');
       if (!current.kind || !current.source || !current.parent) {
         overlay?.classList.remove('show');
+        document.body.classList.remove('config-window-open');
         return;
       }
       current.source.classList.remove('config-page-source');
       if (current.next && current.next.parentNode === current.parent) current.parent.insertBefore(current.source, current.next);
       else current.parent.appendChild(current.source);
       overlay?.classList.remove('show');
+      document.body.classList.remove('config-window-open');
       configWindowState = { kind: null, source: null, parent: null, next: null, returnFocus: null };
       if (current.returnFocus && document.contains(current.returnFocus)) current.returnFocus.focus({ preventScroll: true });
     }
@@ -5219,6 +5268,67 @@
       return { plates: plates, remainder: left };
     }
 
+    // Alternativa 1: anilhas maiores e equilibradas.
+    // Procura primeiro soluções exatas; dentro delas prefere menos peças,
+    // mais unidades do mesmo peso e, depois, maior peso dominante.
+    function plateSolvePreferred(perSide, dens) {
+      var candidates = [];
+      var maxPlates = Math.min(12, Math.floor(perSide / 0.5) + 1);
+
+      function visit(index, left, plates) {
+        left = plateRound(left);
+        if (left <= 0.05) {
+          var counts = {};
+          for (var c = 0; c < plates.length; c++) counts[plates[c]] = (counts[plates[c]] || 0) + 1;
+          var types = Object.keys(counts).map(Number);
+          var dominant = 0;
+          var dominantCount = 0;
+          var heavyMass = 0;
+          for (var t = 0; t < types.length; t++) {
+            var weight = types[t];
+            var count = counts[weight];
+            heavyMass += weight * count;
+            if (count > dominantCount || (count === dominantCount && weight > dominant)) {
+              dominant = weight;
+              dominantCount = count;
+            }
+          }
+          candidates.push({
+            plates: plates.slice().sort(function (a, b) { return b - a; }),
+            remainder: left,
+            count: plates.length,
+            types: types.length,
+            dominant: dominant,
+            dominantCount: dominantCount,
+            heavyMass: heavyMass
+          });
+          return;
+        }
+        if (index >= dens.length || plates.length >= maxPlates || left < 0.5) return;
+        for (var i = index; i < dens.length; i++) {
+          var d = dens[i];
+          if (d > left + 1e-9) continue;
+          plates.push(d);
+          visit(i, left - d, plates);
+          plates.pop();
+        }
+      }
+
+      visit(0, perSide, []);
+      if (!candidates.length) return plateSolveBalanced(perSide, dens);
+      candidates.sort(function (a, b) {
+        if (Math.abs(a.remainder - b.remainder) > 0.001) return a.remainder - b.remainder;
+        if (a.count !== b.count) return a.count - b.count;
+        if (a.dominant !== b.dominant) return b.dominant - a.dominant;
+        if (a.dominantCount !== b.dominantCount) return b.dominantCount - a.dominantCount;
+        if (a.types !== b.types) return a.types - b.types;
+        return b.heavyMass - a.heavyMass;
+      });
+      return candidates[0];
+    }
+
+    // Equal weights: legacy helper kept for compatible saved plans.
+    // The visible Alternative 1 now uses plateSolvePreferred above.
     // Equal weights: force at least 2 plates of the SAME size when possible
     function plateSolveEqual(perSide, dens) {
       var best = null;
@@ -5356,17 +5466,17 @@
       var perSide = plateRound((target - bar) / 2);
       var dens = [25, 20, 15, 10, 5, 2.5, 1.25, 1, 0.5];
 
-      var equalSol = plateSolveEqual(perSide, dens);
+      var preferredSol = plateSolvePreferred(perSide, dens);
       var greedySol = plateSolveGreedy(perSide, dens);
       var balancedSol = plateSolveBalanced(perSide, dens);
 
       // Alt1 = equal weights; Alt2 = classic greedy (or balanced if greedy equals equal)
       var pool = [
         {
-          title: 'Alternativa 1 — pesos iguais',
-          subtitle: 'Usa várias anilhas do mesmo peso (ex.: 2×20 ou 4×10) para equilibrar melhor',
-          plates: equalSol.plates,
-          remainder: equalSol.remainder
+          title: 'Alternativa 1 — anilhas maiores e equilibradas',
+          subtitle: 'Prioriza anilhas pesadas, repetidas e com menos peças por lado',
+          plates: preferredSol.plates,
+          remainder: preferredSol.remainder
         },
         {
           title: 'Alternativa 2 — anilhas maiores',
@@ -5403,7 +5513,7 @@
       }
 
       // Fix titles
-      alts[0].title = 'Alternativa 1 — pesos iguais';
+      alts[0].title = 'Alternativa 1 — anilhas maiores e equilibradas';
       if (platesKey(alts[0].plates) !== platesKey(alts[1].plates)) {
         alts[1].title = alts[1].title.indexOf('maiores') >= 0
           ? 'Alternativa 2 — anilhas maiores'
@@ -5428,7 +5538,7 @@
           alts[a].remainder
         );
       }
-      html += '<p class="calc-hint">Coloque a mesma combinação nos dois lados da barra. A alternativa 1 tenta repetir o mesmo peso de anilha; a 2 busca outra distribuição.</p>';
+      html += '<p class="calc-hint">Coloque a mesma combinação nos dois lados da barra. A alternativa 1 prioriza anilhas maiores e combinações equilibradas; a 2 busca outra distribuição.</p>';
       box.innerHTML = html;
     }
 
@@ -5709,6 +5819,18 @@
         navigator.serviceWorker.register('sw.js').catch(() => {});
       });
     }
+
+    // ===================== DYNAMIC VIEWPORT (iPhone / standalone PWA) =====================
+    (function () {
+      function syncAppViewport() {
+        const height = Math.round((window.visualViewport && window.visualViewport.height) || window.innerHeight || 0);
+        if (height > 0) document.documentElement.style.setProperty('--app-height', height + 'px');
+      }
+      syncAppViewport();
+      window.addEventListener('resize', syncAppViewport, { passive: true });
+      window.addEventListener('orientationchange', () => setTimeout(syncAppViewport, 180), { passive: true });
+      if (window.visualViewport) window.visualViewport.addEventListener('resize', syncAppViewport, { passive: true });
+    })();
 
     // ===================== HEADER AUTO-HIDE (iOS-friendly, all pages) =====================
     (function () {
