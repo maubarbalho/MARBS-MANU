@@ -1,4 +1,4 @@
-const CACHE_NAME = 'marsb-gym-v32';
+const CACHE_NAME = 'marsb-gym-v33';
 const APP_SHELL = [
   './',
   './index.html',

@@ -1140,6 +1140,9 @@
       .guided-set-row.done { background: rgba(48,209,88,0.14); }
     }
 
+    html[data-theme="light"] { color-scheme: light; --bg:#f2f2f7; --bg-card:#ffffff; --bg-elevated:#f8f8fa; --control-bg:#e5e5ea; --border:rgba(60,60,67,.18); --separator:rgba(60,60,67,.29); --text:#1c1c1e; --text-muted:#6c6c70; --primary:#007aff; --primary-dim:#0066d6; --accent:#34c759; --accent-dim:#248a3d; --warning:#ff9500; --danger:#ff3b30; --purple:#af52de; --cyan:#5ac8fa; }
+    html[data-theme="dark"] { color-scheme: dark; --bg:#000000; --bg-card:#1c1c1e; --bg-elevated:#2c2c2e; --control-bg:#2c2c2e; --border:rgba(84,84,88,.65); --separator:rgba(84,84,88,.65); --text:#f2f2f7; --text-muted:#98989d; --primary:#0a84ff; --primary-dim:#006ee6; --accent:#30d158; --accent-dim:#30d158; --warning:#ff9f0a; --danger:#ff453a; --purple:#bf5af2; --cyan:#64d2ff; }
+
     /* ===== Configuração: hub e janelas internas ===== */
     .config-page { padding-bottom: 8px; }
     .config-page-intro { color: var(--text-muted); font-size: 0.84rem; line-height: 1.45; margin: -4px 2px 16px; }
@@ -1178,6 +1181,19 @@
     .config-profile-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 4px 0 6px; }
     .config-profile-actions .btn-action { margin-bottom: 0; }
     .config-profile-hint { color: var(--text-muted); font-size: .72rem; line-height: 1.4; margin: 4px 0 12px; }
+    .config-panel { padding: 2px 0 12px; }
+    .config-status-card { display: grid; gap: 4px; margin: 0 0 12px; padding: 14px; border: 1px solid var(--border); border-radius: 16px; background: var(--bg-card); }
+    .config-status-card strong { font-size: .9rem; }
+    .config-status-card span { color: var(--text-muted); font-size: .78rem; line-height: 1.45; }
+    .config-status-card.warning { border-color: color-mix(in srgb, #ff9f0a 45%, var(--border)); background: color-mix(in srgb, #ff9f0a 8%, var(--bg-card)); }
+    .coach-context-bar { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin: 0 0 10px; }
+    .coach-context-bar label { color: var(--text-muted); font-size: .75rem; font-weight: 700; }
+    .coach-context-bar select { flex: 1 1 180px; min-width: 0; }
+    .coach-connection { color: var(--text-muted); font-size: .72rem; }
+    .coach-connection.ok { color: #30d158; }
+    .coach-connection.warn { color: #ff9f0a; }
+    .coach-privacy-note { margin: 0 0 14px; padding: 11px 12px; border-radius: 14px; color: var(--text-muted); background: color-mix(in srgb, var(--primary) 7%, var(--bg-card)); font-size: .74rem; line-height: 1.45; }
+    .coach-privacy-note strong { color: var(--text); }
 
     /* Configuração em tela inteira no iPhone: header e conteúdo em coluna, sem corte lateral */
     body.config-window-open { overflow: hidden; }
@@ -1229,6 +1245,61 @@
         border-radius: 0 0 22px 22px;
       }
     }
+    .daily-action-card, .weekly-progress-card { margin: 14px 0; padding: 16px; border: 1px solid color-mix(in srgb, var(--border) 78%, transparent); border-radius: 22px; background: color-mix(in srgb, var(--card) 93%, var(--accent) 7%); box-shadow: 0 8px 24px rgba(0,0,0,.06); }
+    .daily-action-card { border-left: 4px solid var(--accent); }
+    .daily-action-kicker { color: var(--accent); font-size: .7rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 5px; }
+    .daily-action-card h3, .weekly-progress-card h3 { margin: 0 0 6px; font-size: 1.05rem; }
+    .daily-action-card p, .weekly-note { color: var(--text-muted); font-size: .82rem; line-height: 1.45; margin: 0 0 12px; }
+    .daily-action-buttons { display: flex; flex-wrap: wrap; gap: 8px; }
+    .daily-action-buttons .btn-action { flex: 1 1 150px; }
+    .weekly-head { display:flex; align-items:flex-start; justify-content:space-between; gap:10px; }
+    .weekly-summary { color:var(--text-muted); font-size:.72rem; text-align:right; }
+    .weekly-bars { display:flex; align-items:flex-end; justify-content:space-between; gap:7px; height:100px; margin:14px 0 8px; }
+    .weekly-day { display:flex; flex:1; height:100%; flex-direction:column; align-items:center; justify-content:flex-end; gap:4px; color:var(--text-muted); font-size:.66rem; }
+    .weekly-day small { min-height:12px; font-size:.65rem; color:var(--accent); font-weight:800; }
+    .weekly-bar-track { width:100%; max-width:26px; height:70px; display:flex; align-items:flex-end; padding:2px; border-radius:12px; background:color-mix(in srgb, var(--bg) 80%, var(--accent) 20%); }
+    .weekly-bar-fill { width:100%; min-height:4px; border-radius:9px; background:linear-gradient(180deg, var(--accent), color-mix(in srgb, var(--accent) 55%, var(--cyan))); }
+    .weekly-note { margin:0; font-size:.74rem; }
+    .workout-filter-bar { display:flex; flex-wrap:wrap; gap:7px; align-items:center; margin:12px 0; padding:10px; border:1px solid var(--border); border-radius:16px; background:var(--card); }
+    .workout-filter-bar select, .workout-filter-bar input { flex:1 1 140px; min-width:0; }
+    .filter-chip { border:1px solid var(--border); border-radius:999px; background:var(--bg); color:var(--text-muted); padding:7px 10px; font-size:.72rem; font-weight:700; }
+    .filter-chip.active { color:var(--accent); border-color:var(--accent); background:color-mix(in srgb, var(--accent) 12%, var(--card)); }
+    .workout-summary-card { padding:13px 15px; margin:10px 0; border-radius:18px; background:color-mix(in srgb, var(--card) 88%, var(--cyan) 12%); border:1px solid color-mix(in srgb, var(--cyan) 30%, var(--border)); }
+    .workout-summary-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-top:9px; }
+    .workout-summary-metric { text-align:center; padding:8px 4px; border-radius:12px; background:color-mix(in srgb, var(--bg) 70%, transparent); }
+    .workout-summary-metric strong { display:block; font-size:1rem; color:var(--text); }
+    .workout-summary-metric span { display:block; font-size:.65rem; color:var(--text-muted); }
+    .last-performance { margin:7px 0; padding:8px 10px; border-left:3px solid var(--cyan); border-radius:8px; background:color-mix(in srgb, var(--cyan) 7%, transparent); color:var(--text-muted); font-size:.73rem; line-height:1.4; }
+    .series-meta-row { display:flex; flex-wrap:wrap; gap:7px; align-items:center; margin-top:8px; }
+    .rpe-field { display:flex; align-items:center; gap:5px; color:var(--text-muted); font-size:.7rem; }
+    .rpe-field select { width:64px; padding:6px 4px; }
+    .exercise-session-note { width:100%; min-height:35px; resize:vertical; margin-top:8px; padding:8px 10px; border:1px solid var(--border); border-radius:10px; background:var(--bg); color:var(--text); font:inherit; font-size:.74rem; }
+    .exercise-swap-btn { border:0; background:transparent; color:var(--accent); font-size:.72rem; font-weight:800; padding:5px; }
+    .calc-tabs, .coach-context-tabs, .config-sections { display:flex; gap:7px; overflow:auto; padding:3px 0 8px; margin:2px 0 10px; scrollbar-width:none; }
+    .calc-tabs button, .coach-context-tabs button, .config-sections button { flex:0 0 auto; border:1px solid var(--border); border-radius:999px; background:var(--card); color:var(--text-muted); padding:9px 13px; font:inherit; font-size:.75rem; font-weight:800; }
+    .calc-tabs button.active, .coach-context-tabs button.active, .config-sections button.active { color:var(--accent); border-color:var(--accent); background:color-mix(in srgb, var(--accent) 12%, var(--card)); }
+    .calc-panel[hidden], .config-panel[hidden] { display:none !important; }
+    .decision-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; margin-top:10px; }
+    .decision-card { padding:11px; border-radius:14px; background:var(--bg); border:1px solid var(--border); }
+    .decision-card strong { display:block; font-size:1rem; margin-bottom:3px; }
+    .decision-card span { display:block; color:var(--text-muted); font-size:.68rem; line-height:1.35; }
+    .estimate-warning { margin-top:10px; padding:10px 12px; border:1px solid color-mix(in srgb, var(--warning) 55%, var(--border)); border-radius:12px; background:color-mix(in srgb, var(--warning) 12%, var(--card)); color:var(--text); font-size:.74rem; line-height:1.4; }
+    .diet-meal-row, .shopping-row, .favorite-row { display:flex; align-items:center; gap:8px; padding:9px 0; border-bottom:1px solid color-mix(in srgb, var(--border) 65%, transparent); font-size:.78rem; }
+    .diet-meal-row:last-child, .shopping-row:last-child, .favorite-row:last-child { border-bottom:0; }
+    .diet-meal-row input[type="checkbox"] { width:18px; height:18px; accent-color:var(--accent); }
+    .diet-meal-row .meal-copy, .shopping-row .meal-copy, .favorite-row .meal-copy { flex:1; min-width:0; }
+    .meal-copy strong { display:block; }
+    .meal-copy small { color:var(--text-muted); }
+    .water-progress { height:10px; overflow:hidden; margin:9px 0; border-radius:999px; background:var(--bg); }
+    .water-progress > div { height:100%; border-radius:inherit; background:linear-gradient(90deg, var(--cyan), var(--accent)); }
+    .coach-notice { padding:10px 12px; margin:10px 0; border:1px solid color-mix(in srgb, var(--warning) 42%, var(--border)); border-radius:14px; background:color-mix(in srgb, var(--warning) 8%, var(--card)); color:var(--text-muted); font-size:.74rem; line-height:1.45; }
+    .ai-context-row { display:flex; gap:7px; overflow:auto; margin:8px 0 10px; }
+    .ai-context-row button { flex:0 0 auto; padding:7px 10px; border:1px solid var(--border); border-radius:999px; background:var(--card); color:var(--text-muted); font-size:.7rem; font-weight:800; }
+    .ai-context-row button.active { color:var(--accent); border-color:var(--accent); }
+    .config-section-card { padding:14px; margin:10px 0; border:1px solid var(--border); border-radius:18px; background:var(--card); }
+    .config-section-card h3 { margin:0 0 5px; font-size:.92rem; }
+    .config-section-card p { margin:0 0 10px; color:var(--text-muted); font-size:.74rem; line-height:1.4; }
+    @media (max-width:430px) { .workout-summary-grid { gap:5px; } .decision-grid { grid-template-columns:1fr 1fr; } }
   </style>
 </head>
 <body>
@@ -1264,6 +1335,8 @@
       </div>
       <div class="home-profile" id="homeProfile" hidden aria-live="polite"></div>
       <div class="quick-start" id="quickStart"></div>
+      <div id="dailyActionCard" class="daily-action-card" aria-live="polite"></div>
+      <div id="weeklyProgressCard" class="weekly-progress-card" aria-live="polite"></div>
 
       <div id="installBanner" class="install-banner">
         <p>Instale o <strong>MARSB-GYM</strong> na tela inicial para usar offline e em tela cheia.</p>
@@ -1305,6 +1378,15 @@
 
     <!-- TREINOS -->
     <div class="page" id="page-treinos">
+      <div class="workout-filter-bar" aria-label="Filtros de treinos">
+        <select id="workoutFilter" aria-label="Filtrar por treino">
+          <option value="all">Todos os treinos</option><option value="A">Treino A</option><option value="B">Treino B</option><option value="C">Treino C</option><option value="D">Treino D</option>
+        </select>
+        <input id="exerciseFilter" type="search" placeholder="Buscar exercício" aria-label="Buscar exercício" />
+        <button type="button" class="filter-chip active" id="filterPendingBtn">Pendentes</button>
+        <button type="button" class="filter-chip" id="filterAllBtn">Mostrar todos</button>
+      </div>
+      <div id="workoutSummary" class="workout-summary-card" aria-live="polite"></div>
       <div id="treinosContainer"></div>
     </div>
 
@@ -1332,6 +1414,36 @@
           <button type="button" class="config-option" data-config-window="sobre" onclick="openConfigWindow('sobre', this)">
             <span class="config-option-icon" aria-hidden="true">ⓘ</span>
             <span class="config-option-copy"><span class="config-option-title">Sobre</span><span class="config-option-desc">Estrutura do programa e instruções de uso.</span></span>
+            <span class="config-option-chevron" aria-hidden="true">›</span>
+          </button>
+          <button type="button" class="config-option" data-config-window="dados" onclick="openConfigWindow('dados', this)">
+            <span class="config-option-icon" aria-hidden="true">▣</span>
+            <span class="config-option-copy"><span class="config-option-title">Dados e backup</span><span class="config-option-desc">Status do armazenamento, exportação e restauração completa.</span></span>
+            <span class="config-option-chevron" aria-hidden="true">›</span>
+          </button>
+          <button type="button" class="config-option" data-config-window="aparencia" onclick="openConfigWindow('aparencia', this)">
+            <span class="config-option-icon" aria-hidden="true">◐</span>
+            <span class="config-option-copy"><span class="config-option-title">Aparência</span><span class="config-option-desc">Tema, contraste e preferência visual do app.</span></span>
+            <span class="config-option-chevron" aria-hidden="true">›</span>
+          </button>
+          <button type="button" class="config-option" data-config-window="notificacoes" onclick="openConfigWindow('notificacoes', this)">
+            <span class="config-option-icon" aria-hidden="true">◌</span>
+            <span class="config-option-copy"><span class="config-option-title">Notificações</span><span class="config-option-desc">Lembretes, timer automático e vibração.</span></span>
+            <span class="config-option-chevron" aria-hidden="true">›</span>
+          </button>
+          <button type="button" class="config-option" data-config-window="unidades" onclick="openConfigWindow('unidades', this)">
+            <span class="config-option-icon" aria-hidden="true">↔</span>
+            <span class="config-option-copy"><span class="config-option-title">Unidades</span><span class="config-option-desc">Quilogramas, libras, centímetros e polegadas.</span></span>
+            <span class="config-option-chevron" aria-hidden="true">›</span>
+          </button>
+          <button type="button" class="config-option" data-config-window="privacidade" onclick="openConfigWindow('privacidade', this)">
+            <span class="config-option-icon" aria-hidden="true">⌁</span>
+            <span class="config-option-copy"><span class="config-option-title">Privacidade</span><span class="config-option-desc">O que fica no dispositivo e o que pode ser enviado ao Coach.</span></span>
+            <span class="config-option-chevron" aria-hidden="true">›</span>
+          </button>
+          <button type="button" class="config-option" data-config-window="coach" onclick="openConfigWindow('coach', this)">
+            <span class="config-option-icon" aria-hidden="true">✦</span>
+            <span class="config-option-copy"><span class="config-option-title">Coach IA</span><span class="config-option-desc">Provedor, modelo, contexto e limites da assistência.</span></span>
             <span class="config-option-chevron" aria-hidden="true">›</span>
           </button>
         </div>
@@ -1428,6 +1540,8 @@
         <button type="button" class="ai-settings-btn" onclick="openAiSettings()">⚙ Config</button>
       </div>
 
+      <div class="coach-context-bar"><label for="coachContext">Contexto</label><select id="coachContext"><option value="treino">Treino atual e técnica</option><option value="progresso">Progresso e cargas</option><option value="dieta">Nutrição esportiva</option></select><span id="coachConnection" class="coach-connection">Verificando conexão…</span></div>
+      <div class="coach-privacy-note"><strong>Coach focado em academia.</strong> O contexto selecionado pode ser enviado ao provedor configurado. Não envie dados pessoais sensíveis. Em caso de dor intensa, lesão, sintomas ou dúvida médica, interrompa o treino e procure um profissional de saúde.</div>
       <div class="ai-layout">
         <div class="ai-quick" id="aiQuick">
           <button type="button" onclick="aiQuickAsk('Monte um aquecimento de 8 minutos para o treino de hoje')">Aquecimento</button>
@@ -1448,9 +1562,20 @@
 
     <!-- CALCULADORAS -->
     <div class="page" id="page-calc">
-      <div class="section-title" style="margin-top:4px;">Peso corporal</div>
+      <div class="calc-tabs" role="tablist" aria-label="Categorias de calculadoras">
+        <button type="button" class="active" data-calc-tab="body">Corpo</button>
+        <button type="button" data-calc-tab="nutrition">Nutrição</button>
+        <button type="button" data-calc-tab="training">Treino</button>
+      </div>
+      <div class="calc-preset-bar">
+        <label for="calcPresetSelect">Preset salvo</label>
+        <select id="calcPresetSelect"><option value="">Nenhum preset</option></select>
+        <input id="calcPresetName" type="text" maxlength="40" placeholder="Nome do preset" />
+        <button type="button" class="btn-action" onclick="saveCalcPreset()">Salvar</button>
+      </div>
+      <div class="section-title calc-section-title" data-calc-heading="body" style="margin-top:4px;">Peso corporal</div>
 
-      <div class="calc-card">
+      <div class="calc-card" data-calc-group="body">
         <h3>⚖ Acompanhamento de peso</h3>
         <p class="calc-desc">Registre seu peso para ver evolução, IMC e tendência. Ideal medir sempre nas mesmas condições (ex.: manhã, em jejum).</p>
 
@@ -1499,9 +1624,9 @@
         </div>
       </div>
 
-      <div class="section-title">Nutrição</div>
+      <div class="section-title calc-section-title" data-calc-heading="nutrition">Nutrição</div>
 
-      <div class="calc-card">
+      <div class="calc-card" data-calc-group="nutrition">
         <h3>🍽 Calorias & macros (hipertrofia)</h3>
         <p class="calc-desc">Estima gasto e macros com base no seu peso. Ajuste conforme evolução semanal (+0,25 a 0,5% do peso corporal/semana).</p>
 
@@ -1553,7 +1678,7 @@
         <div id="macroResult" class="calc-result" style="display:none;"></div>
       </div>
 
-      <div class="calc-card">
+      <div class="calc-card" data-calc-group="nutrition">
         <h3>🥗 Porções de comida (por peso)</h3>
         <p class="calc-desc">Referência prática de alimentos para bater proteína e calorias do cálculo acima (ou só com o peso).</p>
         <div class="form-field">
@@ -1563,9 +1688,9 @@
         <button class="btn-action primary" onclick="runFoodCalc()">Gerar porções</button>
         <div id="foodResult" class="calc-result" style="display:none;"></div>
       </div>
-<div class="section-title">Treino</div>
+<div class="section-title calc-section-title" data-calc-heading="training">Treino</div>
 
-      <div class="calc-card">
+      <div class="calc-card" data-calc-group="training">
         <h3>⚖️ Calculadora de anilhas</h3>
         <p class="calc-desc">Quanto colocar de cada lado para chegar na carga desejada.</p>
         <div class="form-row">
@@ -1586,7 +1711,7 @@
         <div id="plateResult" class="calc-result" style="display:none;"></div>
       </div>
 
-      <div class="calc-card">
+      <div class="calc-card" data-calc-group="training">
         <h3>📈 Progressão de carga</h3>
         <p class="calc-desc">Sugestão de aumento (+2% a +10%) para a semana de progressão.</p>
         <div class="form-row">
@@ -1606,6 +1731,16 @@
         </div>
         <button class="btn-action primary" onclick="runProgCalc()">Sugerir próxima carga</button>
         <div id="progResult" class="calc-result" style="display:none;"></div>
+      </div>
+
+      <div class="calc-card" data-calc-group="training">
+        <h3>🏋️ 1RM estimado e conversão</h3>
+        <p class="calc-desc">Use uma série submáxima para estimar sua repetição máxima. O resultado é uma referência, não um teste obrigatório.</p>
+        <div class="form-row"><div class="form-field"><label>Carga usada (kg)</label><input type="number" id="oneRmWeight" min="1" step="0.5" placeholder="80" /></div><div class="form-field"><label>Repetições</label><input type="number" id="oneRmReps" min="1" max="30" step="1" placeholder="8" /></div></div>
+        <button class="btn-action primary" type="button" onclick="runOneRmCalc()">Calcular 1RM</button>
+        <div id="oneRmResult" class="calc-result" style="display:none;"></div>
+        <div class="form-row" style="margin-top:12px;"><div class="form-field"><label>Conversão</label><input type="number" id="unitValue" min="0" step="0.1" placeholder="100" /></div><div class="form-field"><label>De / para</label><select id="unitFrom"><option value="kg-lb">kg → lb</option><option value="lb-kg">lb → kg</option><option value="cm-in">cm → in</option><option value="in-cm">in → cm</option></select></div></div>
+        <button class="btn-action" type="button" onclick="runUnitConversion()">Converter unidade</button><div id="unitResult" class="calc-result" style="display:none;"></div>
       </div>
     </div>
 
@@ -1667,6 +1802,18 @@
 
         <button class="btn-action primary" onclick="runMenuCalc()">Gerar dieta</button>
         <div id="menuResult" class="calc-result" style="display:none;"></div>
+      </div>
+
+      <div class="section-title">Diário alimentar</div>
+      <div class="calc-card diet-diary-card">
+        <div class="form-row"><div class="form-field"><label for="dietDate">Dia</label><input type="date" id="dietDate" /></div><div class="form-field"><label>Água registrada</label><div class="diet-water-input"><input type="number" id="dietWaterInput" min="100" max="5000" step="100" placeholder="250" /><button type="button" onclick="addDietWater()">+ ml</button></div></div></div>
+        <div class="diet-water-bar"><div class="diet-water-fill" id="dietWaterFill"></div></div><div class="diet-water-label" id="dietWaterLabel">0 ml registrados</div>
+        <div class="form-field"><label for="dietMealType">Adicionar refeição</label><div class="form-row" style="margin:0;"><select id="dietMealType"><option value="Café da manhã">Café da manhã</option><option value="Almoço">Almoço</option><option value="Lanche">Lanche</option><option value="Jantar">Jantar</option><option value="Pós-treino">Pós-treino</option></select><select id="dietFoodSelect"></select><input type="number" id="dietFoodGrams" min="1" max="3000" step="1" placeholder="g" /><button type="button" onclick="addDietMeal()">Adicionar</button></div></div>
+        <div id="dietDiaryList" class="diet-diary-list"></div>
+        <div class="diet-restriction-grid"><div class="form-field"><label for="dietRestrictions">Restrições alimentares</label><input id="dietRestrictions" maxlength="300" placeholder="Ex: vegetariano, sem lactose" /></div><div class="form-field"><label for="dietAllergies">Alergias</label><input id="dietAllergies" maxlength="300" placeholder="Ex: amendoim" /></div></div><button type="button" class="btn-action" onclick="saveDietPrefs()">Salvar preferências alimentares</button>
+        <div class="diet-actions-row"><button type="button" class="btn-action" onclick="saveDietFavorite()">☆ Salvar cardápio favorito</button><select id="dietFavoriteSelect"><option value="">Cardápios favoritos</option></select><button type="button" class="btn-action" onclick="applyDietFavorite()">Aplicar</button></div>
+        <div class="diet-shopping-head"><strong>Lista de compras do dia</strong><button type="button" class="chart-link-btn" onclick="copyDietShoppingList()">Copiar lista</button></div><div id="dietShoppingList" class="diet-shopping-list"></div>
+        <p class="calc-hint">Equivalentes e macros de referência usam alimentos da Tabela TACO; confirme rótulos e porções com seu nutricionista, especialmente em caso de alergia.</p>
       </div>
 
       <div class="calc-card" style="margin-top:12px;">
@@ -1829,6 +1976,14 @@
     </div>
   </div>
 
+  <!-- CONFIGURAÇÃO: painéis independentes -->
+  <div class="page" id="page-dados"><div class="config-panel"><div class="section-title">Dados e backup</div><div class="config-status-card"><strong id="backupStatus">Dados locais ativos</strong><span>O app salva o histórico neste dispositivo. Faça um backup antes de trocar de celular ou navegador.</span></div><button class="btn-action primary" onclick="exportBackupJSON(); refreshConfigDataStatus()">💾 Exportar backup completo</button><button class="btn-action" onclick="document.getElementById('importFileInput').click()">📂 Restaurar backup JSON</button><button class="btn-action" onclick="exportProgressCSV()">📊 Exportar histórico em CSV</button><p class="calc-desc">A restauração substitui os dados atuais depois da confirmação. O arquivo não é enviado para a internet.</p></div></div>
+  <div class="page" id="page-aparencia"><div class="config-panel"><div class="section-title">Aparência</div><div class="form-field"><label for="appearanceMode">Tema do aplicativo</label><select id="appearanceMode" onchange="setAppearanceMode(this.value)"><option value="system">Seguir sistema</option><option value="light">Claro</option><option value="dark">Escuro</option></select></div><div class="config-status-card"><strong>Design iOS</strong><span>Cartões arredondados, barra inferior translúcida e suporte a área segura do iPhone.</span></div></div></div>
+  <div class="page" id="page-notificacoes"><div class="config-panel"><div class="section-title">Notificações</div><div class="setting-row"><span>Lembretes do treino</span><button type="button" class="toggle" id="toggleNotifications" onclick="toggleNotificationsPref()" aria-label="Alternar lembretes do treino"></button></div><div class="form-field"><label for="notificationTime">Horário preferido</label><input type="time" id="notificationTime" value="18:00" onchange="setNotificationTime(this.value)" /></div><div class="setting-row"><span>Iniciar timer ao marcar série</span><button type="button" class="toggle" id="configToggleAutoTimer" onclick="togglePref('autoTimer')" aria-label="Alternar timer automático"></button></div><div class="setting-row"><span>Vibração nos avisos</span><button type="button" class="toggle" id="configToggleVibrate" onclick="togglePref('vibrate')" aria-label="Alternar vibração"></button></div><p class="calc-desc">O navegador pode exigir permissão para notificações. O timer e a vibração continuam funcionando sem essa permissão.</p></div></div>
+  <div class="page" id="page-unidades"><div class="config-panel"><div class="section-title">Unidades</div><div class="form-field"><label for="unitSystemConfig">Sistema de medidas</label><select id="unitSystemConfig" onchange="setUnitSystem(this.value)"><option value="metric">Métrico — kg e cm</option><option value="imperial">Imperial — lb e pol.</option></select></div><div class="config-status-card"><strong>Conversão segura</strong><span>Os registros originais permanecem preservados; a preferência controla a forma de exibição e as calculadoras.</span></div></div></div>
+  <div class="page" id="page-privacidade"><div class="config-panel"><div class="section-title">Privacidade</div><div class="config-status-card"><strong>Dados do treino</strong><span>Perfil, histórico, plano e diário ficam no armazenamento local do navegador até você exportar ou enviar algo.</span></div><div class="config-status-card"><strong>Coach IA</strong><span>Ao usar o Coach, a mensagem e o contexto selecionado podem ser enviados ao provedor configurado. Evite nome completo, documentos, diagnósticos e informações sensíveis.</span></div><div class="config-status-card warning"><strong>Limite de segurança</strong><span>O Coach não diagnostica dor ou lesão, não prescreve medicamentos e não substitui personal trainer ou profissional de saúde.</span></div></div></div>
+  <div class="page" id="page-coach"><div class="config-panel"><div class="section-title">Coach IA</div><div class="config-status-card"><strong>Escopo atual</strong><span>Respostas estruturadas apenas sobre treino, hipertrofia, progresso e nutrição esportiva ligada à performance.</span></div><div class="form-field"><label for="coachConfigContext">Contexto padrão</label><select id="coachConfigContext" onchange="setCoachContext(this.value)"><option value="treino">Treino atual e técnica</option><option value="progresso">Progresso e cargas</option><option value="dieta">Nutrição esportiva</option></select></div><button class="btn-action primary" onclick="openAiSettings()">⚙ Configurar provedor e modelo</button><p class="calc-desc">A opção mais estável depende do provedor e da chave configurados. Para uso local, mantenha as credenciais somente na sessão atual e nunca as compartilhe.</p></div></div>
+
   <div class="toast" id="toast"></div>
 
   <!-- MODAL: editar/adicionar exercício -->
@@ -1877,6 +2032,17 @@
       <button class="modal-close-x" onclick="closeChartModal()">✕</button>
       <div class="modal-title" id="chartModalTitle">Evolução de carga</div>
       <div class="chart-wrap" id="chartWrap"></div>
+    </div>
+  </div>
+
+  <!-- MODAL: trocar exercício -->
+  <div class="modal-overlay" id="swapExerciseModal" role="dialog" aria-modal="true" aria-labelledby="swapExerciseTitle">
+    <div class="modal-sheet">
+      <button type="button" class="modal-close-x" onclick="closeSwapExercise()">✕</button>
+      <div class="modal-title" id="swapExerciseTitle">Trocar exercício</div>
+      <p class="calc-desc">Escolha uma alternativa. O registro atual do exercício será mantido vinculado à posição do treino.</p>
+      <div class="form-field"><label for="swapExerciseSelect">Novo exercício</label><select id="swapExerciseSelect"></select></div>
+      <div class="modal-actions"><button type="button" class="btn-action" onclick="closeSwapExercise()">Cancelar</button><button type="button" class="btn-action primary" onclick="applySwapExercise()">Trocar exercício</button></div>
     </div>
   </div>
 
@@ -2058,6 +2224,8 @@
     let currentWeek = 1;
     let currentPage = 'home';
     let state = loadState();
+    document.documentElement.dataset.theme = state.appearanceMode && state.appearanceMode !== 'system' ? state.appearanceMode : '';
+    document.documentElement.style.colorScheme = state.appearanceMode && state.appearanceMode !== 'system' ? state.appearanceMode : '';
     let timerInterval = null;
     let timerSeconds = 0;
     let timerPaused = false;
@@ -2070,6 +2238,16 @@
         customExercises: { A: [], B: [], C: [], D: [] },
         exerciseOverrides: {},
         exerciseNotes: {},
+        sessionNotes: {},
+        rpe: {},
+        activeWorkout: null,
+        calcPresets: [],
+        dietDiary: {},
+        dietPrefs: { restrictions: '', allergies: '' },
+        dietFavorites: [],
+        unitSystem: 'metric',
+        notifications: { enabled: false, reminderTime: '18:00' },
+        coachPrefs: { context: 'treino', provider: 'puter', model: 'openrouter:auto' },
         prefs: { autoTimer: true, vibrate: true },
         bodyWeights: [],
         bodyMeta: { heightCm: null, goalKg: null },
@@ -2222,6 +2400,61 @@
           clean.exerciseNotes[boundedText(id, 80)] = boundedText(note, 500);
         });
       }
+      if (source.sessionNotes && typeof source.sessionNotes === 'object') {
+        Object.entries(source.sessionNotes).slice(0, 500).forEach(([id, note]) => {
+          clean.sessionNotes[boundedText(id, 80)] = boundedText(note, 500);
+        });
+      }
+      if (source.rpe && typeof source.rpe === 'object') {
+        Object.entries(source.rpe).slice(0, 500).forEach(([id, values]) => {
+          const safeId = boundedText(id, 80);
+          if (!safeId || !Array.isArray(values)) return;
+          clean.rpe[safeId] = values.slice(0, 10).map((value) => {
+            const n = Number(value);
+            return Number.isFinite(n) && n >= 0 && n <= 10 ? String(Math.round(n)) : '';
+          });
+        });
+      }
+      if (source.activeWorkout && typeof source.activeWorkout === 'object' && ['A','B','C','D'].includes(source.activeWorkout.treino)) {
+        clean.activeWorkout = {
+          treino: source.activeWorkout.treino,
+          startedAt: boundedText(source.activeWorkout.startedAt, 40),
+          updatedAt: Math.max(0, Number(source.activeWorkout.updatedAt) || 0)
+        };
+      }
+      if (Array.isArray(source.calcPresets)) {
+        clean.calcPresets = source.calcPresets.slice(-20).map((preset, index) => ({
+          id: boundedText(preset && preset.id, 80) || `preset_${index}`,
+          name: boundedText(preset && (preset.name || preset.nome), 80) || `Preset ${index + 1}`,
+          values: preset && preset.values && typeof preset.values === 'object' ? {
+            weight: safeNumber(preset.values.weight, 30, 300, null), height: safeNumber(preset.values.height, 120, 230, null), age: safeNumber(preset.values.age, 14, 100, null), sex: ['m','f'].includes(preset.values.sex) ? preset.values.sex : 'm', act: safeNumber(preset.values.act, 1.1, 2.5, 1.375), surplus: safeNumber(preset.values.surplus, -1000, 2000, 300)
+          } : {}
+        }));
+      }
+      clean.dietPrefs = {
+        restrictions: boundedText(source.dietPrefs?.restrictions, 500),
+        allergies: boundedText(source.dietPrefs?.allergies, 500)
+      };
+      if (source.dietDiary && typeof source.dietDiary === 'object') {
+        Object.entries(source.dietDiary).slice(-60).forEach(([date, day]) => {
+          if (!/^\d{4}-\d{2}-\d{2}$/.test(date) || !day || typeof day !== 'object') return;
+          clean.dietDiary[date] = {
+            waterMl: Math.round(safeNumber(day.waterMl, 0, 15000, 0)),
+            meals: Array.isArray(day.meals) ? day.meals.slice(0, 20).map((meal, index) => ({ id: boundedText(meal && meal.id, 60) || `meal_${index}`, name: boundedText(meal && meal.name, 100), mealType: boundedText(meal && meal.mealType, 50) || 'Refeição', completed: Boolean(meal && meal.completed), foodKey: boundedText(meal && meal.foodKey, 60), grams: safeNumber(meal && meal.grams, 0, 5000, 0) })).filter((meal) => meal.name || meal.foodKey) : []
+          };
+        });
+      }
+      if (Array.isArray(source.dietFavorites)) {
+        clean.dietFavorites = source.dietFavorites.slice(-20).map((favorite, index) => ({
+          id: boundedText(favorite && favorite.id, 80) || `diet_${index}`,
+          name: boundedText(favorite && favorite.name, 100) || `Cardápio ${index + 1}`,
+          values: favorite && favorite.values && typeof favorite.values === 'object' ? favorite.values : {}
+        }));
+      }
+      clean.unitSystem = source.unitSystem === 'imperial' ? 'imperial' : 'metric';
+      clean.appearanceMode = ['system', 'light', 'dark'].includes(source.appearanceMode) ? source.appearanceMode : 'system';
+      clean.notifications = { enabled: Boolean(source.notifications?.enabled), reminderTime: /^\d{2}:\d{2}$/.test(String(source.notifications?.reminderTime || '')) ? String(source.notifications.reminderTime) : '18:00' };
+      clean.coachPrefs = { context: ['treino','dieta','progresso'].includes(source.coachPrefs?.context) ? source.coachPrefs.context : 'treino', provider: boundedText(source.coachPrefs?.provider, 40) || 'puter', model: boundedText(source.coachPrefs?.model, 120) || 'openrouter:auto' };
       clean.prefs = Object.assign(clean.prefs, {
         autoTimer: source.prefs?.autoTimer !== false,
         vibrate: source.prefs?.vibrate !== false
@@ -2386,14 +2619,160 @@
         `;
         container.appendChild(el);
       });
+      renderDailyHome();
+    }
+
+    function getInProgressWorkoutId() {
+      const active = state.activeWorkout && state.activeWorkout.treino;
+      if (active && treinosMap()[active] && !isTreinoComplete(active)) return active;
+      const candidate = Object.keys(treinosMap()).find((tid) => {
+        const exercises = getTreinoExercises(tid);
+        return exercises.some((ex) => {
+          const done = Array.isArray(state.sets[ex.id]) && state.sets[ex.id].some(Boolean);
+          const details = getSetDetails(ex).some((detail) => detail.reps || detail.weight);
+          return done || details;
+        }) && !isTreinoComplete(tid);
+      });
+      return candidate || null;
+    }
+
+    function getNextWorkoutId() {
+      const progress = Object.keys(treinosMap()).map((tid) => ({ tid, complete: isTreinoComplete(tid) }));
+      const incomplete = progress.find((item) => !item.complete);
+      return incomplete ? incomplete.tid : Object.keys(treinosMap())[0];
+    }
+
+    function startWorkoutSession(treinoId) {
+      if (!treinosMap()[treinoId]) return;
+      const current = getInProgressWorkoutId();
+      if (current && current !== treinoId && !confirm(`Você tem o Treino ${current} em andamento. Deseja abrir o Treino ${treinoId} mesmo assim?`)) return;
+      state.activeWorkout = { treino: treinoId, startedAt: state.activeWorkout?.treino === treinoId ? state.activeWorkout.startedAt : new Date().toISOString(), updatedAt: Date.now() };
+      saveState();
+      renderDailyHome();
+      openTreino(treinoId);
+    }
+
+    function clearActiveWorkout() {
+      if (!state.activeWorkout) return;
+      if (!confirm('Encerrar o lembrete desta sessão? Os pesos e marcações atuais serão preservados.')) return;
+      state.activeWorkout = null;
+      saveState();
+      renderDailyHome();
+      showToast('Sessão removida da ação do dia.');
+    }
+
+    function getWeeklyTrainingDays() {
+      const today = new Date();
+      const days = [];
+      for (let offset = 6; offset >= 0; offset--) {
+        const date = new Date(today);
+        date.setHours(12, 0, 0, 0);
+        date.setDate(today.getDate() - offset);
+        const key = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+        const completed = (state.completedWorkouts || []).filter((entry) => entry.date === key).length;
+        const currentSets = key === todayKey() ? Object.keys(state.sets || {}).reduce((sum, exId) => sum + ((state.sets[exId] || []).filter(Boolean).length), 0) : 0;
+        days.push({ key, label: date.toLocaleDateString('pt-BR', { weekday: 'short' }).replace('.', '').slice(0, 3), count: completed, currentSets });
+      }
+      return days;
+    }
+
+    function renderDailyHome() {
+      const action = document.getElementById('dailyActionCard');
+      const weekly = document.getElementById('weeklyProgressCard');
+      if (!action || !weekly) return;
+      const inProgress = getInProgressWorkoutId();
+      const next = inProgress || getNextWorkoutId();
+      const treino = next ? treinosMap()[next] : null;
+      const hasAnyActivity = (state.completedWorkouts || []).length || Object.keys(state.sets || {}).some((id) => (state.sets[id] || []).some(Boolean)) || Object.keys(state.weights || {}).length;
+      if (!hasAnyActivity) {
+        action.innerHTML = `<div class="daily-action-kicker">Primeiro passo</div><h3>Vamos preparar seu primeiro treino?</h3><p>Escolha um treino, registre a carga e marque cada série. O app acompanhará sua evolução por você.</p><button type="button" class="btn-action primary" onclick="startWorkoutSession('${escapeHtml(getNextWorkoutId())}')">Começar Treino ${escapeHtml(getNextWorkoutId())}</button>`;
+      } else if (treino) {
+        const exercises = getTreinoExercises(treino.id);
+        const done = exercises.reduce((sum, ex) => sum + getDoneArr(ex).filter(Boolean).length, 0);
+        const total = exercises.reduce((sum, ex) => sum + ex.series, 0);
+        const resume = Boolean(inProgress);
+        const started = state.activeWorkout?.startedAt ? new Date(state.activeWorkout.startedAt).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' }) : '';
+        action.innerHTML = `<div class="daily-action-kicker">${resume ? 'Sessão em andamento' : 'Ação do dia'}</div><h3>${resume ? `Retome o Treino ${escapeHtml(treino.id)}` : `Próximo: Treino ${escapeHtml(treino.id)}`}</h3><p>${escapeHtml(treino.nome)} · ${done}/${total} séries registradas${started ? ` · iniciado em ${started}` : ''}</p><div class="daily-action-buttons"><button type="button" class="btn-action primary" onclick="startWorkoutSession('${escapeHtml(treino.id)}')">${resume ? 'Retomar sessão' : 'Iniciar treino'}</button>${resume ? '<button type="button" class="btn-action" onclick="clearActiveWorkout()">Encerrar lembrete</button>' : ''}</div>`;
+      } else {
+        action.innerHTML = '<div class="daily-action-kicker">Ação do dia</div><h3>Treinos concluídos</h3><p>Você completou todos os treinos disponíveis. Escolha um treino para revisar ou começar uma nova semana.</p>';
+      }
+
+      const days = getWeeklyTrainingDays();
+      const max = Math.max(1, ...days.map((day) => day.count));
+      const totalWorkouts = days.reduce((sum, day) => sum + day.count, 0);
+      const totalSets = days.reduce((sum, day) => sum + day.currentSets, 0);
+      weekly.innerHTML = `<div class="weekly-head"><div><div class="daily-action-kicker">Evolução semanal</div><h3>${totalWorkouts} treino${totalWorkouts === 1 ? '' : 's'} nos últimos 7 dias</h3></div><span class="weekly-summary">${totalSets ? `${totalSets} séries hoje` : 'Consistência primeiro'}</span></div><div class="weekly-bars">${days.map((day) => `<div class="weekly-day"><div class="weekly-bar-track"><div class="weekly-bar-fill" style="height:${day.count ? Math.max(18, Math.round((day.count / max) * 100)) : 8}%"></div></div><span>${escapeHtml(day.label)}</span><small>${day.count || ''}</small></div>`).join('')}</div><p class="weekly-note">Registre treinos completos para acompanhar sua consistência. Um dia sem treino também faz parte da recuperação.</p>`;
+    }
+
+    let workoutFilterState = { treino: 'all', query: '', pendingOnly: true };
+
+    function getLastPerformance(exId) {
+      const records = (state.completedWorkouts || []).slice().reverse();
+      for (const record of records) {
+        const details = record.setDetails && Array.isArray(record.setDetails[exId]) ? record.setDetails[exId] : [];
+        const weight = normalizeWeightValue(record.weights && record.weights[exId]) || [...details].reverse().map((detail) => normalizeWeightValue(detail && detail.weight)).find(Boolean) || '';
+        const reps = details.map((detail) => normalizeRepsValue(detail && detail.reps)).filter(Boolean);
+        if (weight || reps.length) return { date: record.date, weight, reps };
+      }
+      const entries = (state.weightHistory[exId] || []).slice().reverse();
+      return entries.length ? { date: entries[0].date, weight: normalizeWeightValue(entries[0].weight), reps: [] } : null;
+    }
+
+    function formatLastPerformance(exId) {
+      const last = getLastPerformance(exId);
+      if (!last) return '';
+      const weight = last.weight ? `${last.weight} kg` : 'carga não informada';
+      const reps = last.reps.length ? ` · ${last.reps.join(' / ')} reps` : '';
+      return `${escapeHtml(weight)}${escapeHtml(reps)} · ${escapeHtml(formatDate(last.date))}`;
+    }
+
+    function getWorkoutSummary(treinoId) {
+      const exercises = getTreinoExercises(treinoId);
+      let done = 0, total = 0, volume = 0, withData = 0;
+      exercises.forEach((ex) => {
+        const arr = getDoneArr(ex);
+        const details = getSetDetails(ex);
+        total += ex.series;
+        done += arr.filter(Boolean).length;
+        let hasData = false;
+        details.forEach((detail, index) => {
+          const weight = Number(detail.weight), reps = Number(detail.reps);
+          if (detail.weight || detail.reps) hasData = true;
+          if (arr[index] && Number.isFinite(weight) && Number.isFinite(reps)) volume += weight * reps;
+        });
+        if (hasData || state.weights[ex.id]) withData++;
+      });
+      return { done, total, volume: Math.round(volume), exercises: exercises.length, withData };
+    }
+
+    function renderWorkoutSummary() {
+      const el = document.getElementById('workoutSummary');
+      if (!el) return;
+      const summary = Object.keys(treinosMap()).reduce((acc, id) => {
+        const item = getWorkoutSummary(id);
+        acc.done += item.done; acc.total += item.total; acc.volume += item.volume; acc.withData += item.withData;
+        return acc;
+      }, { done: 0, total: 0, volume: 0, withData: 0 });
+      const pct = summary.total ? Math.round((summary.done / summary.total) * 100) : 0;
+      el.innerHTML = `<div class="daily-action-kicker">Resumo do treino</div><strong>${summary.done}/${summary.total} séries concluídas · ${pct}% do programa atual</strong><div class="workout-summary-grid"><div class="workout-summary-metric"><strong>${summary.withData}</strong><span>exercícios com dados</span></div><div class="workout-summary-metric"><strong>${summary.volume >= 1000 ? (summary.volume / 1000).toFixed(1) + 't' : summary.volume + ' kg'}</strong><span>volume registrado</span></div><div class="workout-summary-metric"><strong>${(state.completedWorkouts || []).length}</strong><span>sessões salvas</span></div></div>`;
     }
 
     function renderTreinos() {
       const container = document.getElementById('treinosContainer');
       container.innerHTML = '';
+      renderWorkoutSummary();
+      const filterTid = workoutFilterState.treino || 'all';
+      const query = String(workoutFilterState.query || '').toLocaleLowerCase('pt-BR');
+      const pendingOnly = workoutFilterState.pendingOnly !== false;
 
-      Object.values(treinosMap()).forEach(treino => {
-        const exercises = getTreinoExercises(treino.id);
+      Object.values(treinosMap()).filter((treino) => filterTid === 'all' || treino.id === filterTid).forEach(treino => {
+        const allExercises = getTreinoExercises(treino.id);
+        const exercises = allExercises.filter((ex) => {
+          const matchesQuery = !query || ex.nome.toLocaleLowerCase('pt-BR').includes(query);
+          const pending = !pendingOnly || getDoneArr(ex).filter(Boolean).length < ex.series;
+          return matchesQuery && pending;
+        });
+        if (!exercises.length) return;
         const card = document.createElement('div');
         card.className = 'card';
         card.id = `card-${treino.id}`;
@@ -2479,6 +2858,7 @@
             <div class="exercise-top">
               <div class="exercise-name">${escapeHtml(ex.nome)}</div>
               <div class="exercise-icons">
+                <button class="exercise-swap-btn js-swap-exercise" type="button" title="Trocar exercício" aria-label="Trocar ${escapeHtml(ex.nome)}">⇄ Trocar</button>
                 <button class="exercise-icon-btn js-edit-exercise" type="button" title="Editar exercício" aria-label="Editar ${escapeHtml(ex.nome)}">✏️</button>
               </div>
             </div>
@@ -2490,6 +2870,7 @@
             <div class="tech-note">${escapeHtml(ex.tech)}</div>
             ${(state.exerciseNotes && state.exerciseNotes[ex.id]) ? `<div class="tech-note" style="border-left:3px solid var(--cyan);">📝 ${escapeHtml(state.exerciseNotes[ex.id])}</div>` : ''}
             ${lastTimeHtml}
+            ${getLastPerformance(ex.id) ? `<div class="last-performance">Último desempenho: ${formatLastPerformance(ex.id)}</div>` : ''}
             ${progressionHint ? `<div class="progression-hint">↗ ${progressionHint}</div>` : ''}
             <div class="weight-row">
               <label for="weight-${encodeData(ex.id)}">Peso:</label>
@@ -2506,8 +2887,11 @@
               `).join('')}
               <button class="rest-btn js-start-rest" type="button">⏱ Timer</button>
             </div>
+            <div class="series-meta-row"><label class="rpe-field">RIR/RPE médio <select class="js-save-rpe" aria-label="RIR/RPE de ${escapeHtml(ex.nome)}"><option value="">—</option>${Array.from({length:11}, (_, i) => `<option value="${i}" ${String((state.rpe[ex.id] || [])[0] || '') === String(i) ? 'selected' : ''}>${i}</option>`).join('')}</select></label><span class="calc-hint" style="margin:0;">RIR: 0 = falha · RPE: 10 = máximo</span></div>
+            <textarea class="exercise-session-note js-save-session-note" rows="1" maxlength="500" placeholder="Nota desta sessão: técnica, dor, ajuste ou sensação">${escapeHtml((state.sessionNotes && state.sessionNotes[ex.id]) || '')}</textarea>
           `;
           exEl.querySelector('.js-edit-exercise').addEventListener('click', () => openEditExercise(ex.id, treino.id));
+          exEl.querySelector('.js-swap-exercise')?.addEventListener('click', (event) => { event.stopPropagation(); openSwapExercise(ex.id, treino.id); });
           exEl.querySelector('.js-save-weight').addEventListener('change', (event) => saveWeight(ex.id, event.currentTarget.value));
           exEl.querySelector('.js-save-weight').addEventListener('blur', (event) => saveWeight(ex.id, event.currentTarget.value));
           exEl.querySelector('.js-open-chart')?.addEventListener('click', () => openChart(ex.id));
@@ -2515,6 +2899,8 @@
             button.addEventListener('click', () => toggleSet(ex.id, Number(button.dataset.setIndex), ex.descanso, treino.id));
           });
           exEl.querySelector('.js-start-rest').addEventListener('click', () => startTimer(ex.descanso));
+          exEl.querySelector('.js-save-rpe')?.addEventListener('change', (event) => saveRpe(ex.id, event.currentTarget.value));
+          exEl.querySelector('.js-save-session-note')?.addEventListener('change', (event) => saveSessionNote(ex.id, event.currentTarget.value));
           body.appendChild(exEl);
         });
 
@@ -2525,6 +2911,53 @@
         body.appendChild(addBtn);
 
       });
+    }
+
+    function saveRpe(exId, value) {
+      if (!state.rpe) state.rpe = {};
+      state.rpe[exId] = value === '' ? [] : [String(Math.max(0, Math.min(10, Number(value))))];
+      saveState();
+    }
+
+    function saveSessionNote(exId, value) {
+      if (!state.sessionNotes) state.sessionNotes = {};
+      state.sessionNotes[exId] = boundedText(value, 500);
+      saveState();
+    }
+
+    let swapExerciseTarget = null;
+
+    function openSwapExercise(exId, treinoId) {
+      const select = document.getElementById('swapExerciseSelect');
+      const modal = document.getElementById('swapExerciseModal');
+      if (!select || !modal) return;
+      swapExerciseTarget = { exId, treinoId };
+      const current = findExercise(exId);
+      const seen = new Set();
+      const options = getAllExercisesFlat().filter((ex) => ex.id !== exId && ex.nome && !seen.has(ex.nome) && seen.add(ex.nome)).sort((a, b) => a.nome.localeCompare(b.nome, 'pt-BR'));
+      select.innerHTML = options.map((ex) => `<option value="${encodeData(ex.id)}">${escapeHtml(ex.nome)} · ${escapeHtml(ex.series)}×${escapeHtml(ex.reps)}</option>`).join('');
+      document.getElementById('swapExerciseTitle').textContent = current ? `Trocar — ${current.nome}` : 'Trocar exercício';
+      modal.classList.add('show');
+      select.focus();
+    }
+
+    function closeSwapExercise() {
+      const modal = document.getElementById('swapExerciseModal');
+      if (modal) modal.classList.remove('show');
+      swapExerciseTarget = null;
+    }
+
+    function applySwapExercise() {
+      const select = document.getElementById('swapExerciseSelect');
+      if (!swapExerciseTarget || !select || !select.value) return;
+      const source = findExercise(decodeData(select.value));
+      if (!source) return;
+      const { exId } = swapExerciseTarget;
+      state.exerciseOverrides[exId] = { nome: source.nome, series: source.series, reps: source.reps, descanso: source.descanso, tech: source.tech };
+      saveState();
+      closeSwapExercise();
+      renderTreinos();
+      showToast(`Exercício trocado por ${source.nome}.`);
     }
 
     function renderPeriod() {
@@ -2624,6 +3057,7 @@
         weights,
         setDetails
       });
+      if (state.activeWorkout && state.activeWorkout.treino === treinoId) state.activeWorkout = null;
       saveState();
       showToast(`Treino ${treinoId} completo! 🎉`);
       updateStats();
@@ -2754,6 +3188,11 @@
     }
 
     function toggleSet(exId, setIndex, restSec, treinoId) {
+      if (!state.activeWorkout || state.activeWorkout.treino !== treinoId) {
+        state.activeWorkout = { treino: treinoId, startedAt: new Date().toISOString(), updatedAt: Date.now() };
+      } else {
+        state.activeWorkout.updatedAt = Date.now();
+      }
       if (!state.sets[exId]) {
         const ex = findExercise(exId);
         state.sets[exId] = Array(ex ? ex.series : setIndex + 1).fill(false);
@@ -2763,6 +3202,7 @@
       renderTreinos();
       updateStats();
       renderQuickStart();
+      renderDailyHome();
 
       const justCompleted = state.sets[exId][setIndex];
       if (justCompleted) {
@@ -3398,7 +3838,13 @@
       perfil: { title: 'Perfil do usuário', subtitle: 'Nome e foto salvos neste dispositivo' },
       progresso: { title: 'Progresso', subtitle: 'Estatísticas, histórico, preferências e backups' },
       plano: { title: 'Plano do personal', subtitle: 'Editar, importar e exportar treinos' },
-      sobre: { title: 'Sobre o MARSB-GYM', subtitle: 'Estrutura do programa e instruções de uso' }
+      sobre: { title: 'Sobre o MARSB-GYM', subtitle: 'Estrutura do programa e instruções de uso' },
+      dados: { title: 'Dados e backup', subtitle: 'Armazenamento local, exportação e restauração' },
+      aparencia: { title: 'Aparência', subtitle: 'Tema e preferência visual' },
+      notificacoes: { title: 'Notificações', subtitle: 'Lembretes, timer e vibração' },
+      unidades: { title: 'Unidades', subtitle: 'Sistema métrico ou imperial' },
+      privacidade: { title: 'Privacidade', subtitle: 'Dados locais e uso do Coach IA' },
+      coach: { title: 'Coach IA', subtitle: 'Contexto, provedor e limites' }
     };
 
     function openConfigWindow(kind, trigger) {
@@ -3430,6 +3876,11 @@
         renderPeriod(); renderHistory(); updateStats(); syncPrefToggles();
       }
       if (kind === 'plano') initPlanoPage();
+      if (kind === 'dados') refreshConfigDataStatus();
+      if (kind === 'aparencia') syncAppearanceControl();
+      if (kind === 'notificacoes') syncNotificationControls();
+      if (kind === 'unidades') syncUnitControl();
+      if (kind === 'coach') { const select = document.getElementById('coachConfigContext'); if (select) select.value = state.coachPrefs?.context || 'treino'; updateCoachConnection(); }
       document.body.classList.add('config-window-open');
       overlay.classList.add('show');
       requestAnimationFrame(() => overlay.focus({ preventScroll: true }));
@@ -3764,7 +4215,10 @@
         const fm = document.querySelector('#aiFreeModelSeg button.active');
         const freeModel = fm ? fm.getAttribute('data-fmodel') : 'openrouter:auto';
         saveAiSettingsObj({ mode: 'free', freeModel });
+        state.coachPrefs = Object.assign({}, state.coachPrefs, { provider: 'puter', model: freeModel });
+        saveState();
         closeAiSettings();
+        updateCoachConnection();
         showToast('Coach: IA grátis ativada');
         return;
       }
@@ -3775,15 +4229,21 @@
       const model = ((document.getElementById('aiModel').value || '').trim() || 'grok-3').slice(0, 120);
       if (!apiKey || apiKey.length > 500) { showToast('Informe uma API Key válida'); return; }
       saveAiSettingsObj({ mode: 'custom', baseUrl, apiKey, model, freeModel: loadAiSettings().freeModel });
+      state.coachPrefs = Object.assign({}, state.coachPrefs, { provider: 'custom', model });
+      saveState();
       closeAiSettings();
+      updateCoachConnection();
       showToast('Coach: API própria salva');
     }
 
     function clearAiSettings() {
       saveAiSettingsObj({ mode: 'free', freeModel: 'openrouter:auto' });
+      state.coachPrefs = Object.assign({}, state.coachPrefs, { provider: 'puter', model: 'openrouter:auto' });
+      saveState();
       document.getElementById('aiApiKey').value = '';
       setAiModeUI('free');
       updateAiStatus();
+      updateCoachConnection();
       showToast('Voltou para IA grátis');
     }
 
@@ -3863,10 +4323,39 @@
       document.getElementById('aiModel').value = p.model;
     }
 
+    function setCoachContext(value) {
+      const context = ['treino', 'dieta', 'progresso'].includes(value) ? value : 'treino';
+      state.coachPrefs = state.coachPrefs || {};
+      state.coachPrefs.context = context;
+      saveState();
+      const label = { treino: 'Treino atual e técnica', progresso: 'Progresso e cargas', dieta: 'Nutrição esportiva' }[context];
+      const status = document.getElementById('coachConnection');
+      if (status) status.textContent = `Contexto: ${label}`;
+    }
+
+    function updateCoachConnection() {
+      const status = document.getElementById('coachConnection');
+      if (!status) return;
+      const settings = loadAiSettings();
+      if (settings.mode === 'custom' && settings.apiKey && settings.baseUrl) {
+        status.textContent = `API própria configurada · ${settings.model || 'modelo selecionado'}`;
+        status.className = 'coach-connection ok';
+      } else if (settings.mode === 'custom') {
+        status.textContent = 'API própria incompleta — usando IA grátis';
+        status.className = 'coach-connection warn';
+      } else {
+        status.textContent = `IA grátis pronta · Puter · ${settings.freeModel || 'modelo automático'}`;
+        status.className = 'coach-connection ok';
+      }
+    }
+
     function buildAiContext() {
       const lines = [];
       lines.push('Você é o Coach do app MARSB-GYM — especialista APENAS em musculação, hipertrofia, técnica de exercícios, periodização, recuperação e nutrição esportiva ligada ao treino.');
       lines.push('Idioma: português brasileiro. Tom: prático, direto e motivador, sem enrolação.');
+      const selectedContext = state.coachPrefs?.context || 'treino';
+      lines.push('Contexto selecionado pelo atleta: ' + selectedContext + '. Priorize respostas relacionadas a esse contexto.');
+      lines.push('Estruture cada resposta, quando aplicável, em: Resumo; Ação prática; Atenção/limites.');
       lines.push('');
       lines.push('=== ESCOPO OBRIGATÓRIO (o que você PODE responder) ===');
       lines.push('- Treino de academia, hipertrofia, força, técnica de execução, RIR/RPE, séries, reps e descanso');
@@ -4018,6 +4507,9 @@
 
     function initAiPage() {
       updateAiStatus();
+      const contextSelect = document.getElementById('coachContext');
+      if (contextSelect) { contextSelect.value = state.coachPrefs?.context || 'treino'; contextSelect.addEventListener('change', () => setCoachContext(contextSelect.value)); }
+      updateCoachConnection();
       const input = document.getElementById('aiInput');
       if (input && !input._bound) {
         input._bound = true;
@@ -4438,10 +4930,9 @@
           <div class="calc-metric"><div class="val">${carbG}g</div><div class="lbl">Carboidratos</div></div>
           <div class="calc-metric"><div class="val">${fatG}g</div><div class="lbl">Gorduras</div></div>
         </div>
-        <p class="calc-hint">
-          Proteína ~2,0 g/kg e gordura ~0,8 g/kg; o restante em carboidratos para treino.
-          Se não ganhar peso em 2 semanas, suba ~150–200 kcal. Água: ~35–40 ml/kg (${Math.round(weight * 37)} ml).
-        </p>
+        <div class="decision-grid"><div class="decision-card"><strong>Decisão inicial</strong><span>Use ${calories} kcal/dia como ponto de partida e acompanhe o peso por 2 semanas.</span></div><div class="decision-card"><strong>Água estimada</strong><span>~${Math.round(weight * 37)} ml/dia, ajustando conforme sede, clima e treino.</span></div></div>
+        <div class="calc-warning">Estimativa: TMB, TDEE e macros variam entre pessoas. Não substitui avaliação de nutricionista; ajuste pela evolução e pelo contexto individual.</div>
+        <p class="calc-hint">Proteína ~2,0 g/kg e gordura ~0,8 g/kg; o restante em carboidratos para treino. Se não houver evolução em 2 semanas, reavalie com seu profissional.</p>
       `;
       // Sync food weight field
       const fw = document.getElementById('foodWeight');
@@ -5212,6 +5703,94 @@
       planoLoadFieldsFromDraft();
     }
 
+    // ===================== DIET DIARY (TACO) =====================
+    const TACO_DIARY_FOODS = {
+      frango: { name: 'Frango peito cozido', group: 'Proteína', p: 31.5, c: 0, f: 3.2, k: 163 },
+      patinho: { name: 'Patinho grelhado', group: 'Proteína', p: 35.9, c: 0, f: 7.3, k: 219 },
+      ovo: { name: 'Ovo cozido', group: 'Proteína', p: 13.3, c: 0.6, f: 9.5, k: 146 },
+      arroz: { name: 'Arroz branco cozido', group: 'Carboidrato', p: 2.5, c: 28.1, f: 0.2, k: 128 },
+      batata: { name: 'Batata cozida', group: 'Carboidrato', p: 1.2, c: 11.9, f: 0, k: 52 },
+      aveia: { name: 'Aveia (peso seco)', group: 'Carboidrato', p: 13.9, c: 66.6, f: 8.5, k: 394 },
+      feijao: { name: 'Feijão preto cozido', group: 'Leguminosa', p: 4.5, c: 14, f: 0.5, k: 77 },
+      banana: { name: 'Banana-prata', group: 'Fruta', p: 1.3, c: 26, f: 0.1, k: 98 },
+      iogurte: { name: 'Iogurte natural', group: 'Lácteo', p: 4.1, c: 1.9, f: 3, k: 51 },
+      azeite: { name: 'Azeite de oliva', group: 'Gordura', p: 0, c: 0, f: 100, k: 884 }
+    };
+
+    function getDietDate() {
+      const input = document.getElementById('dietDate');
+      const date = input?.value && isValidDateKey(input.value) ? input.value : todayKey();
+      if (input && !input.value) input.value = date;
+      return date;
+    }
+
+    function getDietDay(date = getDietDate()) {
+      if (!state.dietDiary[date]) state.dietDiary[date] = { waterMl: 0, meals: [] };
+      if (!Array.isArray(state.dietDiary[date].meals)) state.dietDiary[date].meals = [];
+      return state.dietDiary[date];
+    }
+
+    function initDietPage() {
+      const date = document.getElementById('dietDate');
+      if (date && !date.value) date.value = todayKey();
+      date?.addEventListener('change', () => renderDietDiary());
+      const select = document.getElementById('dietFoodSelect');
+      if (select && !select.options.length) select.innerHTML = Object.entries(TACO_DIARY_FOODS).map(([key, food]) => `<option value="${key}">${escapeHtml(food.name)} · TACO</option>`).join('');
+      const prefs = state.dietPrefs || {};
+      const restrictions = document.getElementById('dietRestrictions');
+      const allergies = document.getElementById('dietAllergies');
+      if (restrictions && !restrictions.value) restrictions.value = prefs.restrictions || '';
+      if (allergies && !allergies.value) allergies.value = prefs.allergies || '';
+      renderDietDiary();
+    }
+
+    function dietMealMacros(meal) {
+      const food = TACO_DIARY_FOODS[meal.foodKey];
+      const grams = Math.max(0, Number(meal.grams) || 0);
+      if (!food) return { k: 0, p: 0, c: 0, f: 0 };
+      return { k: Math.round(food.k * grams / 100), p: Math.round(food.p * grams / 100), c: Math.round(food.c * grams / 100), f: Math.round(food.f * grams / 100) };
+    }
+
+    function renderDietDiary() {
+      const day = getDietDay();
+      const list = document.getElementById('dietDiaryList');
+      const foodSelect = document.getElementById('dietFoodSelect');
+      if (foodSelect && !foodSelect.options.length) foodSelect.innerHTML = Object.entries(TACO_DIARY_FOODS).map(([key, food]) => `<option value="${key}">${escapeHtml(food.name)} · TACO</option>`).join('');
+      if (!list) return;
+      const totals = day.meals.reduce((sum, meal) => { const m = dietMealMacros(meal); return { k: sum.k + m.k, p: sum.p + m.p, c: sum.c + m.c, f: sum.f + m.f }; }, { k: 0, p: 0, c: 0, f: 0 });
+      if (!day.meals.length) list.innerHTML = '<div class="diet-empty">Nenhuma refeição registrada neste dia. Comece adicionando alimentos da base TACO.</div>';
+      else list.innerHTML = `<div class="diet-totals"><strong>${totals.k} kcal</strong><span>${totals.p}g P</span><span>${totals.c}g C</span><span>${totals.f}g G</span></div>` + day.meals.map((meal) => { const food = TACO_DIARY_FOODS[meal.foodKey] || { name: meal.name || 'Alimento', group: 'Outro' }; const m = dietMealMacros(meal); return `<div class="diet-meal-row"><label><input type="checkbox" ${meal.completed ? 'checked' : ''} onchange="toggleDietMeal('${encodeData(meal.id)}')"><span><strong>${escapeHtml(meal.mealType || 'Refeição')}</strong><br>${escapeHtml(food.name)} · ${meal.grams} g <small>${m.k} kcal · ${m.p}g proteína</small></span></label><select onchange="replaceDietMeal('${encodeData(meal.id)}', this.value)" aria-label="Substituir ${escapeHtml(food.name)}">${Object.entries(TACO_DIARY_FOODS).filter(([, candidate]) => candidate.group === food.group).map(([key, candidate]) => `<option value="${key}" ${key === meal.foodKey ? 'selected' : ''}>Trocar por ${escapeHtml(candidate.name)}</option>`).join('')}</select><button type="button" class="hi-del" onclick="removeDietMeal('${encodeData(meal.id)}')">Apagar</button></div>`; }).join('');
+      const water = Math.max(0, Number(day.waterMl) || 0);
+      const fill = document.getElementById('dietWaterFill');
+      const label = document.getElementById('dietWaterLabel');
+      if (fill) fill.style.width = Math.min(100, water / 35) + '%';
+      if (label) label.textContent = `${water} ml registrados · meta visual de 3.500 ml`;
+      const favorites = document.getElementById('dietFavoriteSelect');
+      if (favorites) { let saved = state.dietFavorites || []; favorites.innerHTML = '<option value="">Cardápios favoritos</option>' + saved.map((favorite, index) => `<option value="${index}">${escapeHtml(favorite.name)}</option>`).join(''); }
+      renderDietShoppingList();
+    }
+
+    function addDietMeal() {
+      const day = getDietDay();
+      const foodKey = document.getElementById('dietFoodSelect')?.value || 'frango';
+      const grams = Math.round(safeNumber(document.getElementById('dietFoodGrams')?.value, 1, 3000, 100));
+      const mealType = boundedText(document.getElementById('dietMealType')?.value || 'Refeição', 50);
+      day.meals.push({ id: `meal_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`, name: TACO_DIARY_FOODS[foodKey].name, mealType, completed: false, foodKey, grams });
+      saveState();
+      document.getElementById('dietFoodGrams').value = '';
+      renderDietDiary();
+    }
+
+    function toggleDietMeal(id) { const meal = getDietDay().meals.find((item) => item.id === id); if (!meal) return; meal.completed = !meal.completed; saveState(); renderDietDiary(); }
+    function removeDietMeal(id) { const day = getDietDay(); day.meals = day.meals.filter((item) => item.id !== id); saveState(); renderDietDiary(); }
+    function replaceDietMeal(id, foodKey) { const meal = getDietDay().meals.find((item) => item.id === id); if (!meal || !TACO_DIARY_FOODS[foodKey]) return; meal.foodKey = foodKey; meal.name = TACO_DIARY_FOODS[foodKey].name; saveState(); renderDietDiary(); }
+    function addDietWater() { const ml = Math.round(safeNumber(document.getElementById('dietWaterInput')?.value, 100, 5000, 0)); if (!ml) { showToast('Informe a quantidade de água'); return; } const day = getDietDay(); day.waterMl = Math.min(15000, (day.waterMl || 0) + ml); saveState(); document.getElementById('dietWaterInput').value = ''; renderDietDiary(); }
+    function saveDietPrefs() { state.dietPrefs = { restrictions: boundedText(document.getElementById('dietRestrictions')?.value, 300), allergies: boundedText(document.getElementById('dietAllergies')?.value, 300) }; saveState(); showToast('Preferências alimentares salvas'); }
+    function saveDietFavorite() { const name = boundedText(prompt('Nome do cardápio favorito:') || '', 60); if (!name) return; state.dietFavorites = (state.dietFavorites || []).filter((favorite) => favorite.name !== name); state.dietFavorites.unshift({ id: `favorite_${Date.now()}`, name, values: { meals: getDietDay().meals, waterMl: getDietDay().waterMl } }); state.dietFavorites = state.dietFavorites.slice(0, 20); saveState(); renderDietDiary(); showToast('Cardápio favorito salvo'); }
+    function applyDietFavorite() { const index = document.getElementById('dietFavoriteSelect')?.value; const favorite = state.dietFavorites?.[Number(index)]; if (!favorite) return; const day = getDietDay(); day.meals = (favorite.values?.meals || []).map((meal, i) => ({ ...meal, id: `meal_${Date.now()}_${i}`, completed: false })); day.waterMl = Number(favorite.values?.waterMl) || 0; saveState(); renderDietDiary(); showToast('Cardápio favorito aplicado'); }
+    function renderDietShoppingList() { const box = document.getElementById('dietShoppingList'); if (!box) return; const totals = {}; getDietDay().meals.forEach((meal) => { const food = TACO_DIARY_FOODS[meal.foodKey]; if (food) totals[food.name] = (totals[food.name] || 0) + Number(meal.grams || 0); }); box.innerHTML = Object.keys(totals).length ? Object.entries(totals).map(([name, grams]) => `<label><input type="checkbox"> ${escapeHtml(name)} — ${Math.round(grams)} g</label>`).join('') : '<span class="diet-empty">A lista será formada a partir das refeições adicionadas.</span>'; }
+    function copyDietShoppingList() { const text = Object.entries(getDietDay().meals.reduce((acc, meal) => { const food = TACO_DIARY_FOODS[meal.foodKey]; if (food) acc[food.name] = (acc[food.name] || 0) + Number(meal.grams || 0); return acc; }, {})).map(([name, grams]) => `- ${name}: ${Math.round(grams)} g`).join('\n'); if (!text) { showToast('Adicione alimentos antes de copiar'); return; } navigator.clipboard?.writeText(text).then(() => showToast('Lista copiada')).catch(() => showToast('Não foi possível copiar automaticamente')); }
+
     // ===================== DAILY MENU (3 MEALS, TACO) =====================
     function menuSeg(id, attr) {
       const btn = document.querySelector('#' + id + ' button.active');
@@ -5945,7 +6524,87 @@
       `;
     }
 
+    function switchCalcTab(tab) {
+      const valid = ['body', 'nutrition', 'training'].includes(tab) ? tab : 'body';
+      document.querySelectorAll('[data-calc-tab]').forEach((button) => {
+        const active = button.getAttribute('data-calc-tab') === valid;
+        button.classList.toggle('active', active);
+        button.setAttribute('aria-selected', active ? 'true' : 'false');
+      });
+      document.querySelectorAll('[data-calc-group]').forEach((card) => {
+        card.style.display = card.getAttribute('data-calc-group') === valid ? '' : 'none';
+      });
+      document.querySelectorAll('[data-calc-heading]').forEach((heading) => {
+        heading.style.display = heading.getAttribute('data-calc-heading') === valid ? '' : 'none';
+      });
+    }
+
+    function getCalcPresetFields() {
+      const ids = ['calcWeight','calcHeight','calcAge','foodWeight','plateTarget','progWeight','oneRmWeight','oneRmReps','unitValue','unitFrom'];
+      const values = {};
+      ids.forEach((id) => { const el = document.getElementById(id); if (el) values[id] = el.value; });
+      return values;
+    }
+
+    function renderCalcPresets() {
+      const select = document.getElementById('calcPresetSelect');
+      if (!select) return;
+      let presets = [];
+      try { presets = JSON.parse(localStorage.getItem('marsb_calc_presets') || '[]'); } catch (e) {}
+      select.innerHTML = '<option value="">Nenhum preset</option>' + presets.map((preset, index) => `<option value="${index}">${escapeHtml(preset.name)}</option>`).join('');
+    }
+
+    function saveCalcPreset() {
+      const name = boundedText(document.getElementById('calcPresetName')?.value || '', 40).trim();
+      if (!name) { showToast('Dê um nome ao preset'); return; }
+      let presets = [];
+      try { presets = JSON.parse(localStorage.getItem('marsb_calc_presets') || '[]'); } catch (e) {}
+      presets = presets.filter((preset) => preset.name !== name);
+      presets.unshift({ name, values: getCalcPresetFields(), createdAt: Date.now() });
+      localStorage.setItem('marsb_calc_presets', JSON.stringify(presets.slice(0, 12)));
+      document.getElementById('calcPresetName').value = '';
+      renderCalcPresets();
+      showToast('Preset salvo neste dispositivo');
+    }
+
+    function applyCalcPreset(index) {
+      if (index === '') return;
+      let presets = [];
+      try { presets = JSON.parse(localStorage.getItem('marsb_calc_presets') || '[]'); } catch (e) {}
+      const values = presets[Number(index)]?.values || {};
+      Object.entries(values).forEach(([id, value]) => { const el = document.getElementById(id); if (el) el.value = value; });
+      showToast('Preset aplicado');
+    }
+
+    function runOneRmCalc() {
+      const weight = safeNumber(document.getElementById('oneRmWeight')?.value, 0, 1000);
+      const reps = Math.round(safeNumber(document.getElementById('oneRmReps')?.value, 0, 30));
+      const box = document.getElementById('oneRmResult');
+      if (!weight || reps < 1 || reps > 30) { showToast('Informe carga e repetições válidas'); return; }
+      const epley = weight * (1 + reps / 30);
+      const brzycki = reps < 37 ? weight * (36 / (37 - reps)) : epley;
+      const estimate = Math.round(((epley + brzycki) / 2) * 10) / 10;
+      box.style.display = 'block';
+      box.innerHTML = `<div class="decision-card"><strong>1RM estimado: ${estimate} kg</strong><span>Faixa aproximada pelos métodos Epley e Brzycki, a partir de ${weight} kg × ${reps} reps.</span></div><div class="calc-warning">Estimativa: não teste 1RM máximo sozinho. Priorize técnica, segurança e orientação profissional.</div>`;
+    }
+
+    function runUnitConversion() {
+      const value = safeNumber(document.getElementById('unitValue')?.value, -100000, 100000);
+      const mode = document.getElementById('unitFrom')?.value || 'kg-lb';
+      if (!Number.isFinite(value)) { showToast('Informe um valor para converter'); return; }
+      const factors = { 'kg-lb': [2.20462262, 'kg', 'lb'], 'lb-kg': [0.45359237, 'lb', 'kg'], 'cm-in': [0.393700787, 'cm', 'in'], 'in-cm': [2.54, 'in', 'cm'] };
+      const [factor, from, to] = factors[mode];
+      const result = Math.round(value * factor * 100) / 100;
+      const box = document.getElementById('unitResult');
+      box.style.display = 'block';
+      box.innerHTML = `<div class="decision-card"><strong>${value} ${from} = ${result} ${to}</strong><span>Conversão matemática aproximada para uso no treino.</span></div>`;
+    }
+
     function initCalcPage() {
+      document.querySelectorAll('[data-calc-tab]').forEach((button) => button.addEventListener('click', () => switchCalcTab(button.getAttribute('data-calc-tab'))));
+      document.getElementById('calcPresetSelect')?.addEventListener('change', (event) => applyCalcPreset(event.currentTarget.value));
+      renderCalcPresets();
+      switchCalcTab('body');
       bindSeg('calcSex', 'data-sex');
       bindSeg('calcActivity', 'data-act');
       bindSeg('calcGoal', 'data-goal');
@@ -5981,6 +6640,68 @@
       renderHistory();
       updateStats();
       showToast('Registro apagado');
+    }
+
+    // ===================== CONFIGURAÇÕES =====================
+    function refreshConfigDataStatus() {
+      const el = document.getElementById('backupStatus');
+      if (!el) return;
+      const count = (state.completedWorkouts || []).length;
+      const saved = localStorage.getItem(STORAGE_KEY);
+      const size = saved ? Math.max(1, Math.round(saved.length / 1024)) : 0;
+      el.textContent = `Dados locais ativos · ${count} treino(s) completo(s) · ${size} KB usados`;
+    }
+
+    function setAppearanceMode(mode) {
+      const value = ['system', 'light', 'dark'].includes(mode) ? mode : 'system';
+      state.appearanceMode = value;
+      document.documentElement.dataset.theme = value === 'system' ? '' : value;
+      document.documentElement.style.colorScheme = value === 'system' ? '' : value;
+      saveState();
+      showToast('Aparência atualizada');
+    }
+
+    function syncAppearanceControl() {
+      const select = document.getElementById('appearanceMode');
+      if (select) select.value = state.appearanceMode || 'system';
+    }
+
+    function toggleNotificationsPref() {
+      state.notifications = state.notifications || { enabled: false, reminderTime: '18:00' };
+      state.notifications.enabled = !state.notifications.enabled;
+      saveState();
+      syncNotificationControls();
+      showToast(state.notifications.enabled ? 'Lembretes ativados' : 'Lembretes desativados');
+    }
+
+    function setNotificationTime(value) {
+      state.notifications = state.notifications || { enabled: false, reminderTime: '18:00' };
+      state.notifications.reminderTime = /^\d{2}:\d{2}$/.test(String(value)) ? String(value) : '18:00';
+      saveState();
+    }
+
+    function syncNotificationControls() {
+      state.notifications = state.notifications || { enabled: false, reminderTime: '18:00' };
+      const toggle = document.getElementById('toggleNotifications');
+      if (toggle) toggle.classList.toggle('on', !!state.notifications.enabled);
+      const time = document.getElementById('notificationTime');
+      if (time) time.value = state.notifications.reminderTime || '18:00';
+      const auto = document.getElementById('configToggleAutoTimer');
+      const vib = document.getElementById('configToggleVibrate');
+      if (auto) auto.classList.toggle('on', !!(state.prefs && state.prefs.autoTimer !== false));
+      if (vib) vib.classList.toggle('on', !!(state.prefs && state.prefs.vibrate !== false));
+    }
+
+    function setUnitSystem(value) {
+      state.unitSystem = value === 'imperial' ? 'imperial' : 'metric';
+      saveState();
+      syncUnitControl();
+      showToast(state.unitSystem === 'imperial' ? 'Unidades imperiais selecionadas' : 'Unidades métricas selecionadas');
+    }
+
+    function syncUnitControl() {
+      const select = document.getElementById('unitSystemConfig');
+      if (select) select.value = state.unitSystem === 'imperial' ? 'imperial' : 'metric';
     }
 
     // ===================== PREFS =====================
@@ -6128,6 +6849,15 @@
       btn.addEventListener('click', () => setWeek(Number(btn.dataset.week)));
     });
 
+    const workoutFilter = document.getElementById('workoutFilter');
+    const exerciseFilter = document.getElementById('exerciseFilter');
+    const filterPendingBtn = document.getElementById('filterPendingBtn');
+    const filterAllBtn = document.getElementById('filterAllBtn');
+    workoutFilter?.addEventListener('change', (event) => { workoutFilterState.treino = event.currentTarget.value; renderTreinos(); });
+    exerciseFilter?.addEventListener('input', (event) => { workoutFilterState.query = boundedText(event.currentTarget.value, 100); renderTreinos(); });
+    filterPendingBtn?.addEventListener('click', () => { workoutFilterState.pendingOnly = true; filterPendingBtn.classList.add('active'); filterAllBtn?.classList.remove('active'); renderTreinos(); });
+    filterAllBtn?.addEventListener('click', () => { workoutFilterState.pendingOnly = false; filterAllBtn.classList.add('active'); filterPendingBtn?.classList.remove('active'); renderTreinos(); });
+
     if (state.week) setWeek(state.week);
 
     renderQuickStart();
@@ -6135,9 +6865,13 @@
     updateStats();
     renderPeriod();
     renderHistory();
-    syncPrefToggles();
-    initCalcPage();
-    initAiPage();
+      syncPrefToggles();
+      syncNotificationControls();
+      syncAppearanceControl();
+      syncUnitControl();
+      initCalcPage();
+    initDietPage();
+    initPageFeatures();
 
     // PWA install prompt
     window.addEventListener('beforeinstallprompt', (e) => {
